@@ -1,0 +1,24 @@
+@import 'styles/colors';
+@import 'styles/breakpoints';
+
+.box {
+  min-width: 100px;
+  min-height: 20px;
+  background-color: white;
+  position: absolute;
+  right: 50px;
+  bottom: 500px;
+  border-radius: 4px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.text {
+  position: static;
+  text-align: center;
+  padding: 10px;
+}

@@ -1,0 +1,52 @@
+.button{
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.botton--extra-padding{
+  padding:0 32px;
+}
+
+.button--link{
+  padding: 0 0;
+}
+
+.button--link span{
+  text-decoration: underline;
+}
+
+.ant-btn-round {
+  border-radius: 4px!important;
+}
+
+@media screen and (max-width: 600px){
+  .botton--extra-padding{
+    padding:0 16px;
+  }
+}
+
+.cookie {
+  background-color: #fff3d5;
+  padding: 0;
+  padding-top: 1em;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  z-index: 100;
+}
+
+.cookiesButton {
+  text-decoration: underline;
+  color: #5fc2b8;
+  cursor: pointer;
+}
+
+.cookieLogo {
+  height: 32px;
+  position: absolute;
+  left: 0;
+  top: 48px;
+  margin: 16px;
+}

@@ -1,0 +1,47 @@
+@import 'styles/colors';
+@import 'styles/breakpoints';
+@import 'styles/theme';
+
+.card{
+  display: flex;
+  flex-direction: row;
+  min-height: 100px;
+  background-color: #FFF;
+  box-shadow: $standard-shadow;
+  border-radius: 8px;
+}
+
+.card__image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-bottom: 1px solid #9a9a9a;
+  @include md{
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-radius: 0;
+    padding:0 8px;
+    border-bottom: 0;
+    border-right: 1px solid #eee;
+  }
+}
+
+.card__content{
+  display: flex;
+  flex-direction: column;
+  padding:16px;
+}
+
+.card__title{
+  font-size: 1.1rem;
+  font-weight: bolder;
+  margin-bottom: 0;
+  padding-bottom: 0.2em;
+  margin-bottom: 0.4em;
+  border-bottom: 1px solid #eee;
+}
+
+.card__description{
+  font-size: 1rem;
+  margin-bottom: 0.4em;
+}

@@ -1,0 +1,103 @@
+@import 'styles/colors';
+
+.mainWrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .content {
+        width: 100%;
+        height: 100vh;
+        padding: 3em;
+
+        .menu {
+            background-color: $background-color;
+            height: 100%;
+            padding: 2em;
+
+            .menuContent {
+                position: relative;
+                height: 100%;
+
+                .mainTitle {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 40px;
+                    margin-bottom: 10px;
+                    font-size: 25px;
+                    font-weight: bold;
+                    user-select: none;
+                }
+    
+                .selectOptions {
+                    margin-top: 20px;
+    
+                    .title {
+                        display: flex;
+                        justify-content: space-between;
+                        text-align: left;
+                        line-height: 38px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        user-select: none;
+                    }                
+    
+                    .inputTag {
+                        margin-left: 10px;
+                        margin-right: 10px;
+                        width: auto;
+                    }
+                }
+                
+                .button {
+                    display: flex;
+                    margin-top: 30px;
+                    justify-content: center;
+                }
+    
+                .menuBottom {
+                    position: absolute;
+                    bottom: 40px;
+                    width: 100%;
+
+                    hr {
+                        width: 80%;
+                        margin-bottom: 20px;
+                    }
+
+                    .btnGroup {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                }
+            }
+
+            table, td {
+                border: 1px solid black;
+                text-align: center;
+            }
+
+            thead, tfoot {
+                background-color: #333;
+                color: #fff;
+            }
+
+        }
+
+        .canvas {
+            height: 100%;
+            z-index: 90 !important;
+            
+            .compass {
+                position: absolute;
+                left: 20px;
+                top: 20px;
+                width: 150px;
+                height: 150px;
+                z-index: 100 !important;
+                pointer-events: none;
+                user-select: none;
+            }
+        }
+    }
+}

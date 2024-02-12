@@ -1,0 +1,116 @@
+@import 'styles/colors';
+@import 'styles/breakpoints';
+@import 'styles/theme';
+
+.container{
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.topField {
+  width: 100%;
+  height: 84px;
+  position: absolute;
+  background-color: white;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  width:85px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+}
+
+.spacer{
+  max-width: 150px;
+  content:'';
+  height: 3px;
+  width: 100%;
+  background-color: $primary-color;
+  margin: 20px auto 30px 125px;
+}
+
+.content{
+  margin: 0 auto;
+  flex:1;
+  z-index: 1;
+  padding: 0 1rem;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 600px){
+  .content {
+    margin-left: 0px;
+  }
+
+  .spacer{
+    max-width: 150px;
+    margin-left: 98px;
+  }
+}
+
+.content__inner{
+  max-width: 600px;
+  background-color: white;
+  padding: 40px;
+  box-shadow: 0 3px 15px 2px rgba(0, 0, 0, 0.5);
+}
+
+.title{
+  @include md{
+    font-size: 30px !important;
+  }
+  font-size: 30px !important;
+  margin-bottom: 8px !important;
+  text-align: center;
+}
+
+.address-button{
+  margin-top: 8px;
+}
+
+.address-button:disabled{
+  background-color: #7ac8c2;
+  color: white;
+}
+
+.address-button:hover{
+  background-color: #7ac8c2;
+  color: white;
+}
+
+.address-button:disabled:hover{
+  background-color: #7ac8c2;
+  color: white;
+}
+
+.info-text{
+  font-size: 1.2rem;
+}
+
+.background{
+  width: 100%;
+  height: 50%;
+  //background-position: 0;
+  //background-image:url('about:blank');
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: auto;
+  top: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: 100%;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}

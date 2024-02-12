@@ -1,0 +1,20 @@
+.background{
+  // background-image:url('about:blank');
+  background-repeat: repeat-y;
+  background-position: center;
+  background-size:cover;
+  flex: 0 1;
+  padding: 10em;
+}
+
+@media screen and (max-width: 600px){
+  .background{
+    padding: 0px;
+  }
+}
+
+@media screen and (min-width: 600px){
+  #root {
+    display: grid !important;
+  }
+}

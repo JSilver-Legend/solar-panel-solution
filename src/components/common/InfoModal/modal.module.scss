@@ -1,0 +1,42 @@
+@import 'styles/colors';
+
+.modal{
+  .spacer{
+    max-width: 150px;
+    content:'';
+    height: 3px;
+    width: 100%;
+    background-color: $primary-color;
+    margin: 14px auto 5px auto;
+  }
+
+  .text{
+    font-size: 16px;
+  }
+
+  :global{
+    .ant-modal-content{
+      padding:12px 24px;
+    }
+    .ant-modal-title{
+      font-weight: bold;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+    .ant-modal-body{
+      padding: 24px 0;
+    }
+
+    .ant-form-item{
+      margin-bottom: 0;
+    }
+  }
+}
+
+.asbestosWarning {
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 7px;
+  font-size: 14px;
+  font-weight: 700;
+}

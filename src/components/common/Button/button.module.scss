@@ -1,0 +1,28 @@
+.button{
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.botton--extra-padding{
+  padding:0 32px;
+}
+
+.button--link{
+  padding: 0 0;
+}
+
+.button--link span{
+  text-decoration: underline;
+}
+
+.ant-btn-round {
+  border-radius: 4px!important;
+}
+
+@media screen and (max-width: 600px){
+  .botton--extra-padding{
+    padding:0 16px;
+  }
+}

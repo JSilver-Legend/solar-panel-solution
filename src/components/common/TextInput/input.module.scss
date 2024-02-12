@@ -1,0 +1,21 @@
+@import 'styles/colors';
+@import 'styles/theme';
+
+.input{
+  background-color: #FFF;
+  border:1px solid $primary-color;
+  border-radius: 4px;
+  outline: none;
+//  padding: 8px 16px;
+  font-weight: 400;
+  line-height: normal;
+  box-shadow: $standard-shadow;
+  transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out, 0.1s padding ease-in-out;
+  -webkit-appearance: none;
+  font-family: 'FuturaStd';
+  font-size: 16px;
+}
+
+.full-width{
+  width: 100%;
+}

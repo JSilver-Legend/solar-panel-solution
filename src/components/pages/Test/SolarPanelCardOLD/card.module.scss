@@ -1,0 +1,52 @@
+@import 'styles/colors';
+@import 'styles/breakpoints';
+@import 'styles/theme';
+
+.card{
+  display: flex;
+  flex-direction: row;
+  min-height: 100px;
+  background-color: #FFF;
+  box-shadow: $standard-shadow;
+  border-radius: 8px;
+}
+
+.card__image{
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  max-width: 480px;
+  object-fit: cover;
+  border-bottom: 1px solid #9a9a9a;
+  display: block;
+  @include md{
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-radius: 0;
+    border-bottom: 0;
+  }
+}
+
+.card__content{
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.card__title{
+  font-size: 1.0rem;
+  font-weight: bold;
+  margin-bottom: 0;
+  padding: 10px;
+  padding-bottom: 0.2em;
+  margin-bottom: 0.4em;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.card__description{
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}

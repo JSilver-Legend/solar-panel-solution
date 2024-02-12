@@ -1,0 +1,40 @@
+@import 'styles/colors';
+@import 'styles/breakpoints';
+@import 'styles/theme';
+
+.list__item{
+  text-align: left;
+  font-size: 1rem;
+  background-color:#FFF;
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin: 1em 0;
+  display: flex;
+  box-shadow: $standard-shadow;
+  :global{
+    .ant-list-item-meta-title{
+      //font-size: 1.1rem;
+      font-weight: inherit;
+      font-size: 1rem;
+    }
+  }
+}
+
+.list__item--bold{
+  font-weight: bold;
+  :global{
+    .ant-list-item-meta-title{
+      //font-size: 1.1rem;
+      font-weight: inherit;
+      font-size: 1rem;
+    }
+  }
+}
+
+/*
+.list__item__value{
+  color:$primary-color;
+  font-size: 1.1rem;
+  position: relative;
+  bottom: 2px;
+}*/

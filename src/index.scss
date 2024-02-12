@@ -1,0 +1,40 @@
+@import 'styles/colors';
+
+@font-face {
+  font-family: 'FuturaStd';
+  src: url('./assets/fonts/Futura-Std-Heavy.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FuturaStd';
+  src: url('./assets/fonts/Futura-Std-Light.ttf') format('truetype');
+  font-weight: lighter;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FuturaStd';
+  src: url('./assets/fonts/Futura-Std-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+strong{
+  color:black;
+}
+
+body {
+  margin: 0;
+  font-family: 'FuturaStd', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 300;
+}
+
+#root{
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}

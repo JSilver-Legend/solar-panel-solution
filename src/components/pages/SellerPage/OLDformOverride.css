@@ -1,0 +1,54 @@
+﻿#simpliform [data-type="RadioButtonField"] {
+    border: 1px solid #efefef;
+    padding: 15px 0 15px 15px;
+    border-radius: 2px;
+    background-color:#f7fcfc;
+    margin-bottom:10px;
+}
+
+#simpliform .h3, #simpliform h3 {
+    font-size: 42px;
+    margin-bottom:50px;
+}
+
+#simpliform .is-required {
+    color: #009c91;
+}
+
+#simpliform .radio label {
+    padding-left: 0;
+}
+
+#simpliform .radio label span {
+    background-image: url('/img/circle.png');
+}
+
+#simpliform .radio label > input[type = 'radio'] ~ span{
+    cursor: pointer;
+    width: 27px;
+    height: 24px;
+    display: inline-block;
+    background-size: 27px 24px;
+    background-repeat: no-repeat;
+    vertical-align: -6px;
+}
+
+#simpliform .radio label > input[type = 'radio']:checked ~ span{
+     background-image: url('/img/sun.png');
+}
+
+#simpliform .radio label > input[type = 'radio'] {
+    visibility: hidden;
+    position: absolute;
+}
+
+#simpliform .form-control {
+    background-color: red;
+    border: 1px solid #efefef;
+    border-radius: 2px;
+}
+
+#simpliform .btn {
+    padding: 4px 22px;
+    font-size: 19px;
+}

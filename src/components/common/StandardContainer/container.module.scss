@@ -1,0 +1,13 @@
+@import "styles/breakpoints.scss";
+
+.container{
+  @include md {
+    padding:3em;
+  }
+  background-color: #FFF;
+  display: flex;
+  flex:1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}

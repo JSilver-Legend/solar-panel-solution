@@ -1,0 +1,34 @@
+@import 'styles/colors';
+@import 'styles/breakpoints';
+@import 'styles/theme';
+
+.content{
+  @include md{
+    background-color: #FFF;
+  }
+  flex:1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.paragraph{
+  width: 90%;
+}
+
+.result{
+  max-width: 500px;
+  width: 100%;
+}
+
+.list{
+  flex:1;
+}
+
+@media screen and (max-width: 600px){
+  .longTitle{
+    width: 200px;
+  }
+}

@@ -1,0 +1,30 @@
+@import 'styles/colors';
+
+.checkbox{
+
+}
+
+.checkbox__title{
+  flex:1;
+}
+
+.checkbox__container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border:1px solid $primary-color;
+  border-radius: 4px;
+  padding: 8px 16px;
+  height: 40px;
+  cursor: pointer;
+  background-color: #FFF;
+}
+
+.checkbox__container:hover{
+  opacity: 0.7;
+}
+
+.checkbox__info{
+  margin-right: 5px;
+  color: darkcyan;
+}

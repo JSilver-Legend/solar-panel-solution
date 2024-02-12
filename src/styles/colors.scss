@@ -1,0 +1,10 @@
+//COLORS
+$background-color: #F0F0F0;
+$main-text-color:#132845;
+$primary-color:#3CB4AB;
+
+@media screen and (max-width: 600px){
+  #root {
+    min-height: 0;
+  }
+}

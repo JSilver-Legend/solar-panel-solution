@@ -1,0 +1,43 @@
+@import 'styles/colors';
+
+.list{
+  width:100%;
+}
+
+.list__item{
+  padding:8px;
+  margin:18px 0;
+  border:1px solid #000 !important;
+  border-radius: 8px;
+  flex:1;
+  display: flex;
+  align-items: center;
+  background-color: #FFF;
+  cursor: pointer;
+  text-align: left;
+  :global{
+    .ant-list-item-meta-title{
+      font-size: 1.1rem;
+    }
+    .ant-list-item-meta-title{
+      margin:0;
+    }
+    .ant-list-item-meta-description{
+      color: black;
+    }
+    .ant-list-item-action > li{
+      padding:0 4px;
+    }
+    .ant-list-item-action{
+      margin-left: 0;
+    }
+  }
+}
+
+.list__item:hover{
+  background-color: rgba(255,255,255,0.8);
+}
+
+.list__item--selected{
+  border:2px solid $primary-color !important;
+}
