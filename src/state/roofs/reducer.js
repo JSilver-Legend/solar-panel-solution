@@ -50,7 +50,7 @@ export const initialState = {
   addSolarPanelState: false,
   orbit: '',
   googleMapImageURL: "",
-  mapTextureShowState: false,
+  mapTextureShowState: true,
   solarPanelCountInfo: [],
   showModalState: false,
   resultCaptureImage: "",

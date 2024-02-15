@@ -1,18 +1,19 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { addressActions } from "state/address";
-import { Button } from "components/common";
-import { Typography } from "antd";
-import AddressAutoComplete from "./AddressAutoComplete";
-import { useLocation } from "react-router-dom";
-import { googleApiService } from "services";
-import queryString from "query-string";
 import ReactGA from 'react-ga';
+import { useHistory } from "react-router-dom";
+import { Typography } from "antd";
+import { useLocation } from "react-router-dom";
+import queryString from "query-string";
+
 import logo from '../../../assets/logo_top.png';
+
+import { Button } from "components/common";
+import { googleApiService } from "services";
+import { addressActions } from "state/address";
 import { mapActions } from "state/map";
 
+import AddressAutoComplete from "./AddressAutoComplete";
 import styles from "./page.module.scss";
 
 const SelectAddress = ({ address, children, setSelectedAddress, deactivateDrawingMode, roofs, ...props }) => {
@@ -59,38 +60,37 @@ const SelectAddress = ({ address, children, setSelectedAddress, deactivateDrawin
 
   return (
     <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles["content__inner"]}>
-          <Typography.Title className={styles.title}>
-            Solcellskalkyl
-          </Typography.Title>
-          <div className={styles.spacer}></div>
-          <Typography.Paragraph className={styles["info-text"]}>
-            Hur mycket skulle du kunna tjäna på att installera solceller och vad skulle det kosta?
-            Med ett par klick får du svar.
-          </Typography.Paragraph>
-          <Typography.Paragraph className={styles["info-text"]} style={{ fontSize: "14px", fontWeight: "bold" }}>Starta genom att söka och välja din adress</Typography.Paragraph>
-          <AddressAutoComplete />
-          <Button
-            className={styles["address-button"]}
-            size="large"
-            block
-            type="primary"
-            disabled={!address}
-            onClick={navigateToSelectRoof}
-            style={{ borderRadius: "4px" }}
-          >
-            Starta
-          </Button>
+        <div className={styles.content}>
+            <div className={styles["content__inner"]}>
+            <Typography.Title className={styles.title}>
+                Solcellskalkyl
+            </Typography.Title>
+            <div className={styles.spacer}></div>
+            <Typography.Paragraph className={styles["info-text"]}>
+                Hur mycket skulle du kunna tjäna på att installera solceller och vad skulle det kosta?
+                Med ett par klick får du svar.
+            </Typography.Paragraph>
+            <Typography.Paragraph className={styles["info-text"]} style={{ fontSize: "14px", fontWeight: "bold" }}>Starta genom att söka och välja din adress</Typography.Paragraph>
+            <AddressAutoComplete />
+            <Button
+                className={styles["address-button"]}
+                size="large"
+                block
+                type="primary"
+                disabled={!address}
+                onClick={navigateToSelectRoof}
+                style={{ borderRadius: "4px" }}
+            >
+                Starta
+            </Button>
+            </div>
         </div>
-      </div>
-      <div className={styles.background}></div>
-      <div className={styles.topField}>
-        <a href="about:blank">
-          {/* <img className={styles.logo} src={logo} alt="logo" /> */}
-        </a>
-      </div>
-
+        <div className={styles.background}></div>
+        <div className={styles.topField}>
+            <a href="about:blank">
+                {/* <img className={styles.logo} src={logo} alt="logo" /> */}
+            </a>
+        </div>
     </div>
   );
 };

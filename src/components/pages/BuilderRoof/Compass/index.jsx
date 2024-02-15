@@ -13,7 +13,7 @@ const Compass = () => {
 
     return (
         <div>
-            <img alt="compass-img" id="compass" className={styles.compass} style={compassStyle} src="/compass/compass.png" />
+            <img alt="compass-img" id="compass" className={styles.compass} style={compassStyle} src="/assets/compass/compass.png" />
         </div>
     );
 };

@@ -11,10 +11,8 @@ import { capturedTotalCanvasImages } from "state/result/actions";
 
 const Building = ({ index, item, orbitCam }) => {
     const [isSelected, setIsSelected] = useState(false);
-    const [buildingDirect, setBuildingDirect] = useState();
 
     const dispatch = useDispatch();
-    const domRenderState = useSelector((state) => state.roofs.domRenderState);
     const controlPanelContent = useSelector((state) => state.roofs.controlPanelContent);
     const currentBuildingId = useSelector((state) => state.roofs.currentBuildingId);
     const targetSolarObject = useSelector((state) => state.roofs.selectedSolarObject);
@@ -83,26 +81,6 @@ const Building = ({ index, item, orbitCam }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showModalState]);
 
-    useEffect(() => {
-        switch (item.buildingDirection) {
-            case "east":
-                setBuildingDirect(0);
-                break;
-            case "west":
-                setBuildingDirect(Math.PI);
-                break;
-            case "south":
-                setBuildingDirect(-Math.PI / 2);
-                break;
-            case "north":
-                setBuildingDirect(Math.PI / 2);
-                break;
-            default:
-                break;
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [domRenderState]);
-
     return (
         <>
             {targetSolarObject && (
@@ -118,7 +96,7 @@ const Building = ({ index, item, orbitCam }) => {
             )}
             <TransformControls
                 position={item.position}
-                rotation={[0, -item.angle, 0]}
+                rotation={[0, -item.buildingAngle, 0]}
                 showX={controlPanelContent === "building" && isSelected && currentBuildingId === index}
                 showY={false}
                 showZ={controlPanelContent === "building" && isSelected && currentBuildingId === index}
@@ -126,7 +104,6 @@ const Building = ({ index, item, orbitCam }) => {
             >
                 <group
                     name={`building-${index}`}
-                    rotation={[0, buildingDirect, 0]}
                     onClick={(e) => {
                         e.stopPropagation();
                         setIsSelected(true);
@@ -138,7 +115,7 @@ const Building = ({ index, item, orbitCam }) => {
                         dispatch(setCurrentBuildingId(null));
                     }}
                 >
-                    <Roof index={index} item={item} controlPanelContent={controlPanelContent} />
+                    {/* <Roof index={index} item={item} controlPanelContent={controlPanelContent} /> */}
                     <Body index={index} item={item} currentBuildingId={currentBuildingId} />
                 </group>
             </TransformControls>

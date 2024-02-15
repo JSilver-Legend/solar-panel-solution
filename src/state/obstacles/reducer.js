@@ -31,7 +31,6 @@ export const initialState = {
 export const obstacles = (state = initialState, action) => {
     switch (action.type) {
         case ADD_OBSTACLE:
-            console.log('obstacleList: ', state.obstacleList);
             return {
                 ...state,
                 obstacleList: state.obstacleList.concat(action.Obstacle),
