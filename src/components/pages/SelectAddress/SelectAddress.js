@@ -6,7 +6,7 @@ import { Typography } from "antd";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 
-import logo from '../../../assets/logo_top.png';
+// import logo from '../../../assets/logo_top.png';
 
 import { Button } from "components/common";
 import { googleApiService } from "services";
@@ -42,11 +42,11 @@ const SelectAddress = ({ address, children, setSelectedAddress, deactivateDrawin
       let place = googleApiService.getPlaceDetails(values.googlePlaceId);
       place.then(function (result) {
         if (typeof (result.geometry) !== 'undefined') {
-          let details = {
-            lat: result.geometry.location.lat(),
-            lng: result.geometry.location.lng(),
-            name: result.name
-          };
+          // let details = {
+          //   lat: result.geometry.location.lat(),
+          //   lng: result.geometry.location.lng(),
+          //   name: result.name
+          // };
           navigateToSelectRoof();
         }
       });

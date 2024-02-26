@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { mapActions, mapSelectors } from "state/map";
-import { roofsSelectors, roofsActions } from "state/roofs";
+import { /* roofsSelectors, */ roofsActions } from "state/roofs";
 import { obstaclesActions } from "state/obstacles";
 import { connect } from "react-redux";
 import { resultActions } from "state/result";
-import { Icon, Typography } from "antd";
+// import { Icon, Typography } from "antd";
 import { utils } from 'services';
 import {
   Button,
@@ -12,7 +12,7 @@ import {
   ContentInner,
   Footer,
   Title,
-  InfoModal,
+//   InfoModal,
   PrevButton,
   NextButton
 } from "components/common";

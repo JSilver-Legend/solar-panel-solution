@@ -14,7 +14,7 @@ import {
    */
 
   // ...builder component
-  GET_SELECTED_SOLAR_OBJECT,
+  SET_SELECTED_SOLAR_OBJECT,
   HANDLE_ORBIT_CAMERA,
   SET_CONTROL_PANEL_CONTENT,
   SET_ROOFS_DATA,
@@ -122,8 +122,8 @@ export const setAddSolarPanelState = value => ({
   type: SET_ADD_SOLAR_PANEL_STATE,
   payload: value
 })
-export const getSelectedSolarObject = value => ({
-  type: GET_SELECTED_SOLAR_OBJECT,
+export const setSelectedSolarObject = value => ({
+  type: SET_SELECTED_SOLAR_OBJECT,
   payload: value
 })
 

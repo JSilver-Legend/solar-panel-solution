@@ -26,6 +26,7 @@ export const ObstacleStyleOptions = [
     { value: '', label: '' },
     { value: 'chimney', label: 'Chimney' },
     { value: 'window', label: 'Window' },
+    // { value: 'snow_shield', label: 'Snow Shield' },
 ]
 
 export const RoofMaterialOptions = [

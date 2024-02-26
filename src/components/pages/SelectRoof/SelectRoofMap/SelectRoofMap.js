@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useMemo, useEffect } from "react";
 import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { DrawingManager, GoogleMap, Marker } from "@react-google-maps/api";
+import { /* DrawingManager, */ GoogleMap, Marker } from "@react-google-maps/api";
 import { RightCircleOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import queryString from "query-string";
 
@@ -10,7 +10,7 @@ import { addressActions, addressSelectors } from "state/address";
 import { resultActions } from "state/result";
 import { roofsActions, roofsSelectors } from "state/roofs";
 import { obstaclesActions, obstaclesSelectors } from "state/obstacles";
-import { Button, PrevButton, InfoModal } from "components/common";
+import { Button /*, PrevButton, InfoModal */ } from "components/common";
 import { googleApiService } from "services";
 import { utils } from "services";
 import MyPolygon from "./MyPolygon";
@@ -88,22 +88,22 @@ const SelectRoofMap = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    function onPolygonComplete(polygon) {
-        let coords = getCoords(polygon);
-        let areaM2 = window.google.maps.geometry.spherical.computeArea(
-        polygon.getPath());
-        polygon.setMap(null);
-        polygonComplete(coords, areaM2);
-        setEditRoofOpen(true);
-    }
+    // function onPolygonComplete(polygon) {
+    //     let coords = getCoords(polygon);
+    //     let areaM2 = window.google.maps.geometry.spherical.computeArea(
+    //     polygon.getPath());
+    //     polygon.setMap(null);
+    //     polygonComplete(coords, areaM2);
+    //     setEditRoofOpen(true);
+    // }
 
-    function getCoords(poly) {
-        let coords = [];
-        poly.getPath().forEach(e => {
-        coords.push(e.toJSON());
-        });
-        return coords;
-    }
+    // function getCoords(poly) {
+    //     let coords = [];
+    //     poly.getPath().forEach(e => {
+    //     coords.push(e.toJSON());
+    //     });
+    //     return coords;
+    // }
 
     let mapsOptions;
 
@@ -175,9 +175,9 @@ const SelectRoofMap = ({
         }
     }
 
-    function changeAddress(address) {
-        setSelectedAddress = address;
-    }
+    // function changeAddress(address) {
+    //     setSelectedAddress = address;
+    // }
 
     function resetRoof(mapCenter) {
         if (roofs.length !== 0) {

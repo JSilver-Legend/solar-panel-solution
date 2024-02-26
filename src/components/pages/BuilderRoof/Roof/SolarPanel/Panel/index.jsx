@@ -5,8 +5,8 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { Html, useCursor } from "@react-three/drei";
 import { useDispatch, useSelector } from "react-redux";
 
-import { extrudeExtraSettings } from "utils/ExtrudeSettings";
-import { getSelectedSolarObject } from "state/roofs/actions";
+import { extrudeSetting } from "utils/Function";
+import { setSelectedSolarObject } from "state/roofs/actions";
 
 const Panel = ({ buildingIndex, index, solarWidth, solarLength, solarHeight, solarColor }) => {
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const Panel = ({ buildingIndex, index, solarWidth, solarLength, solarHeight, sol
             name={`${buildingIndex}-${index}`}
             onClick={(e) => {
                 e.stopPropagation();
-                dispatch(getSelectedSolarObject(e.object.parent));
+                dispatch(setSelectedSolarObject(e.object.parent));
                 setIsSelectedState(true);
             }}
             onPointerOver={() => {
@@ -39,7 +39,7 @@ const Panel = ({ buildingIndex, index, solarWidth, solarLength, solarHeight, sol
             }}
             onPointerMissed={(e) => {
                 e.stopPropagation();
-                dispatch(getSelectedSolarObject(null));
+                dispatch(setSelectedSolarObject(null));
                 setIsSelectedState(false);
             }}
         >
@@ -52,18 +52,18 @@ const Panel = ({ buildingIndex, index, solarWidth, solarLength, solarHeight, sol
                         onClick={(e) => {
                             e.stopPropagation();
                             targetObject.parent.parent.remove(targetObject.parent);
-                            dispatch(getSelectedSolarObject(null));
+                            dispatch(setSelectedSolarObject(null));
                             setIsSelectedState(false);
                         }}
                     />
                 </Html>
             )}
             <mesh name="solar-panel-border-white" scale={[1, 1, 0.1]}>
-                <extrudeGeometry args={[solarCoverModel, extrudeExtraSettings(solarHeight)]} />
+                <extrudeGeometry args={[solarCoverModel, extrudeSetting(solarHeight)]} />
                 <meshPhongMaterial color="white" side={DoubleSide} />
             </mesh>
             <mesh name="solar-panel-main-color" position={[0, 0, 0.01]} scale={[1, 1, 0.1]}>
-                <extrudeGeometry args={[solarModel, extrudeExtraSettings(solarHeight)]} />
+                <extrudeGeometry args={[solarModel, extrudeSetting(solarHeight)]} />
                 <meshPhongMaterial color={solarColor} side={DoubleSide} />
             </mesh>
         </group>

@@ -16,7 +16,7 @@ import {
    */
 
   // ... builder component
-  GET_SELECTED_SOLAR_OBJECT,
+  SET_SELECTED_SOLAR_OBJECT,
   HANDLE_ORBIT_CAMERA,
   SET_CONTROL_PANEL_CONTENT,
   SET_ROOFS_DATA,
@@ -43,8 +43,9 @@ export const initialState = {
    * <--- harrypotter --->
   */
   domRenderState: false,
-  controlPanelContent: '',
+  controlPanelContent: '1',
   roofsData: [],
+  obstacleData: [],
   currentBuildingId: null,
   selectedSolarObject: null,
   addSolarPanelState: false,
@@ -92,7 +93,7 @@ export const roofs = (state = initialState, action) => {
         ...state,
         roofsData: tempRoofsData
       }
-
+      
     case SET_CURRENT_BUILDING_ID:
       return {
         ...state,
@@ -105,17 +106,16 @@ export const roofs = (state = initialState, action) => {
         addSolarPanelState: action.payload
       }
 
-    case GET_SELECTED_SOLAR_OBJECT:
+    case SET_SELECTED_SOLAR_OBJECT:
       return {
         ...state,
         selectedSolarObject: action.payload
       }
 
     case HANDLE_ORBIT_CAMERA:
-      let tempOrbit = action.payload
       return {
         ...state,
-        orbit: tempOrbit
+        orbit: action.payload
       }
 
     case GOOGLE_MAP_IMAGE_URL:

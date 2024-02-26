@@ -1,91 +1,66 @@
-import React, { useEffect, useState } from "react";
-import { useMemo } from "react";
 import * as THREE from "three";
+import React, { useEffect, useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { DoubleSide } from "three";
+
 import { BG1, BG2, BG3, BG4, BG5, BG6 } from "utils/ImageInfo";
+import { setCurrentObstacleId, setSelectedObstacleObject } from "state/obstacles/actions";
+import { setCurrentBuildingId } from "state/roofs/actions";
+import { extrudeSetting } from "utils/Function";
 
-const Obstacle = ({ obstacleData, buildingData }) => {
+const Obstacle = ({ index, obstacleItem, buildingItem, initBuildingAngleY }) => {
+    const dispatch = useDispatch();
+
+    const controlPanelContent = useSelector((state) => state.roofs.controlPanelContent);
+    const currentObstacleId = useSelector((state) => state.obstacles.currentObstacleId);
+    const obstaclesData = useSelector((state) => state.obstacles.obstaclesData);
+
     const [isTextureLoadState, setIsTextureLoadState] = useState(false);
+    const [angleWithRidge, setAngleWithRidge] = useState([0, 0, 0]);
+    const [obstacleWidth, setObstacleWidth] = useState(obstacleItem.width);
+    const [obstacleLength, setObstacleLength] = useState(obstacleItem.length);
 
-    const [buildingWidth, setBuildingWidth] = useState(buildingData.width);
-    const buildingHeight = buildingData.buildingHeight;
-    const roofHeight = buildingData.roofHeight;
-    const [obstacleWidth, setObstacleWidth] = useState(obstacleData.width);
-    const [obstacleLength, setObstacleLength] = useState(obstacleData.length);
-    const [obstacleHeight, setObstacleHeight] = useState(0);
-    const [obstacleAngle, setObstacleAngle] = useState([0, 0, 0]);
-    const [obstaclePositionX, setObstaclePositionX] = useState(0);
-    const [obstaclePositionY, setObstaclePositionY] = useState(0);
+    const buildingHeight = buildingItem.buildingHeight;
+    const obstacleHeight = obstacleItem.height;
+    const roofPitch = buildingItem.roofPitch;
+    const roofSlopeAngle = Math.atan(roofPitch / buildingItem.buildingWidth);
 
-    useEffect(() => {
-        let tempObstacleY;
-        if (buildingData.ridgeDirection === "direction_1") {
-            setBuildingWidth(buildingData.width);
-            setObstacleWidth(obstacleData.width);
-            setObstacleLength(obstacleData.length);
-            setObstaclePositionX(obstacleData.position[0]);
-        } else if (buildingData.ridgeDirection === "direction_2") {
-            setBuildingWidth(buildingData.length);
-            setObstacleWidth(obstacleData.length);
-            setObstacleLength(obstacleData.width);
-            setObstaclePositionX(-obstacleData.position[2]);
-        }
-        if (obstacleData.style === "chimney") {
-            setObstacleAngle([0, buildingData.ridgeDirection === "direction_1" ? 0 : Math.PI / 2, 0]);
-            tempObstacleY = 1;
+    const modelOuter = useMemo(() => {
+        const thickness = 0.3
+        
+        const model = new THREE.Shape();
+        model.moveTo(-obstacleWidth / 2, -obstacleLength / 2);
+        model.lineTo(-obstacleWidth / 2, obstacleLength / 2);
+        model.lineTo(obstacleWidth / 2, obstacleLength / 2);
+        model.lineTo(obstacleWidth / 2, -obstacleLength / 2);
+        model.closePath();
 
-            if (buildingData.roofStyle === "flat") {
-                setObstacleHeight(2);
-                tempObstacleY = 1;
-            } else if (buildingData.roofStyle === "shed") {
-                setObstacleHeight(2 + (roofHeight / 15) * 3);
-                tempObstacleY = 1 + ((buildingWidth - 2 * obstaclePositionX) * roofHeight) / (2 * buildingWidth) + (roofHeight / 15) * 1.5;
-            } else if (buildingData.roofStyle === "open-gable" || buildingData.roofStyle === "box-gable") {
-                setObstacleHeight(2 + (roofHeight / 15) * 6);
-                tempObstacleY = 1 + ((buildingWidth - 2 * Math.abs(obstaclePositionX)) * roofHeight) / buildingWidth + (roofHeight / 15) * 3;
-            } else if (buildingData.roofStyle === "saltt-box") {
-                setObstacleHeight(2 + (roofHeight / 15) * 6);
-                tempObstacleY =
-                    obstaclePositionX >= -buildingWidth / 4
-                        ? 1 + ((2 * buildingWidth - 4 * obstaclePositionX) * roofHeight) / (3 * buildingWidth) + (roofHeight / 15) * 2
-                        : 1 + ((buildingWidth + 2 * obstaclePositionX) * roofHeight) / buildingWidth + roofHeight / 2 + (roofHeight / 15) * 3;
-            }
-        } else if (obstacleData.style === "window") {
-            setObstacleHeight(0.8);
-            if (buildingData.roofStyle === "flat") {
-                setObstacleAngle([0, buildingData.ridgeDirection === "direction_1" ? 0 : Math.PI / 2, 0]);
-                tempObstacleY = 0;
-            } else if (buildingData.roofStyle === "shed") {
-                setObstacleAngle([0, buildingData.ridgeDirection === "direction_1" ? 0 : Math.PI / 2, -Math.atan(roofHeight / buildingWidth)]);
-                tempObstacleY = ((buildingWidth - 2 * obstaclePositionX) * roofHeight) / (2 * buildingWidth);
-            } else if (buildingData.roofStyle === "open-gable" || buildingData.roofStyle === "box-gable") {
-                setObstacleAngle([0, buildingData.ridgeDirection === "direction_1" ? 0 : Math.PI / 2, obstaclePositionX >= 0 ? -Math.atan((2 * roofHeight) / buildingWidth) : Math.atan((2 * roofHeight) / buildingWidth)]);
-                tempObstacleY = ((buildingWidth - 2 * Math.abs(obstaclePositionX)) * roofHeight) / buildingWidth;
-            } else if (buildingData.roofStyle === "saltt-box") {
-                setObstacleAngle([0, buildingData.ridgeDirection === "direction_1" ? 0 : Math.PI / 2, obstaclePositionX >= -buildingWidth / 4 ? -Math.atan((4 * roofHeight) / (3 * buildingWidth)) : Math.atan((2 * roofHeight) / buildingWidth)]);
-                tempObstacleY = obstaclePositionX >= -buildingWidth / 4 ? ((2 * buildingWidth - 4 * obstaclePositionX) * roofHeight) / (3 * buildingWidth) : ((buildingWidth + 2 * obstaclePositionX) * roofHeight) / buildingWidth + roofHeight / 2;
-            }
-        }
-        setObstaclePositionY(buildingHeight + tempObstacleY);
-        // setObstaclePositionY(buildingHeight + (roofHeight - (buildingWidth + obstaclePositionX) / (2 * buildingWidth)));
+        const hole = new THREE.Path();        
+        hole.moveTo(-(obstacleWidth / 2 - thickness), -(obstacleLength / 2 - thickness));
+        hole.lineTo(-(obstacleWidth / 2 - thickness), (obstacleLength / 2 - thickness));
+        hole.lineTo((obstacleWidth / 2 - thickness), (obstacleLength / 2 - thickness));
+        hole.lineTo((obstacleWidth / 2 - thickness), -(obstacleLength / 2 - thickness));
+        hole.closePath();
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [obstaclePositionX, buildingData.ridgeDirection, buildingData.roofStyle, buildingHeight, buildingWidth, obstacleData.style, obstacleData.width, obstacleWidth, obstacleLength, roofHeight]);
+        model.holes.push(hole);
 
-    const obstacle = useMemo(() => {
-        return obstacleModel(obstacleWidth, obstacleHeight, obstacleData.style);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [obstacleWidth, obstacleHeight, roofHeight]);
+        return model;
+        
+    }, [obstacleWidth, obstacleLength]);
 
-    const chimneyPorpModel = useMemo(() => {
-        return chimneyBorderModel(obstacleWidth, obstacleHeight);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [obstacleWidth, obstacleHeight, roofHeight]);
+    const modelInner = useMemo(() => {
+        const thickness = 0.3
 
-    const windowPorpModel = useMemo(() => {
-        return windowBorderModel(obstacleWidth, obstacleHeight);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [obstacleWidth, obstacleHeight, roofHeight]);
+        const model = new THREE.Shape();        
+        model.moveTo(-(obstacleWidth / 2 - thickness), -(obstacleLength / 2 - thickness));
+        model.lineTo(-(obstacleWidth / 2 - thickness), (obstacleLength / 2 - thickness));
+        model.lineTo((obstacleWidth / 2 - thickness), (obstacleLength / 2 - thickness));
+        model.lineTo((obstacleWidth / 2 - thickness), -(obstacleLength / 2 - thickness));
+        model.closePath();
+
+        return model;
+        
+    }, [obstacleWidth, obstacleLength]);
 
     const windowEnvMap = useMemo(() => {
         if (isTextureLoadState === false) {
@@ -96,82 +71,81 @@ const Obstacle = ({ obstacleData, buildingData }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return (
-        <group position={[buildingData.ridgeDirection === "direction_1" ? 0 : -obstacleLength / 2, obstaclePositionY, buildingData.ridgeDirection === "direction_1" ? -obstacleLength / 2 : 0]}>
-            <mesh name="border" position={obstacleData.position} rotation={obstacleAngle}>
-                <extrudeGeometry args={[obstacle, extrudeBorderSettings(obstacleLength)]} />
-                <meshStandardMaterial color={obstacleData.style === "chimney" ? "#1D1D1D" : "#FFFFFF"} />
-            </mesh>
-            {obstacleData.style === "window" && (
-                <group position={[buildingData.ridgeDirection === "direction_1" ? 0 : 0.15, 0.01, buildingData.ridgeDirection === "direction_1" ? 0.15 : 0]}>
-                    <mesh position={obstacleData.position} rotation={obstacleAngle}>
-                        <extrudeGeometry args={[windowPorpModel, extrudeBorderSettings(obstacleLength - 0.3)]} />
-                        <meshBasicMaterial color="#55ACCB" envMap={windowEnvMap} reflectivity={0.6} />
-                    </mesh>
+    useEffect(() => {
+        if (buildingItem.roofRidge === "1") {
+            setObstacleWidth(obstacleItem.width);
+            setObstacleLength(obstacleItem.length);
+            setAngleWithRidge([0, 0, 0]);
+        } else if (buildingItem.roofRidge === "2") {
+            setObstacleWidth(obstacleItem.length);
+            setObstacleLength(obstacleItem.width);
+            setAngleWithRidge([0, Math.PI / 2, 0]);
+        }
+    }, [buildingItem, obstacleItem]);
+    
+    return (controlPanelContent === '3') && (
+        <group
+            position={[0, buildingHeight, 0]}
+            onClick={(e) => {
+                e.stopPropagation();
+                dispatch(setSelectedObstacleObject(e.object.parent));
+                dispatch(setCurrentObstacleId(index));
+
+                let selectedBuildingIndex = null
+                const buildingObj = obstaclesData.find(({obstacleIndex}) => obstacleIndex === index);
+                if (buildingObj) {
+                    selectedBuildingIndex =  buildingObj.buildingIndex;
+                }
+                dispatch(setCurrentBuildingId(selectedBuildingIndex))
+            }}
+            onPointerMissed={(e) => {
+                e.stopPropagation();
+                dispatch(setSelectedObstacleObject(null));
+                dispatch(setCurrentObstacleId(null));
+            }}
+        >
+            <group position={obstacleItem.position} rotation={angleWithRidge}>
+                <group 
+                    // reverse position for building
+                    position={[
+                        -buildingItem.position[0],
+                        -buildingItem.position[1],
+                        -buildingItem.position[2]
+                    ]}
+                    rotation={[0, initBuildingAngleY, 0]}
+                >
+                    {obstacleItem.type === 'chimney' &&
+                        <group>
+                            <mesh name="outer-model" rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
+                                <extrudeGeometry args={[modelOuter, extrudeSetting(obstacleHeight + roofPitch)]} />
+                                <meshStandardMaterial side={DoubleSide} color={currentObstacleId === index ? "red" : "#1D1D1D"} />
+                            </mesh>
+                            <mesh name="inner-model" rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
+                                <extrudeGeometry args={[modelInner, extrudeSetting(obstacleHeight + roofPitch)]} />
+                                <meshStandardMaterial side={DoubleSide} color={"#1D1D1D"} opacity={0.3} transparent />
+                            </mesh>
+                        </group>
+                    }
+                    {obstacleItem.type === 'window' &&
+                        <group rotation={[0, 0, roofSlopeAngle]}>
+                            <mesh name="outer-model" rotation={[-Math.PI / 2, 0, 0]}>
+                                <extrudeGeometry args={[modelOuter, extrudeSetting(obstacleHeight)]} />
+                                <meshStandardMaterial side={DoubleSide} color={currentObstacleId === index ? "red" : "#0066FF"} />
+                            </mesh>
+                            <mesh name="inner-model" rotation={[-Math.PI / 2, 0, 0]}>
+                                <extrudeGeometry args={[modelInner, extrudeSetting(obstacleHeight)]} />
+                                <meshBasicMaterial color="#55ACCB" envMap={windowEnvMap} reflectivity={0.6} />
+                            </mesh>
+                        </group>
+                    }
+                    {obstacleItem.type === 'snow_shield' &&
+                        <group>
+                        </group>
+                    }
                 </group>
-            )}
-            {obstacleData.style === "chimney" && (
-                <group position={[buildingData.ridgeDirection === "direction_1" ? 0 : 0.3, 0.01, buildingData.ridgeDirection === "direction_1" ? 0.3 : 0]}>
-                    <mesh position={obstacleData.position} rotation={obstacleAngle}>
-                        <extrudeGeometry args={[chimneyPorpModel, extrudeBorderSettings(obstacleLength - 0.6)]} />
-                        <meshStandardMaterial color={"#313131"} side={DoubleSide} />
-                    </mesh>
-                </group>
-            )}
+            </group>
         </group>
     );
 };
 
 export default Obstacle;
-
-const extrudeBorderSettings = (value) => {
-    return {
-        steps: 1,
-        depth: value,
-        bevelEnabled: true,
-        bevelThickness: 0.1,
-        bevelSize: 0,
-        bevelOffset: 0,
-        bevelSegments: 1,
-    };
-};
-
-const obstacleModel = (width, height, obstacleStyle) => {
-    const model = new THREE.Shape();
-    if (obstacleStyle === "chimney") {
-        model.moveTo(width / 2, 0);
-        model.lineTo(width / 2, -height);
-        model.lineTo(-width / 2, -height);
-        model.lineTo(-width / 2, 0);
-        model.closePath();
-    } else if (obstacleStyle === "window") {
-        model.moveTo(width / 2, height / 2);
-        model.lineTo(width / 2, -height / 2);
-        model.lineTo(-width / 2, -height / 2);
-        model.lineTo(-width / 2, height / 2);
-        model.closePath();
-    }
-    return model;
-};
-
-const chimneyBorderModel = (width, height) => {
-    const model = new THREE.Shape();
-    model.moveTo(width / 2 - 0.3, 0);
-    model.lineTo(width / 2 - 0.3, -height);
-    model.lineTo(-(width / 2 - 0.3), -height);
-    model.lineTo(-(width / 2 - 0.3), 0);
-    model.closePath();
-
-    return model;
-};
-
-const windowBorderModel = (width, height) => {
-    const model = new THREE.Shape();
-    model.moveTo(width / 2 - 0.15, height / 2);
-    model.lineTo(width / 2 - 0.15, -(height / 2));
-    model.lineTo(-(width / 2 - 0.15), -(height / 2));
-    model.lineTo(-(width / 2 - 0.15), height / 2);
-    model.closePath();
-
-    return model;
-};

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { OrbitControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
-import { handleOrbitCamera } from "state/roofs/actions";
+// import { handleOrbitCamera } from "state/roofs/actions";
 
 import Ground from "./Ground";
 import Light from "./Light";
@@ -11,8 +11,8 @@ import EnvCmp from "./EnvCmp";
 
 const CanvasEnv = ({ setOrbitCam }) => {
     
+    // const dispatch = useDispatch();
     const orbitRef = useRef();
-    const dispatch = useDispatch();
 
     useEffect(() => {
         setOrbitCam(orbitRef);
@@ -20,7 +20,7 @@ const CanvasEnv = ({ setOrbitCam }) => {
 
     useFrame(() => {
         if (orbitRef !== undefined) {
-            dispatch(handleOrbitCamera(orbitRef.current.getAzimuthalAngle()));
+            // dispatch(handleOrbitCamera(orbitRef.current.getAzimuthalAngle()));
         }
     });
 

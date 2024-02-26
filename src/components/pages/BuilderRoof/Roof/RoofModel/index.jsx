@@ -5,24 +5,27 @@ import { useThree } from "@react-three/fiber";
 
 import { Brick, Concrete, Metal, Plate, Plegel, Cardboard } from "utils/ImageInfo";
 import { TextureCustomize } from "utils/TextureInfo";
+import { useSelector } from "react-redux";
 
-const RoofModel = ({ index, item, width, length, height, angle, constValueData }) => {
+const RoofModel = ({ index, item, width, length, pitch, angle, constValueData, opacityValue }) => {
     const { gl } = useThree();
 
-    const RoofModel = () => {
+    const controlPanelContent = useSelector((state) => state.roofs.controlPanelContent);
+
+    const model = () => {
         switch (item.roofStyle) {
             case "flat":
                 return flatModel(width, constValueData.roofThickness);
             case "shed":
-                return shedModel(width, height, constValueData.roofThickness);
+                return shedModel(width, pitch, constValueData.roofThickness);
             case "box-gable":
-                return boxGableModel(width, height, constValueData.roofThickness);
+                return boxGableModel(width, pitch, constValueData.roofThickness);
             case "open-gable":
-                return openGableModel(width, height, constValueData.roofThickness);
+                return openGableModel(width, pitch, constValueData.roofThickness);
             case "saltt-box":
-                return salttBoxModel(width, height, constValueData.roofThickness);
+                return salttBoxModel(width, pitch, constValueData.roofThickness);
             default:
-                return flatModel(width, height, constValueData.roofThickness);
+                return flatModel(width, pitch, constValueData.roofThickness);
         }
     };
 
@@ -44,31 +47,35 @@ const RoofModel = ({ index, item, width, length, height, angle, constValueData }
     const [roofTexture, setRoofTexture] = useState(BrickJPG);
 
     useEffect(() => {
-        if (item.roofTexture === "brick") {
+        if (item.roofMaterial === "brick") {
             setRoofTexture(BrickJPG);
         }
-        if (item.roofTexture === "concrete") {
+        if (item.roofMaterial === "concrete") {
             setRoofTexture(ConcreteJPG);
         }
-        if (item.roofTexture === "metal") {
+        if (item.roofMaterial === "metal") {
             setRoofTexture(MetalJPG);
         }
-        if (item.roofTexture === "plate") {
+        if (item.roofMaterial === "plate") {
             setRoofTexture(PlateJPG);
         }
-        if (item.roofTexture === "plegel") {
+        if (item.roofMaterial === "plegel") {
             setRoofTexture(PlegelJPG);
         }
-        if (item.roofTexture === "cardboard") {
+        if (item.roofMaterial === "cardboard") {
             setRoofTexture(CardboardJPG);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [item.roofTexture]);
+    }, [item.roofMaterial]);
 
     return (
-        <mesh name={`roofModel-${index}`} position={[item.ridgeDirection === "direction_1" ? 0 : -length / 2, item.buildingHeight + 0.01, item.ridgeDirection === "direction_1" ? -length / 2 : 0]} rotation={angle}>
-            <extrudeGeometry args={[RoofModel(), extrudeRoofSettings(length)]} />
-            <meshPhongMaterial map={roofTexture} bumpMap={roofTexture} bumpScale={0.2} side={DoubleSide} />
+        <mesh name={`roofModel-${index}`} position={[item.roofRidge === "1" ? 0 : -length / 2, item.buildingHeight + 0.105, item.roofRidge === "1" ? -length / 2 : 0]} rotation={angle}>
+            <extrudeGeometry args={[model(), extrudeRoofSettings(length)]} />
+            {(controlPanelContent === '2' || controlPanelContent === '4') ?
+                <meshPhongMaterial map={roofTexture} bumpMap={roofTexture} bumpScale={0.2} side={DoubleSide} opacity={opacityValue} transparent />
+                :
+                <meshPhongMaterial color={'white'} side={DoubleSide} opacity={opacityValue} transparent />
+            }
         </mesh>
     );
 };
@@ -98,11 +105,11 @@ const flatModel = (width, roofThickness) => {
     return model;
 };
 
-const boxGableModel = (width, height, roofThickness) => {
+const boxGableModel = (width, pitch, roofThickness) => {
     const model = new THREE.Shape();
     model.moveTo(width / 2, 0);
     model.lineTo(width / 2, roofThickness);
-    model.lineTo(0, height + roofThickness);
+    model.lineTo(0, pitch + roofThickness);
     model.lineTo(-width / 2, roofThickness);
     model.lineTo(-width / 2, 0);
     model.lineTo(width / 2, 0);
@@ -110,38 +117,38 @@ const boxGableModel = (width, height, roofThickness) => {
     return model;
 };
 
-const openGableModel = (width, height, roofThickness) => {
+const openGableModel = (width, pitch, roofThickness) => {
     const model = new THREE.Shape();
     model.moveTo(width / 2, 0);
     model.lineTo(width / 2, roofThickness);
-    model.lineTo(0, height + roofThickness);
+    model.lineTo(0, pitch + roofThickness);
     model.lineTo(-width / 2, roofThickness);
     model.lineTo(-width / 2, 0);
-    model.lineTo(0, height);
+    model.lineTo(0, pitch);
     model.lineTo(width / 2, 0);
 
     return model;
 };
 
-const shedModel = (width, height, roofThickness) => {
+const shedModel = (width, pitch, roofThickness) => {
     const model = new THREE.Shape();
     model.moveTo(width / 2, 0);
     model.lineTo(width / 2, roofThickness);
-    model.lineTo(-width / 2, height + roofThickness);
-    model.lineTo(-width / 2, height);
+    model.lineTo(-width / 2, pitch + roofThickness);
+    model.lineTo(-width / 2, pitch);
     model.lineTo(width / 2, 0);
 
     return model;
 };
 
-const salttBoxModel = (width, height, roofThickness) => {
+const salttBoxModel = (width, pitch, roofThickness) => {
     const model = new THREE.Shape();
     model.moveTo(width / 2, 0);
     model.lineTo(width / 2, roofThickness);
-    model.lineTo(-width / 4, height + roofThickness);
-    model.lineTo(-width / 2, height / 2 + roofThickness);
-    model.lineTo(-width / 2, height / 2);
-    model.lineTo(-width / 4, height);
+    model.lineTo(-width / 4, pitch + roofThickness);
+    model.lineTo(-width / 2, pitch / 2 + roofThickness);
+    model.lineTo(-width / 2, pitch / 2);
+    model.lineTo(-width / 4, pitch);
     model.lineTo(width / 2, 0);
 
     return model;

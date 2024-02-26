@@ -16,9 +16,12 @@ import {
   // ...builder component
   SET_HIGHEST_BUILDING_HEIGHT,
   CREATE_HIGHEST_BUILDING_HEIGHT,
-  GET_SELECTED_SOLAR_OBJECT,
+  SET_SELECTED_SOLAR_OBJECT,
   HANDLE_ORBIT_CAMERA,
   SET_OBSTACLES_DATA,
+  UPDATE_OBSTACLES_DATA,
+  SET_CURRENT_OBSTACLE_ID,
+  SET_SELECTED_OBSTACLE_OBJECT,
   //---------------------
 } from "./types";
 import { utils } from "services";
@@ -91,8 +94,8 @@ export const createHighestBuildingHeight = value => ({
   payload: value
 })
 
-export const getSelectedSolarObject = value => ({
-  type: GET_SELECTED_SOLAR_OBJECT,
+export const setSelectedSolarObject = value => ({
+  type: SET_SELECTED_SOLAR_OBJECT,
   payload: value
 })
 
@@ -103,6 +106,21 @@ export const handleOrbitCamera = value => ({
 
 export const setObstaclesData = value => ({
   type: SET_OBSTACLES_DATA,
+  payload: value,
+})
+
+export const setCurrentObstacleId = value => ({
+  type: SET_CURRENT_OBSTACLE_ID,
+  payload: value
+})
+
+export const setSelectedObstacleObject = value => ({
+  type: SET_SELECTED_OBSTACLE_OBJECT,
+  payload: value
+})
+
+export const updateObstaclesData = value => ({
+  type: UPDATE_OBSTACLES_DATA,
   payload: value,
 })
 //----------------------

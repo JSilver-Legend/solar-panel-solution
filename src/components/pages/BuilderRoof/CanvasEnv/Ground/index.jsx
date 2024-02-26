@@ -1,4 +1,3 @@
-import { useTexture } from '@react-three/drei';
 import React, { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { RepeatWrapping, TextureLoader } from 'three';

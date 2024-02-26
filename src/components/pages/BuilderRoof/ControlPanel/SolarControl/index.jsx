@@ -3,11 +3,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, Radio, Select, Typography } from "antd";
 
-import { setAddSolarPanelState, setCurrentBuildingId, setShowModalState, updateRoofsData } from "state/roofs/actions";
+import { setAddSolarPanelState, setCurrentBuildingId, setMapTextureShowState, setSelectedSolarObject, setShowModalState, updateRoofsData } from "state/roofs/actions";
 import { SolarStyleOptions } from "utils/BuildingInitInfo";
 
 import styles from "../../builder.module.scss";
 import { updateResultBuildingDataInfo } from "state/result/actions";
+import { setCurrentObstacleId, setSelectedObstacleObject } from "state/obstacles/actions";
 
 const SolarControlPanel = () => {
     const dispatch = useDispatch();
@@ -58,7 +59,12 @@ const SolarControlPanel = () => {
 
     useEffect(() => {
         dispatch(setCurrentBuildingId(null));
+        dispatch(setCurrentObstacleId(null));
+        dispatch(setSelectedObstacleObject(null));
+        dispatch(setSelectedSolarObject(null));
         dispatch(setAddSolarPanelState(true));
+        dispatch(setMapTextureShowState(false));
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -69,13 +75,14 @@ const SolarControlPanel = () => {
             setValueSolarDirection(currentSelectedRoofData.solarDirection);
             const selectedPanel = solarPanelCountInfo.find((item) => item.buildingNumber === currentBuildingId + 1);
             setCountData({ ...selectedPanel });
-            setBuildingAngle(parseFloat(((currentSelectedRoofData.angle * 360) / Math.PI).toFixed(1)) / 2);
+            setBuildingAngle(parseFloat(((currentSelectedRoofData.angle * 360) / Math.PI).toFixed(2)) / 2);
         } else {
             setValueSolarStyle("");
             setValueSolarDirection("");
             setCountData(undefined);
             setBuildingAngle(0);
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentBuildingId, roofsData, solarPanelCountInfo]);
 
@@ -86,32 +93,32 @@ const SolarControlPanel = () => {
         if (showModalState) {
             resultBuildingDataInfo.forEach((item, index) => {
                 currentSelectedRoofData = roofsData.find((item) => item.buildingIndex === index);
-                basicAngle = parseFloat(((currentSelectedRoofData.angle * 360) / Math.PI).toFixed(1)) / 2;
+                basicAngle = parseFloat(((currentSelectedRoofData.angle * 360) / Math.PI).toFixed(2)) / 2;
                 tempResultBuildingDataInfo.push({
                     buildingNumber: item.buildingNumber,
                     roofStyle: item.roofStyle,
                     panelData: [
                         {
                             roofAreaNumber: 1,
-                            angleFromNorth: parseFloat((basicAngle % 360).toFixed(1)),
+                            angleFromNorth: parseFloat((basicAngle % 360).toFixed(2)),
                             panelType: handleCheckSolarStyle(solarPanelCountInfo[index], "northSmall", "northLarge").solarStyle,
                             panelCount: handleCheckSolarStyle(solarPanelCountInfo[index], "northSmall", "northLarge").solarCount,
                         },
                         {
                             roofAreaNumber: 2,
-                            angleFromNorth: parseFloat(((basicAngle + 90) % 360).toFixed(1)),
+                            angleFromNorth: parseFloat(((basicAngle + 90) % 360).toFixed(2)),
                             panelType: handleCheckSolarStyle(solarPanelCountInfo[index], "eastSmall", "eastLarge").solarStyle,
                             panelCount: handleCheckSolarStyle(solarPanelCountInfo[index], "eastSmall", "eastLarge").solarCount,
                         },
                         {
                             roofAreaNumber: 3,
-                            angleFromNorth: parseFloat(((basicAngle + 90) % 360).toFixed(1)),
+                            angleFromNorth: parseFloat(((basicAngle + 90) % 360).toFixed(2)),
                             panelType: handleCheckSolarStyle(solarPanelCountInfo[index], "southSmall", "southLarge").solarStyle,
                             panelCount: handleCheckSolarStyle(solarPanelCountInfo[index], "southSmall", "southLarge").solarCount,
                         },
                         {
                             roofAreaNumber: 4,
-                            angleFromNorth: parseFloat(((basicAngle + 90) % 360).toFixed(1)),
+                            angleFromNorth: parseFloat(((basicAngle + 90) % 360).toFixed(2)),
                             panelType: handleCheckSolarStyle(solarPanelCountInfo[index], "westSmall", "westLarge").solarStyle,
                             panelCount: handleCheckSolarStyle(solarPanelCountInfo[index], "westSmall", "westLarge").solarCount,
                         },
@@ -120,12 +127,13 @@ const SolarControlPanel = () => {
             });
             dispatch(updateResultBuildingDataInfo(tempResultBuildingDataInfo));
         }
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showModalState]);
 
     return (
         <>
-            <div className={styles.mainTitle}>Please configure solar panel</div>
+            <div className={styles.mainTitle}>Please configure SOLAR PANEL</div>
             <div className={styles.selectOptions}>
                 <div className={styles.title}>Select Solar Panel Style</div>
                 <Select
@@ -197,7 +205,7 @@ const SolarControlPanel = () => {
                             <td colSpan={2}>{countData?.northSmall ?? "- - -"}</td>
                         </tr>
                         <tr>
-                            <td rowSpan={2}>{`${((buildingAngle + 90) % 360).toFixed(1)} degree from North`}</td>
+                            <td rowSpan={2}>{`${((buildingAngle + 90) % 360).toFixed(2)} degree from North`}</td>
                             <td>2278x1134x35mm</td>
                             <td colSpan={2}>{countData?.eastLarge ?? "- - -"}</td>
                         </tr>
@@ -206,7 +214,7 @@ const SolarControlPanel = () => {
                             <td colSpan={2}>{countData?.eastSmall ?? "- - -"}</td>
                         </tr>
                         <tr>
-                            <td rowSpan={2}>{`${((buildingAngle + 180) % 360).toFixed(1)} degree from North`}</td>
+                            <td rowSpan={2}>{`${((buildingAngle + 180) % 360).toFixed(2)} degree from North`}</td>
                             <td>2278x1134x35mm</td>
                             <td colSpan={2}>{countData?.southLarge ?? "- - -"}</td>
                         </tr>
@@ -215,7 +223,7 @@ const SolarControlPanel = () => {
                             <td colSpan={2}>{countData?.southSmall ?? "- - -"}</td>
                         </tr>
                         <tr>
-                            <td rowSpan={2}>{`${((buildingAngle + 270) % 360).toFixed(1)} degree from North`}</td>
+                            <td rowSpan={2}>{`${((buildingAngle + 270) % 360).toFixed(2)} degree from North`}</td>
                             <td>2278x1134x35mm</td>
                             <td colSpan={2}>{countData?.westLarge ?? "- - -"}</td>
                         </tr>

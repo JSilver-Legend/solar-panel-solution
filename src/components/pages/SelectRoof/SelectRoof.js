@@ -3,13 +3,13 @@ import ReactGA from 'react-ga';
 import { connect } from "react-redux";
 import { Col } from "antd";
 
-import { roofsActions, roofsSelectors } from "state/roofs";
+import { roofsActions /*, roofsSelectors */ } from "state/roofs";
 import { utils } from 'services';
 import {
   StandardContainer,
   StandardRow,
   MobileOverlay,
-  OpenMenuButton,
+//   OpenMenuButton,
   InfoModal
 } from "components/common";
 import SelectRoofMap from "./SelectRoofMap";

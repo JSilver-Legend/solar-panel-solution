@@ -2,16 +2,19 @@ import React from "react";
 import * as THREE from "three";
 import { DoubleSide } from "three";
 
-const RoofRidgeModel = ({ index, item, width, length, height, angle, constValueData }) => {
-    const ridgeModel = (width, height, style) => {
+const RoofRidgeModel = ({ index, item, width, length, pitch, angle, constValueData, opacityValue }) => {
+    const ridgeModel = (width, pitch, style) => {
         const model = new THREE.Shape();
-        model.moveTo(0, 0);
-        model.lineTo(constValueData.ridgeWidth, style === "saltt-box" ? (-height * constValueData.ridgeWidth * 4) / (width * 3) : (-height * constValueData.ridgeWidth * 2) / width);
-        model.lineTo(constValueData.ridgeWidth, style === "saltt-box" ? (-height * constValueData.ridgeWidth * 4) / (width * 3) + constValueData.ridgeThickness : (-height * constValueData.ridgeWidth * 2) / width + constValueData.ridgeThickness);
-        model.lineTo(0, constValueData.ridgeThickness);
-        model.lineTo(-constValueData.ridgeWidth, style === "saltt-box" ? (-height * constValueData.ridgeWidth * 2) / width + constValueData.ridgeThickness : (-height * constValueData.ridgeWidth * 2) / width + constValueData.ridgeThickness);
-        model.lineTo(-constValueData.ridgeWidth, style === "saltt-box" ? (-height * constValueData.ridgeWidth * 2) / width : (-height * constValueData.ridgeWidth * 2) / width);
-        model.moveTo(0, 0);
+        
+        if ((item.roofStyle === "open-gable" || item.roofStyle === "box-gable" || item.roofStyle === "saltt-box")) {
+            model.moveTo(0, 0);
+            model.lineTo(constValueData.ridgeWidth, style === "saltt-box" ? (-pitch * constValueData.ridgeWidth * 4) / (width * 3) : (-pitch * constValueData.ridgeWidth * 2) / width);
+            model.lineTo(constValueData.ridgeWidth, style === "saltt-box" ? (-pitch * constValueData.ridgeWidth * 4) / (width * 3) + constValueData.ridgeThickness : (-pitch * constValueData.ridgeWidth * 2) / width + constValueData.ridgeThickness);
+            model.lineTo(0, constValueData.ridgeThickness);
+            model.lineTo(-constValueData.ridgeWidth, style === "saltt-box" ? (-pitch * constValueData.ridgeWidth * 2) / width + constValueData.ridgeThickness : (-pitch * constValueData.ridgeWidth * 2) / width + constValueData.ridgeThickness);
+            model.lineTo(-constValueData.ridgeWidth, style === "saltt-box" ? (-pitch * constValueData.ridgeWidth * 2) / width : (-pitch * constValueData.ridgeWidth * 2) / width);
+            model.moveTo(0, 0);
+        }
 
         return model;
     };
@@ -20,14 +23,14 @@ const RoofRidgeModel = ({ index, item, width, length, height, angle, constValueD
         <mesh
             name={`roofModel-${index}`}
             position={[
-                item.ridgeDirection === "direction_1" ? (item.roofStyle === "saltt-box" ? -width / 4 + 0.15 / 2 : 0) : -length / 2 - 0.15,
-                item.buildingHeight + height + 0.27,
-                item.ridgeDirection === "direction_1" ? -length / 2 - 0.15 : item.roofStyle === "saltt-box" ? width / 4 - 0.15 / 2 : 0,
+                item.roofRidge === "1" ? (item.roofStyle === "saltt-box" ? -width / 4 : 0) : -length / 2 - constValueData.coverAddSize,
+                item.buildingHeight + pitch + 0.38,
+                item.roofRidge === "1" ? -length / 2 - constValueData.coverAddSize : item.roofStyle === "saltt-box" ? width / 4 : 0,
             ]}
             rotation={angle}
         >
-            <extrudeGeometry args={[ridgeModel(width, height, item.roofStyle), extrudeRoofSettings(length + 0.3)]} />
-            <meshPhongMaterial color="white" side={DoubleSide} />
+            <extrudeGeometry args={[ridgeModel(width, pitch, item.roofStyle), extrudeRoofSettings(length + constValueData.coverAddSize * 2)]} />
+            <meshStandardMaterial color="white" side={DoubleSide} metalness={0.7} roughness={0.3} opacity={opacityValue} transparent />
         </mesh>
     );
 };

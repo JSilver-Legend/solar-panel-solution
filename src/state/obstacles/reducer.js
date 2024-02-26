@@ -11,6 +11,9 @@ import {
     CLEAN_OBSTACLES,
     CREATE_OBSTACLE_SQUARE,
     SET_OBSTACLES_DATA,
+    UPDATE_OBSTACLES_DATA,
+    SET_CURRENT_OBSTACLE_ID,
+    SET_SELECTED_OBSTACLE_OBJECT,
 } from "./types";
 
 import {
@@ -26,6 +29,7 @@ export const initialState = {
     //----- Harry Potter -----
     obstaclesData: [],
     currentObstacleId: null,
+    selectedObstacleObject: null,
 };
 
 export const obstacles = (state = initialState, action) => {
@@ -157,6 +161,29 @@ export const obstacles = (state = initialState, action) => {
                 ...state,
                 obstaclesData: action.payload
             }
+        
+        case SET_CURRENT_OBSTACLE_ID:
+            return {
+                ...state,
+                currentObstacleId: action.payload
+            }
+
+        case SET_SELECTED_OBSTACLE_OBJECT:
+            return {
+                ...state,
+                selectedObstacleObject: action.payload
+            }                
+
+        case UPDATE_OBSTACLES_DATA:
+            const tempObstaclesData = JSON.parse(JSON.stringify(state.obstaclesData));
+            let changableIndex = state.obstaclesData.findIndex((item) => item.obstacleIndex === state.currentObstacleId);
+            tempObstaclesData[changableIndex][action.payload.type] = action.payload.value;
+      
+            return {
+              ...state,
+              obstaclesData: tempObstaclesData
+            }
+            
         default:
             return state;
     }
