@@ -13,7 +13,6 @@ import LoadingCmp from './CanvasEnv/LoadingCmp';
 import CanvasEnv from './CanvasEnv';
 import Compass from './Compass';
 import BuildingControlPanel from './ControlPanel/BuildingControl';
-import RoofControlPanel from './ControlPanel/RoofControl';
 import ObstacleControlPanel from './ControlPanel/ObstacleControl';
 import SolarControlPanel from './ControlPanel/SolarControl';
 import Building from './Building';
@@ -58,8 +57,6 @@ const BuilderRoof = () => {
         let width = 0;
         let length = 0;
 
-        const offsetScale = 2.3;
-
         roofsSource.forEach((element) => {
 
             const pointPosInitData = element.space;
@@ -79,8 +76,8 @@ const BuilderRoof = () => {
             })
 
             //---building width & length
-            width = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[1]) / offsetScale;
-            length = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[3]) / offsetScale;
+            width = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[1]);
+            length = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[3]);
 
             //---building rotate anglefunction getAngle(point1, point2) { 
             const tempAngle = getAngleTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[1]);
@@ -121,8 +118,8 @@ const BuilderRoof = () => {
             const buildingCenterPoint = {lng: item.buildingCenterPos_X, lat: item.buildingCenterPos_Y};
             const crossingPointX = {lng: globalCenterPoint.lng, lat: buildingCenterPoint.lat};
             const crossingPointY = {lng: buildingCenterPoint.lng, lat: globalCenterPoint.lat};
-            let distance_x = -getDistanceTwoPointsFromGoogleMap(buildingCenterPoint, crossingPointX) / offsetScale;
-            let distance_y = -getDistanceTwoPointsFromGoogleMap(buildingCenterPoint, crossingPointY) / offsetScale;
+            let distance_x = -getDistanceTwoPointsFromGoogleMap(buildingCenterPoint, crossingPointX);
+            let distance_y = -getDistanceTwoPointsFromGoogleMap(buildingCenterPoint, crossingPointY);
 
             if (buildingCenterPoint.lng < globalCenterPoint.lng) distance_x *= -1;
             if (buildingCenterPoint.lat < globalCenterPoint.lat) distance_y *= -1;
@@ -137,7 +134,6 @@ const BuilderRoof = () => {
                 roofRidge: "1",
                 roofMaterial: getRoofTexture(roofsSource[index].roofType),
                 roofPitch: getRoofType(roofsSource[index].southPosition) === "flat" ? 0 : 2,
-                roofAngle: parseFloat((Math.atan(4 / (item.width))).toFixed(2)),
                 //
                 solarStyle: '1708x1134x30mm',
                 solarDirection: 'horizontal',
@@ -167,8 +163,6 @@ const BuilderRoof = () => {
         let width = 0;
         let length = 0;
 
-        const offsetScale = 2.3;
-
         obstaclesSource.forEach((element) => {
             const pointPosInitData = element.space;
             const smallestLatObj = pointPosInitData.reduce((min, obj) => (obj.lat < min.lat ? obj : min), pointPosInitData[0])
@@ -184,8 +178,8 @@ const BuilderRoof = () => {
             })
 
             //---building width & length
-            width = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[1]) / offsetScale;
-            length = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[3]) / offsetScale;
+            width = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[1]);
+            length = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[3]);
             
             //---get building center position
             pointMin_X = Math.min(...pointLng);
@@ -210,8 +204,8 @@ const BuilderRoof = () => {
             const buildingCenterPoint = {lng: item.buildingCenterPos_X, lat: item.buildingCenterPos_Y};
             const crossingPointX = {lng: globalCenterPoint.lng, lat: buildingCenterPoint.lat};
             const crossingPointY = {lng: buildingCenterPoint.lng, lat: globalCenterPoint.lat};
-            let distance_x = getDistanceTwoPointsFromGoogleMap(buildingCenterPoint, crossingPointX) / offsetScale;
-            let distance_y = -getDistanceTwoPointsFromGoogleMap(buildingCenterPoint, crossingPointY) / offsetScale;
+            let distance_x = getDistanceTwoPointsFromGoogleMap(buildingCenterPoint, crossingPointX);
+            let distance_y = -getDistanceTwoPointsFromGoogleMap(buildingCenterPoint, crossingPointY);
 
             if (buildingCenterPoint.lng < globalCenterPoint.lng) distance_x *= -1;
             if (buildingCenterPoint.lat < globalCenterPoint.lat) distance_y *= -1;
@@ -314,36 +308,24 @@ const BuilderRoof = () => {
                         }
                         {controlPanelContent === '2' &&
                             <>
-                                <RoofControlPanel />
+                                <ObstacleControlPanel />
                                 <div className={styles.menuBottom}>
                                 <hr />
                                 <div className={styles.btnGroup}>
                                     <Button type='primary' onClick={() => { dispatch(setControlPanelContent('1')) }}>Back</Button>
-                                    <Button type='primary' onClick={() => { dispatch(setControlPanelContent('3')) }}>Next</Button>
+                                    {/* <Button type='primary' onClick={() => { dispatch(setControlPanelContent('3')) }}>Next</Button> */}
+                                    <Button type='ghost' style={{ color: '#2899F5'}} disabled>* Coming Soon ...</Button>
                                 </div>
                                 </div>
                             </>
                         }
                         {controlPanelContent === '3' &&
                             <>
-                                <ObstacleControlPanel />
-                                <div className={styles.menuBottom}>
-                                <hr />
-                                <div className={styles.btnGroup}>
-                                    <Button type='primary' onClick={() => { dispatch(setControlPanelContent('2')) }}>Back</Button>
-                                    {/* <Button type='primary' onClick={() => { dispatch(setControlPanelContent('4')) }}>Next</Button> */}
-                                    <Button type='ghost' style={{ color: '#2899F5'}}>* Coming Soon ...</Button>
-                                </div>
-                                </div>
-                            </>
-                        }
-                        {controlPanelContent === '4' &&
-                            <>
                                 <SolarControlPanel />
                                 <div className={styles.menuBottom}>
                                 <hr />
                                 <div className={styles.btnGroup}>
-                                    <Button type='primary' onClick={() => { dispatch(setControlPanelContent('3')) }}>Back</Button>
+                                    <Button type='primary' onClick={() => { dispatch(setControlPanelContent('2')) }}>Back</Button>
                                     <Button type='primary' onClick={() => { dispatch(setShowModalState(true)) }}>API Data</Button>
                                 </div>
                                 </div>

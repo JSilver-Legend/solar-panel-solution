@@ -3,7 +3,7 @@ import { Col, Row, Typography, Slider, InputNumber, Checkbox, Select } from "ant
 import { useDispatch, useSelector } from "react-redux";
 
 import { ObstacleStyleOptions } from "utils/BuildingInitInfo";
-import { setAddSolarPanelState, setCurrentBuildingId, setDomRenderState, setMapTextureShowState, setSelectedSolarObject } from "state/roofs/actions";
+import { setAddSolarPanelState, setCurrentBuildingId, setDomRenderState, setMapTextureShowState, setSelectedSolarObject, setShowRoofOption } from "state/roofs/actions";
 import { setCurrentObstacleId, setSelectedObstacleObject, updateObstaclesData } from "state/obstacles/actions";
 
 import styles from "../../builder.module.scss";
@@ -40,6 +40,7 @@ const ObstacleControlPanel = () => {
         dispatch(setSelectedSolarObject(null));
         dispatch(setAddSolarPanelState(false));
         dispatch(setMapTextureShowState(true));
+        dispatch(setShowRoofOption(true));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -66,6 +67,9 @@ const ObstacleControlPanel = () => {
         <Fragment>
             <div className={styles.mainTitle}>Please configure your OBSTACLE</div>
             <div className={styles.selectOptions}>
+                <Checkbox className={styles.checkboxTag} checked={mapTextureShowState} onChange={(e) => dispatch(setMapTextureShowState(e.target.checked))}>
+                    <Typography style={{ color: "#0066FF" }}>Show Map Image</Typography>
+                </Checkbox>
                 <Row>
                     <Col span={5}>
                         <div className={styles.title}>type</div>
@@ -179,9 +183,6 @@ const ObstacleControlPanel = () => {
                         <div className={styles.text}>m</div>
                     </Col>
                 </Row>
-                <Checkbox className={styles.checkboxTag} checked={mapTextureShowState} onChange={(e) => dispatch(setMapTextureShowState(e.target.checked))}>
-                    <Typography style={{ color: "black" }}>Show Map Image</Typography>
-                </Checkbox>
             </div>
         </Fragment>
     );

@@ -28,6 +28,7 @@ import {
   UPDATE_SOLAR_PANEL_COUNT_INFO,
   SET_SHOW_MODAL_STATE,
   SET_RESULT_CAPTURE_IMAGE,
+  SET_SHOW_ROOF_OPTION,
   //---------------------
 } from "./types";
 import { utils } from "services";
@@ -139,6 +140,11 @@ export const setGoogleMapImageURL = value => ({
 
 export const setMapTextureShowState = value => ({
   type: MAP_TEXTURE_SHOW_STATE,
+  payload: value
+})
+
+export const setShowRoofOption = value => ({
+  type: SET_SHOW_ROOF_OPTION,
   payload: value
 })
 

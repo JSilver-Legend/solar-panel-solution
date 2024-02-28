@@ -6,8 +6,7 @@ import RoofCoverModel from "./RoofCoverModel";
 import RoofRidgeModel from "./RoofRidgeModel";
 
 const Roof = ({ index, item, opacityValue  }) => {
-    
-    const controlPanelContent = useSelector((state) => state.roofs.controlPanelContent);
+    const isShowRoofOption = useSelector((state) => state.roofs.isShowRoofOption); 
     
     const [buildingWidth, setBuildingWidth] = useState(item.buildingWidth);
     const [buildingLength, setBuildingLength] = useState(item.buildingLength);
@@ -27,14 +26,12 @@ const Roof = ({ index, item, opacityValue  }) => {
         }
     }, [item.buildingLength, item.buildingWidth, item.roofRidge]);
 
-    return controlPanelContent !== "1" && (
+    return isShowRoofOption && (
         <group name="roof-objects">
-            {controlPanelContent !== '3' &&
-                <group>
-                    <RoofModel index={index} item={item} width={buildingWidth} length={buildingLength} pitch={pitch} angle={angleWithRidge} constValueData={constValueData} opacityValue={opacityValue} />
-                    <RoofRidgeModel index={index} item={item} width={buildingWidth} length={buildingLength} pitch={pitch} angle={angleWithRidge} constValueData={constValueData} opacityValue={opacityValue} />
-                </group>
-            }
+            <group>
+                <RoofModel index={index} item={item} width={buildingWidth} length={buildingLength} pitch={pitch} angle={angleWithRidge} constValueData={constValueData} opacityValue={opacityValue} />
+                <RoofRidgeModel index={index} item={item} width={buildingWidth} length={buildingLength} pitch={pitch} angle={angleWithRidge} constValueData={constValueData} opacityValue={opacityValue} />
+            </group>
             <RoofCoverModel index={index} item={item} width={buildingWidth} length={buildingLength} pitch={pitch} angle={angleWithRidge} constValueData={constValueData} opacityValue={opacityValue} />
         </group>
     );

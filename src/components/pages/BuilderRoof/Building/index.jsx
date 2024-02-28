@@ -114,24 +114,24 @@ const Building = ({ index, item, orbitCam }) => {
         <group>
             {selectedObstacleObject && (
                 <TransformControls
-                    object={controlPanelContent === "3" && selectedObstacleObject}
+                    object={controlPanelContent === "2" && selectedObstacleObject}
                     size={1}
                     space="local"
-                    showX={controlPanelContent === "3" && selectedObstacleObject}
+                    showX={controlPanelContent === "2" && selectedObstacleObject}
                     showY={false}
-                    showZ={controlPanelContent === "3" && selectedObstacleObject}
-                    enabled={controlPanelContent === "3" && selectedObstacleObject}
+                    showZ={controlPanelContent === "2" && selectedObstacleObject}
+                    enabled={controlPanelContent === "2" && selectedObstacleObject}
                 />
             )}
             {selectedSolarObject && (
                 <TransformControls
-                    object={controlPanelContent === "4" && selectedSolarObject}
+                    object={controlPanelContent === "3" && selectedSolarObject}
                     size={1}
                     space="local"
-                    showX={controlPanelContent === "4" && selectedSolarObject}
-                    showY={controlPanelContent === "4" && selectedSolarObject}
+                    showX={controlPanelContent === "3" && selectedSolarObject}
+                    showY={controlPanelContent === "3" && selectedSolarObject}
                     showZ={false}
-                    enabled={controlPanelContent === "4" && selectedSolarObject}
+                    enabled={controlPanelContent === "3" && selectedSolarObject}
                 />
             )}
             <TransformControls
@@ -153,7 +153,7 @@ const Building = ({ index, item, orbitCam }) => {
                         dispatch(setCurrentBuildingId(null));
                     }}
                 >
-                    <Roof index={index} item={item} opacityValue={(controlPanelContent === '2' || controlPanelContent === '4') ? 1 : opacityValue} />
+                    <Roof index={index} item={item} opacityValue={(controlPanelContent === '1' || controlPanelContent === '3') ? 1 : opacityValue} />
                     <Body index={index} item={item} opacityValue={opacityValue} />
                 </group>
 

@@ -127,7 +127,7 @@ const SelectRoofContent = ({
         globalCenterPos_X = globalMin_X + (globalMax_X - globalMin_X) / 2
         globalCenterPos_Y = globalMin_Y + (globalMax_Y - globalMin_Y) / 2
 
-        imageURL = `https://maps.googleapis.com/maps/api/staticmap?center=${globalCenterPos_Y},${globalCenterPos_X}&zoom=16&scale=1&size=1000x1000&maptype=satellite&format=png&visual_refresh=true&key=AIzaSyDSNNi3altaClp_oQKogzkaETu0TbHWBIs`;
+        imageURL = `https://maps.googleapis.com/maps/api/staticmap?center=${globalCenterPos_Y},${globalCenterPos_X}&zoom=18&scale=1&size=640x640&maptype=satellite&format=png&visual_refresh=true&key=AIzaSyDSNNi3altaClp_oQKogzkaETu0TbHWBIs`;
         dispatch(setGoogleMapImageURL(imageURL));
     }
 

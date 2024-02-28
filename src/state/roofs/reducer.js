@@ -30,6 +30,7 @@ import {
   UPDATE_SOLAR_PANEL_COUNT_INFO,
   SET_SHOW_MODAL_STATE,
   SET_RESULT_CAPTURE_IMAGE,
+  SET_SHOW_ROOF_OPTION,
 } from "./types";
 
 import { utils } from "services";
@@ -54,6 +55,7 @@ export const initialState = {
   mapTextureShowState: true,
   solarPanelCountInfo: [],
   showModalState: false,
+  isShowRoofOption: false,
   resultCaptureImage: "",
 };
 
@@ -128,6 +130,12 @@ export const roofs = (state = initialState, action) => {
       return {
         ...state,
         mapTextureShowState: action.payload
+      }
+
+    case SET_SHOW_ROOF_OPTION:
+      return {
+        ...state,
+        isShowRoofOption: action.payload
       }
 
     case SET_SOLAR_PANEL_COUNT_INFO:

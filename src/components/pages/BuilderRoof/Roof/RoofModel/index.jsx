@@ -71,7 +71,7 @@ const RoofModel = ({ index, item, width, length, pitch, angle, constValueData, o
     return (
         <mesh name={`roofModel-${index}`} position={[item.roofRidge === "1" ? 0 : -length / 2, item.buildingHeight + 0.105, item.roofRidge === "1" ? -length / 2 : 0]} rotation={angle}>
             <extrudeGeometry args={[model(), extrudeRoofSettings(length)]} />
-            {(controlPanelContent === '2' || controlPanelContent === '4') ?
+            {(controlPanelContent === '1' || controlPanelContent === '3') ?
                 <meshPhongMaterial map={roofTexture} bumpMap={roofTexture} bumpScale={0.2} side={DoubleSide} opacity={opacityValue} transparent />
                 :
                 <meshPhongMaterial color={'white'} side={DoubleSide} opacity={opacityValue} transparent />

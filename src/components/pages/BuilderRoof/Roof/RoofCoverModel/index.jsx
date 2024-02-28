@@ -61,8 +61,6 @@ const flatModel = (width, coverAddSize, roofThickness) => {
 };
 
 const boxGableModel = (width, pitch, coverAddSize, roofThickness) => {
-    console.log('pitch: ', pitch);
-    console.log('width: ', width);
     const model = new THREE.Shape();
     model.moveTo(width / 2 + coverAddSize, (-coverAddSize * pitch * 2) / width);
     model.lineTo(width / 2 + coverAddSize, (-coverAddSize * pitch * 2) / width + roofThickness);
