@@ -26,7 +26,6 @@ const BuildingControlPanel = () => {
     const [roofPitch, setRoofPitch] = useState(0)
     const [roofAngle, setRoofAngle] = useState(0)
     const [roofAngleMaxLimit, setRoofroofAngleMaxLimit] = useState(0);
-    console.log('roofAngleMaxLimit: ', roofAngleMaxLimit);
 
     let payload;
     const offsetScale = 2.3;

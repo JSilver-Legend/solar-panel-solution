@@ -25,7 +25,7 @@ const Ground = () => {
             {mapTextureShowState && (
                 <mesh position={[0, -0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
                     <planeGeometry args={[650, 650]} />
-                    <meshStandardMaterial map={groundTexture} color={"#BDBDBD"} />
+                    <meshStandardMaterial map={groundTexture} color={"#BDBDBD"} metalness={0.2} />
                 </mesh>
             )}
         </group>

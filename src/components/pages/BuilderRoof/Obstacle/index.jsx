@@ -71,7 +71,7 @@ const Obstacle = ({ index, obstacleItem, buildingItem, initBuildingAngleY }) => 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
-    return (controlPanelContent === '3') && (
+    return (controlPanelContent === '2') && (
         <group
             position={[0, buildingHeight, 0]}
             onClick={(e) => {
@@ -104,11 +104,11 @@ const Obstacle = ({ index, obstacleItem, buildingItem, initBuildingAngleY }) => 
                 >
                     {obstacleItem.type === 'chimney' &&
                         <group>
-                            <mesh name="outer-model" rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
+                            <mesh name="outer-model" rotation={[-Math.PI / 2, 0, 0]}>
                                 <extrudeGeometry args={[modelOuter, extrudeSetting(obstacleHeight + roofPitch)]} />
                                 <meshStandardMaterial side={DoubleSide} color={currentObstacleId === index ? "red" : "#1D1D1D"} />
                             </mesh>
-                            <mesh name="inner-model" rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
+                            <mesh name="inner-model" rotation={[-Math.PI / 2, 0, 0]}>
                                 <extrudeGeometry args={[modelInner, extrudeSetting(obstacleHeight + roofPitch)]} />
                                 <meshStandardMaterial side={DoubleSide} color={"#1D1D1D"} opacity={0.3} transparent />
                             </mesh>

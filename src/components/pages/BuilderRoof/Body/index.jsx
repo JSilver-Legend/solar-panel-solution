@@ -86,7 +86,7 @@ const Body = ({ index, item, opacityValue }) => {
                 />
             </mesh>
             
-            {((controlPanelContent === '1' || controlPanelContent === '3') && currentBuildingId === index) &&
+            {currentBuildingId === index &&
                 <group name="line-model" rotation={angleWithRidge}>
                     <line geometry={outerLineModel} position={[0, height + 0.1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
                         <lineBasicMaterial color='#FF4D00' linewidth={10} />
