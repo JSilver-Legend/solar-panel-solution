@@ -126,9 +126,10 @@ const BuilderRoof = () => {
             
             initialDataInfo.push({
                 buildingIndex: index,
-                buildingAngle: -parseFloat((item.angle).toFixed(2)),
-                buildingWidth: parseFloat((item.width).toFixed(2)),
-                buildingLength: parseFloat((item.length).toFixed(2)),
+                buildingAngle: -item.angle,
+                buildingAngleWithRidge: [0, 0, 0],
+                buildingWidth: item.width,
+                buildingLength: item.length,
                 buildingHeight: 3,
                 roofStyle: getRoofType(roofsSource[index].southPosition),
                 roofRidge: "1",

@@ -1,32 +1,32 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
 import * as THREE from "three";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
 import { DoubleSide } from "three";
+
 import { extrudeSetting } from "utils/Function";
 
 const Body = ({ index, item, opacityValue }) => {
     const controlPanelContent = useSelector((state) => state.roofs.controlPanelContent);
     const currentBuildingId = useSelector((state) => state.roofs.currentBuildingId);
-
-    const [width, setWidth] = useState(item.buildingWidth);
-    const [length, setLenght] = useState(item.buildingLength);
-    const [angleWithRidge, setAngleWithRidge] = useState([0, 0, 0]);
-
+    
+    const width = item.buildingWidth;
+    const length = item.buildingLength;
     const height = item.buildingHeight;
-    const roofPitch = item.roofPitch;
+    const pitch = item.roofPitch;
+    const angleWithRidge = item.buildingAngleWithRidge;
 
     const bodyModel = useMemo(() => {
         switch (item.roofStyle) {
             case "shed":
-                return shedModel(width, height, roofPitch);
+                return shedModel(width, height, pitch);
             case "open-gable":
-                return openGableModel(width, height, roofPitch);
+                return openGableModel(width, height, pitch);
             case "saltt-box":
-                return salttBoxModel(width, height, roofPitch);
+                return salttBoxModel(width, height, pitch);
             default:
                 return boxGableModel(width, height);
         }
-    }, [height, item.roofStyle, roofPitch, width])
+    }, [height, item.roofStyle, pitch, width])
 
     const outerLineModel = useMemo(() => {
         const model = new THREE.Shape();
@@ -72,18 +72,6 @@ const Body = ({ index, item, opacityValue }) => {
         }
     }, [currentBuildingId, index])
 
-    useEffect(() => {
-        if (item.roofRidge === "1") {
-            setWidth(item.buildingWidth);
-            setLenght(item.buildingLength);
-            setAngleWithRidge([0, 0, 0]);
-        } else {
-            setWidth(item.buildingLength);
-            setLenght(item.buildingWidth);
-            setAngleWithRidge([0, Math.PI / 2, 0]);
-        }
-    }, [item.buildingAngle, item.buildingLength, item.buildingWidth, item.roofRidge]);
-
     return (
         <group>
             <mesh castShadow position={[item.roofRidge === "1" ? 0 : -length / 2, 0.1, item.roofRidge === "1" ? -length / 2 : 0]} rotation={angleWithRidge}>
@@ -126,34 +114,34 @@ const boxGableModel = (width, height) => {
     return model;
 };
 
-const shedModel = (width, height, roofHeight) => {
+const shedModel = (width, height, pitch) => {
     const model = new THREE.Shape();
     model.moveTo(width / 2, 0);
     model.lineTo(width / 2, height);
-    model.lineTo(-width / 2, height + roofHeight);
+    model.lineTo(-width / 2, height + pitch);
     model.lineTo(-width / 2, 0);
     model.lineTo(width / 2, 0);
 
     return model;
 };
 
-const openGableModel = (width, height, roofHeight) => {
+const openGableModel = (width, height, pitch) => {
     const model = new THREE.Shape();
     model.moveTo(width / 2, 0);
     model.lineTo(width / 2, height);
-    model.lineTo(0, height + roofHeight);
+    model.lineTo(0, height + pitch);
     model.lineTo(-width / 2, height);
     model.lineTo(-width / 2, 0);
     model.lineTo(width / 2, 0);
     return model;
 };
 
-const salttBoxModel = (width, height, roofHeight) => {
+const salttBoxModel = (width, height, pitch) => {
     const model = new THREE.Shape();
     model.moveTo(width / 2, 0);
     model.lineTo(width / 2, height);
-    model.lineTo(-width / 4, height + roofHeight);
-    model.lineTo(-width / 2, height + roofHeight / 2);
+    model.lineTo(-width / 4, height + pitch);
+    model.lineTo(-width / 2, height + pitch / 2);
     model.lineTo(-width / 2, 0);
     model.lineTo(width / 2, 0);
 

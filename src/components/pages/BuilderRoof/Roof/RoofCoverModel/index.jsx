@@ -2,7 +2,12 @@ import React from "react";
 import * as THREE from "three";
 import { DoubleSide } from "three";
 
-const RoofCoverModel = ({ index, item, width, length, pitch, angle, constValueData, opacityValue }) => {
+const RoofCoverModel = ({ index, item, constValueData, opacityValue }) => {
+    const width = item.buildingWidth;
+    const length = item.buildingLength;
+    const pitch = item.roofPitch;
+    const angle = item.buildingAngleWithRidge;
+    
     const model = () => {
         switch (item.roofStyle) {
             case "flat":

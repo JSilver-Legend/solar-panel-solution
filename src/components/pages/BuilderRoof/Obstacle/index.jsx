@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DoubleSide } from "three";
 
@@ -16,12 +16,12 @@ const Obstacle = ({ index, obstacleItem, buildingItem, initBuildingAngleY }) => 
     const obstaclesData = useSelector((state) => state.obstacles.obstaclesData);
 
     const [isTextureLoadState, setIsTextureLoadState] = useState(false);
-    const [angleWithRidge, setAngleWithRidge] = useState([0, 0, 0]);
-    const [obstacleWidth, setObstacleWidth] = useState(obstacleItem.width);
-    const [obstacleLength, setObstacleLength] = useState(obstacleItem.length);
-
-    const buildingHeight = buildingItem.buildingHeight;
+    
+    const obstacleWidth = obstacleItem.width;
+    const obstacleLength = obstacleItem.length;
     const obstacleHeight = obstacleItem.height;
+    const angleWithRidge = buildingItem.buildingAngleWithRidge;
+    const buildingHeight = buildingItem.buildingHeight;
     const roofPitch = buildingItem.roofPitch;
     const roofSlopeAngle = Math.atan(roofPitch / buildingItem.buildingWidth);
 
@@ -70,18 +70,6 @@ const Obstacle = ({ index, obstacleItem, buildingItem, initBuildingAngleY }) => 
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        if (buildingItem.roofRidge === "1") {
-            setObstacleWidth(obstacleItem.width);
-            setObstacleLength(obstacleItem.length);
-            setAngleWithRidge([0, 0, 0]);
-        } else if (buildingItem.roofRidge === "2") {
-            setObstacleWidth(obstacleItem.length);
-            setObstacleLength(obstacleItem.width);
-            setAngleWithRidge([0, Math.PI / 2, 0]);
-        }
-    }, [buildingItem, obstacleItem]);
     
     return (controlPanelContent === '3') && (
         <group

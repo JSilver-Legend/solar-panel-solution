@@ -2,7 +2,12 @@ import React from "react";
 import * as THREE from "three";
 import { DoubleSide } from "three";
 
-const RoofRidgeModel = ({ index, item, width, length, pitch, angle, constValueData, opacityValue }) => {
+const RoofRidgeModel = ({ index, item, constValueData, opacityValue }) => {
+    const width = item.buildingWidth;
+    const length = item.buildingLength;
+    const pitch = item.roofPitch;
+    const angle = item.buildingAngleWithRidge;
+    
     const ridgeModel = (width, pitch, style) => {
         const model = new THREE.Shape();
         

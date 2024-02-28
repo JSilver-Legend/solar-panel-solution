@@ -24,11 +24,13 @@ const BuildingControlPanel = () => {
     const [roofRidge, setRoofRidge] = useState("")
     const [roofMaterial, setRoofMaterial] = useState("")
     const [roofPitch, setRoofPitch] = useState(0)
-    // const [roofAngle, setRoofAngle] = useState(0)
-    // const [roofAngleMaxLimit, setRoofroofAngleMaxLimit] = useState(0);
+    const [roofAngle, setRoofAngle] = useState(0)
+    const [roofAngleMaxLimit, setRoofroofAngleMaxLimit] = useState(0);
+    console.log('roofAngleMaxLimit: ', roofAngleMaxLimit);
 
     let payload;
     const offsetScale = 2.3;
+    const pitchMaxLimit = 15;
 
     const handleChangeEvent = (value, type) => {
         dispatch(setDomRenderState(!domRenderState));
@@ -37,11 +39,35 @@ const BuildingControlPanel = () => {
             tempValue *= offsetScale;
         }
         payload = {
-            value: tempValue,
             type: type,
+            value: tempValue,
         };
         if (currentBuildingId !== null) {
             dispatch(updateRoofsData(payload));
+        }
+
+        if (type === 'roofRidge') {
+            const tempBuildingData = roofsData.find((item) => item.buildingIndex === currentBuildingId);
+            dispatch(updateRoofsData({
+                type: 'buildingWidth',
+                value: tempBuildingData.buildingLength,
+            }));
+            dispatch(updateRoofsData({
+                type: 'buildingLength',
+                value: tempBuildingData.buildingWidth,
+            }));
+
+            if (value === '1') {
+                dispatch(updateRoofsData({
+                    type: 'buildingAngleWithRidge',
+                    value: [0, 0, 0],
+                }));
+            } else {
+                dispatch(updateRoofsData({
+                    type: 'buildingAngleWithRidge',
+                    value: [0, Math.PI / 2, 0],
+                }));
+            }
         }
     };
 
@@ -91,7 +117,9 @@ const BuildingControlPanel = () => {
             setRoofRidge("");
             setRoofMaterial("");
             setRoofPitch(0);
-            // setRoofAngle(0);
+
+            setRoofAngle(0);
+            setRoofroofAngleMaxLimit(0);
         } else {
             const tempBuildingData = roofsData.find((item) => item.buildingIndex === currentBuildingId);
             setBuildingAngle(tempBuildingData.buildingAngle);
@@ -103,11 +131,12 @@ const BuildingControlPanel = () => {
             setRoofPitch(parseFloat((tempBuildingData.roofPitch / offsetScale).toFixed(2)));
             setRoofRidge(tempBuildingData.roofRidge);
             setRoofMaterial(tempBuildingData.roofMaterial);
-            // setRoofAngle(parseFloat((Math.atan(tempBuildingData.roofPitch / (tempBuildingData.buildingWidth / 2))).toFixed(2)));
-            // setRoofroofAngleMaxLimit(Math.atan(10 / (tempBuildingData.buildingWidth / 2)));
+            
+            setRoofAngle(parseFloat((Math.atan((tempBuildingData.roofPitch / offsetScale) / ((tempBuildingData.buildingWidth / offsetScale) / 2))).toFixed(2)));
+            setRoofroofAngleMaxLimit(parseFloat((Math.atan(pitchMaxLimit / ((tempBuildingData.buildingWidth / offsetScale) / 2))).toFixed(2)));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [domRenderState, currentBuildingId]);
+    }, [domRenderState, currentBuildingId]);  
 
     return (
         <Fragment>
@@ -244,43 +273,38 @@ const BuildingControlPanel = () => {
                         </Row>
                         <Row>
                             <Col span={5} style={{display: "flex", flexDirection: "column", gap: 10}}>
-                                {/* <div className={styles.title}>angle</div> */}
+                                <div className={styles.title}>angle</div>
                                 <div className={styles.title}>pitch</div>
                             </Col>
                             <Col span={12} style={{display: "flex", flexDirection: "column", gap: 10}}>
-                                {/* <Slider
+                                <Slider
                                     name="roof-angle"
                                     className={styles.sliderTag}
                                     defaultValue={0}
                                     value={roofAngle}
                                     max={roofAngleMaxLimit}
-                                    step={0.1}
+                                    step={0.01}
                                     disabled={(roofStyle === 'flat' || currentBuildingId === null) ? true : false}
                                     onChange={(e) => {
                                         const changedRoofPitch = parseFloat(((buildingWidth / 2) * Math.tan(e)).toFixed(2));
                                         handleChangeEvent(changedRoofPitch, "roofPitch");
-                                        setRoofAngle(e);
-                                        setRoofPitch(changedRoofPitch)
                                     }}
-                                /> */}
+                                />
                                 <Slider
                                     name="roof-pitch"
                                     className={styles.sliderTag}
                                     defaultValue={0}
                                     value={roofPitch}
-                                    max={10}
+                                    max={pitchMaxLimit}
                                     step={0.5}
                                     disabled={(roofStyle === 'flat' || currentBuildingId === null) ? true : false}
                                     onChange={(e) => {
                                         handleChangeEvent(e, "roofPitch");
-                                        setRoofPitch(e);
-                                        // const changedRoofAngle = parseFloat((Math.atan(e / (buildingWidth / 2))).toFixed(2));
-                                        // setRoofAngle(changedRoofAngle);
                                     }}
                                 />
                             </Col>
                             <Col span={5} style={{display: "flex", flexDirection: "column", gap: 10}}>
-                                {/* <InputNumber
+                                <InputNumber
                                     name="roof-angle"
                                     className={styles.inputTag}
                                     min={0}
@@ -293,7 +317,7 @@ const BuildingControlPanel = () => {
                                         handleChangeEvent(changedRoofHeight, "roofPitch");
                                         setRoofAngle(e);
                                     }}
-                                /> */}
+                                />
                                 <InputNumber
                                     name="roof-pitch"
                                     className={styles.inputTag}
@@ -311,7 +335,7 @@ const BuildingControlPanel = () => {
                                 />
                             </Col>
                             <Col span={2} style={{display: "flex", flexDirection: "column", gap: 10}}>
-                                {/* <div className={styles.text}>rad</div> */}
+                                <div className={styles.text}>rad</div>
                                 <div className={styles.text}>m</div>
                             </Col>
                         </Row>

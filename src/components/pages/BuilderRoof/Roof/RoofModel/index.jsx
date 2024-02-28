@@ -7,8 +7,12 @@ import { Brick, Concrete, Metal, Plate, Plegel, Cardboard } from "utils/ImageInf
 import { TextureCustomize } from "utils/TextureInfo";
 import { useSelector } from "react-redux";
 
-const RoofModel = ({ index, item, width, length, pitch, angle, constValueData, opacityValue }) => {
+const RoofModel = ({ index, item, constValueData, opacityValue }) => {
     const { gl } = useThree();
+    const width = item.buildingWidth;
+    const length = item.buildingLength;
+    const pitch = item.roofPitch;
+    const angle = item.buildingAngleWithRidge;
 
     const controlPanelContent = useSelector((state) => state.roofs.controlPanelContent);
 
