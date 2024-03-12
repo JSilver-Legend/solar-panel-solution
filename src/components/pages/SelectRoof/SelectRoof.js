@@ -3,15 +3,15 @@ import ReactGA from 'react-ga';
 import { connect } from "react-redux";
 import { Col } from "antd";
 
-import { roofsActions /*, roofsSelectors */ } from "state/roofs";
+import { roofsActions  } from "state/roofs";
 import { utils } from 'services';
 import {
-  StandardContainer,
-  StandardRow,
-  MobileOverlay,
-//   OpenMenuButton,
-  InfoModal
+    StandardContainer,
+    StandardRow,
+    MobileOverlay,
+    InfoModal
 } from "components/common";
+
 import SelectRoofMap from "./SelectRoofMap";
 import SelectRoofHowTo from "./SelectRoofHowTo";
 import SelectRoofContent from "./SelectRoofContent";
@@ -19,17 +19,18 @@ import RoofDetailsModal from "./RoofDetailsModal";
 import ObstacleDetailsModal from "./ObstacleDetailsModal";
 
 const SelectRoof = ({ mobileMenuOpen, roofs, setRoofMenuOpen, drawingMode, roofsSelectors, addRoofDialogOpen }) => {
+    console.log('roofs: ', roofs);
     useEffect(() => {
         initializeReactGA();
     }, []);
 
     useEffect(() => {
         if (utils.getIfMobile()) {
-        if (drawingMode) {
-            setRoofMenuOpen(false);
-        } else if (roofs.length === 0) {
-            //setRoofMenuOpen(true);
-        }
+            if (drawingMode) {
+                setRoofMenuOpen(false);
+            } else if (roofs.length === 0) {
+                setRoofMenuOpen(true);
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [drawingMode]);
@@ -43,9 +44,9 @@ const SelectRoof = ({ mobileMenuOpen, roofs, setRoofMenuOpen, drawingMode, roofs
 
     let renderContent = roofLength => {
         if (roofLength < 1) {
-        return <SelectRoofHowTo />;
+            return <SelectRoofHowTo />;
         } else {
-        return <SelectRoofContent />;
+            return <SelectRoofContent />;
         }
     };
 

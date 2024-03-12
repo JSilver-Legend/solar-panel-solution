@@ -55,7 +55,7 @@ export const initialState = {
   mapTextureShowState: true,
   solarPanelCountInfo: [],
   showModalState: false,
-  isShowRoofOption: false,
+  isShowRoofOption: true,
   resultCaptureImage: "",
 };
 

@@ -1,17 +1,16 @@
 import React from 'react';
-import styles from './container.module.scss';
 import cn from 'classnames';
 
-const StandardContainer = ({className,...props}) => {
-  console.log('className: ', className);
+import styles from './container.module.scss';
 
-  let containerStyle = cn(styles.container,{
-    [`${className}`]: className
-  });
+const StandardContainer = ({ className, ...props }) => {
+    let containerStyle = cn(styles.container,{
+        [`${className}`]: className
+    });
 
-  return (
-    <div className={containerStyle} {...props}/>
-  )
+    return (
+        <div className={containerStyle} {...props}/>
+    )
 }
 
 export default StandardContainer;

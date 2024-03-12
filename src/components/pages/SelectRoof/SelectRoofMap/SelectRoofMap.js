@@ -257,7 +257,7 @@ const SelectRoofMap = ({
                         key={roof.id}
                         selected={selectedRoof && roof.id === selectedRoof.id && !locked}
                         onEdit={(coordinates, area) => {
-                        updateRoofSpace(roof.id, coordinates, area);
+                            updateRoofSpace(roof.id, coordinates, area);
                         }}
                         paths={roof.space}
                         options={drawingOptions.polygonOptions}

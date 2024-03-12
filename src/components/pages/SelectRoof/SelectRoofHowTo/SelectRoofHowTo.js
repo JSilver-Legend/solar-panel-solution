@@ -1,38 +1,38 @@
 import React from "react";
-import { mapActions, mapSelectors } from "state/map";
-import { /* roofsSelectors, */ roofsActions } from "state/roofs";
-import { obstaclesActions } from "state/obstacles";
 import { connect } from "react-redux";
-import { resultActions } from "state/result";
-// import { Icon, Typography } from "antd";
-import { utils } from 'services';
-import {
-  Button,
-  Content,
-  ContentInner,
-  Footer,
-  Title,
-//   InfoModal,
-  PrevButton,
-  NextButton
-} from "components/common";
 import { Link } from "react-router-dom";
 
+import { mapActions, mapSelectors } from "state/map";
+import { roofsActions } from "state/roofs";
+import { obstaclesActions } from "state/obstacles";
+import { resultActions } from "state/result";
+import { utils } from 'services';
+
+import {
+    Button,
+    Content,
+    ContentInner,
+    Footer,
+    Title,
+    PrevButton,
+    NextButton
+} from "components/common";
+
 const SelectRoofHowTo = ({
-  activateDrawingMode,
-  deactivateDrawingMode,
-  isDrawing,
-  isPlacingObstacle,
-  setIsPlacingObstacle,
-  createRoofSquare,
-  createObstacleSquare,
-  setSelectedObstacle,
-  mapCenter,
-  setRoofMenuOpen,
-  setSelectedRoof,
-  setInfoMenu,
-  selectedRoof,
-  setEditRoofOpen
+    activateDrawingMode,
+    deactivateDrawingMode,
+    isDrawing,
+    isPlacingObstacle,
+    setIsPlacingObstacle,
+    createRoofSquare,
+    createObstacleSquare,
+    setSelectedObstacle,
+    mapCenter,
+    setRoofMenuOpen,
+    setSelectedRoof,
+    setInfoMenu,
+    selectedRoof,
+    setEditRoofOpen
 }) => {
     function addNewRoof() {
         activateDrawingMode();

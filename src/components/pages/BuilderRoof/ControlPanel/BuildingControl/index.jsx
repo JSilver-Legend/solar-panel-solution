@@ -77,7 +77,7 @@ const BuildingControlPanel = () => {
         dispatch(setSelectedSolarObject(null));
         dispatch(setAddSolarPanelState(false));
         dispatch(setMapTextureShowState(true));
-        dispatch(setShowRoofOption(false));
+        dispatch(setShowRoofOption(true));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
