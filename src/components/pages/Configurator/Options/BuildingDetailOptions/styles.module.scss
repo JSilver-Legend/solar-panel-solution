@@ -1,0 +1,61 @@
+.mainWrapper {
+    width: 100%;
+    .typeSelection {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .buildingWrapper {
+        margin-bottom: 20px;
+        .buildingOption {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            gap: 10px;
+            .optionTitle {
+                width: 90px;
+            }
+        }
+    }
+    .roofWrapper {
+        width: 100%;
+        .roofTypes {
+            display: flex;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            justify-content: flex-start;
+            gap: 20px;
+            align-items: center;
+        }
+        .roofAngleOptions {
+            width: 100%;
+            .sliderOption {
+                width: 100%;
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                .optionTitle {
+                    width: 90px;
+                }
+            }
+        }
+        .ridgeOptions {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            .title {
+                margin-bottom: 10px;
+            }
+        }
+        .materialOptions {
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+            align-items: center;
+        }
+    }
+}

@@ -13,6 +13,7 @@ import SelectRoof from 'components/pages/SelectRoof';
 import SetDetails from 'components/pages/SetDetails';
 import Result from 'components/pages/Result';
 import BuilderRoof from 'components/pages/BuilderRoof';
+import Configurator from 'components/pages/Configurator';
 
 let { store, persistor } = configureStore();
 
@@ -53,6 +54,7 @@ const App = () => {
                         <Route exact path="/sellerpage" component={SellerPage} />
                         <Route exact path="/summary" component={Summary} />
                         <Route exact path="/builder" component={BuilderRoof} />
+                        <Route exact path="/configurator" component={Configurator} />
                         {/* <Route exact path="/test" component={Test} /> */}
                     </Router>
                 </Suspense>

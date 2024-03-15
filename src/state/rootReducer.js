@@ -4,6 +4,7 @@ import map from "./map";
 import details from "./details";
 import result from "./result";
 import obstacles from "./obstacles";
+import configurator from './configurator';
 import { combineReducers } from "redux";
 
 const appReducer = combineReducers({
@@ -12,7 +13,8 @@ const appReducer = combineReducers({
   map,
   result,
   roofs,
-  obstacles
+  obstacles,
+  configurator
 });
 
 const rootReducer = (state, action) => {

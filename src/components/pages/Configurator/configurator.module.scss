@@ -1,0 +1,62 @@
+@import 'styles/colors';
+
+.mainWrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    .content {
+        width: 100%;
+        height: 100vh;
+        padding: 3em;
+        .menu {
+            position: relative;
+            background-color: #F0F0F0;
+            height: 100%;
+            .mainTitle {
+                display: flex;
+                justify-content: center;
+                margin-top: 40px;
+                margin-bottom: 10px;
+                font-size: 25px;
+                font-weight: bold;
+                user-select: none;
+            }
+            .options {
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-top: 20px;
+                height: calc(100vh - 350px);
+                .option {
+                    width: 100%;
+                    height: 40px;
+                    margin-bottom: 5px;
+                    margin-top: 5px;
+                }
+                .buildingItem {
+                    display: flex;
+                    justify-content: space-around;
+                    .numberValue {
+                        width: 50px;
+                    }
+                    .typeValue {
+                        width: 100px;
+                    }
+                }
+            }
+            .bottomButtons {
+                width: 100%;
+                bottom: 2rem;
+                padding-left: 2rem;
+                padding-right: 2rem;
+                position: absolute;
+                .buttons {
+                    display: flex;
+                    justify-content: space-between;                    
+                }
+            }
+        }
+        .canvas {
+            height: 100%;
+        }
+    }
+}

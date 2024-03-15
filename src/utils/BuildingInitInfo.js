@@ -47,3 +47,19 @@ export const SolarStyleOptions = [
     { value: '1134x2278x35mm', label: '1134x2278x35mm' },
 ]
 
+export const RoofStyleData = [
+    { value: 'flat', label: 'FLAT' },
+    { value: 'shed', label: 'SHED' },
+    { value: 'box-gable', label: 'BOX GABLE' },
+    { value: 'open-gable', label: 'OPEN GABLE' },
+    { value: 'saltt-box', label: 'SALTTBOX' }
+]
+
+export const RoofMaterialData = [
+    { value: 'brick', label: 'Brick boilers' },
+    { value: 'concrete', label: 'Concrete boilers' },
+    { value: 'metal', label: 'Folded sheet metal' },
+    { value: 'plate', label: 'Plate' },
+    { value: 'plegel', label: 'Plegel' },
+    { value: 'cardboard', label: 'Cardboard' }
+]
