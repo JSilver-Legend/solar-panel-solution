@@ -65,7 +65,7 @@ export const getDistanceTwoPointsFromGoogleMap = (point_1, point_2) => {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var d = R * c; // kilomrters
 
-    return d * 1000; // meters
+    return d * 1000 * 1.2; // meters
 }
 
 export const getAngleTwoPointsFromGoogleMap = (point1, point2) => {
