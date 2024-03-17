@@ -117,6 +117,54 @@ const RoofDetailsModal = ({
             }) => (
                 <form id="roofForm" onSubmit={handleSubmit}>
                     <Col xs={24} md={24}>
+                        {/* <Form.Item
+                            label=<span style={{ fontWeight: "bold" }}>Välj din takform</span>
+                            required={true}
+                            colon={false}
+                            hasFeedback={!!errors["southPosition"]}
+                            validateStatus={errors["southPosition"]}
+                            help={errors["southPosition"] && "Du måste ange ifall taket är platt"}
+                        >
+                            <Select
+                                name="southPosition"
+                                style={{ width: "100%" }}
+                                onChange={function () {
+                                if (errors.hasOwnProperty("southPosition")) {
+                                    delete errors["southPosition"];
+                                }
+                                }}
+                            >
+                                <Select.Option
+                                    value="0"
+                                    name="southPosition"
+                                    size="default"
+                                    hidden
+                                >
+                                    <Typography style={{ color: "grey", fontStyle: "italic" }}>Välj alternativ</Typography>
+                                </Select.Option>
+                                <Select.Option
+                                    value="1"
+                                    name="southPosition"
+                                    size="default"
+                                >
+                                    <Typography style={{ color: "black" }}>ㄱ - formad byggnad</Typography>
+                                </Select.Option>
+                                <Select.Option
+                                    value="2"
+                                    name="southPosition"
+                                    size="default"
+                                >
+                                    <Typography style={{ color: "black" }}>ㄷ - formad byggnad</Typography>
+                                </Select.Option>
+                                <Select.Option
+                                    value="2"
+                                    name="southPosition"
+                                    size="default"
+                                >
+                                    <Typography style={{ color: "black" }}>T - formad byggnad</Typography>
+                                </Select.Option>
+                            </Select>
+                        </Form.Item> */}
                         <Form.Item
                             label=<span style={{ fontWeight: "bold" }}>Är det ett platt tak?</span>
                             required={true}

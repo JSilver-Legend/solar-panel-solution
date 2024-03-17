@@ -2,9 +2,9 @@ import React, { useState, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Radio, Slider, Select, InputNumber } from 'antd'
 import { RoofMaterialData, RoofStyleData } from '../../../../../utils/BuildingInitInfo'
-import { updateSelectedBuildingHeight, updateSelectedBuildingLength, updateSelectedBuildingRotation, updateSelectedBuildingType, updateSelectedBuildingWidth, updateSelectedRidgeDirection, updateSelectedRoofAngle, updateSelectedRoofPitch, updateSelectedRoofType } from 'state/configurator/actions'
+import { updateSelectedBuildingHeight, updateSelectedBuildingLength, updateSelectedBuildingRotation, updateSelectedBuildingType, updateSelectedBuildingWidth, updateSelectedRidgeDirection, updateSelectedRoofAngle, updateSelectedRoofMaterial, updateSelectedRoofPitch, updateSelectedRoofType } from 'state/configurator/actions'
 
-import type from '../../../../../assets/buildings/type-1.svg'
+import type1 from '../../../../../assets/buildings/type-1.svg'
 import type21 from '../../../../../assets/buildings/type-2-1.svg'
 import type22 from '../../../../../assets/buildings/type-2-2.svg'
 import type23 from '../../../../../assets/buildings/type-2-3.svg'
@@ -35,7 +35,7 @@ const BuildingDetailOptions = () => {
     const selectedBuildingData = useMemo(() => {
         return buildingData?.find((item)=>item.buildingNumber === selectedBuildingNumber)
     }, [selectedBuildingNumber, buildingData])
-
+    
     const onChangeBuildingType = (value) => {
         dispatch(updateSelectedBuildingType({
             buildingNumber: selectedBuildingNumber,
@@ -56,7 +56,7 @@ const BuildingDetailOptions = () => {
         <div className={styles.typeSelection}>
             <div>Building Type</div>
             <Select defaultValue={selectedBuildingData?.buildingType} style={{ width: 90 }} onChange={onChangeBuildingType}>
-                <Option value="type-1"><img src={type} alt='type-1' width={30} height={30}/></Option>
+                <Option value="type-1"><img src={type1} alt='type-1' width={30} height={30}/></Option>
                 <Option value="type-2-1"><img src={type21} alt='type-2-1' width={30} height={30}/></Option>
                 <Option value="type-2-2"><img src={type22} alt='type-2-2' width={30} height={30}/></Option>
                 <Option value="type-2-3"><img src={type23} alt='type-2-3' width={30} height={30}/></Option>
@@ -190,7 +190,8 @@ const BuildingDetailOptions = () => {
             </div>
             <div className={styles.ridgeOptions}>
                 <div className={styles.title}>Ridge Direction</div>
-                <Radio.Group defaultValue={selectedBuildingData?.ridgeDirection} 
+                <Radio.Group defaultValue={selectedBuildingData?.ridgeDirection}
+                    value={selectedBuildingData?.roofRidge}
                     onChange={(e)=>{ dispatch(updateSelectedRidgeDirection({
                         buildingNumber: selectedBuildingNumber,
                         ridgeDirection: e.target.value
@@ -202,7 +203,12 @@ const BuildingDetailOptions = () => {
             </div>
             <div className={styles.materialOptions}>
                 <div>Material</div>
-                <Select defaultValue={selectedBuildingData?.material} style={{ width: '150px' }} onChange={(e)=>{  }}>
+                <Select defaultValue={selectedBuildingData?.material} style={{ width: '150px' }} 
+                    onChange={(value)=>{ dispatch(updateSelectedRoofMaterial({
+                        buildingNumber: selectedBuildingNumber,
+                        material: value
+                    }))}}
+                >
                     {
                         RoofMaterialData.map((item, index)=>(
                             <Option key={index} value={item.value}>{item.label}</Option>

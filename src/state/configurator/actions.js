@@ -1,4 +1,5 @@
 import {
+  SET_BUILDING_INIT_DATA,
   SET_SELECTED_BUILDING_NUMBER,
   UPDATE_SELECTED_BUILDIING_TYPE,
   UPDATE_SELECTED_ROOF_TYPE,
@@ -8,9 +9,14 @@ import {
   UPDATE_SELECTED_BUILDING_WIDTH,
   UPDATE_SELECTED_BUILDING_LENGTH,
   UPDATE_SELECTED_BUILDING_HEIGHT,
-  UPDATE_SELECTED_BUILDING_ROTATION
+  UPDATE_SELECTED_BUILDING_ROTATION,
+  UPDATE_SELECTED_ROOF_MATERIAL,
 } from "./types";
 
+export const setBuildingInitData = value => ({
+  type: SET_BUILDING_INIT_DATA,
+  value: value
+});
 export const setSelectedBuildingNumber = value => ({
   type: SET_SELECTED_BUILDING_NUMBER,
   value: value
@@ -58,5 +64,10 @@ export const updateSelectedBuildingHeight = value => ({
 
 export const updateSelectedBuildingRotation = value => ({
   type: UPDATE_SELECTED_BUILDING_ROTATION,
+  value: value
+})
+
+export const updateSelectedRoofMaterial = value => ({
+  type: UPDATE_SELECTED_ROOF_MATERIAL,
   value: value
 })

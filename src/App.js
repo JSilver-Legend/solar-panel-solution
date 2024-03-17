@@ -53,7 +53,7 @@ const App = () => {
                         <Route exact path="/result" component={Result} />
                         <Route exact path="/sellerpage" component={SellerPage} />
                         <Route exact path="/summary" component={Summary} />
-                        <Route exact path="/builder" component={BuilderRoof} />
+                        {/* <Route exact path="/builder" component={BuilderRoof} /> */}
                         <Route exact path="/configurator" component={Configurator} />
                         {/* <Route exact path="/test" component={Test} /> */}
                     </Router>

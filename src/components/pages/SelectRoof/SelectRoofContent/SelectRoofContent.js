@@ -165,7 +165,8 @@ const SelectRoofContent = ({
                 </Link>
                 {isDrawing && <NextButton onClick={() => handleNext()} />}
                 {!isDrawing &&
-                    <Link to="/builder">
+                    // <Link to="/builder">
+                    <Link to="/configurator">
                         <NextButton onClick={googleMapImageURL} />
                     </Link>
                 }
