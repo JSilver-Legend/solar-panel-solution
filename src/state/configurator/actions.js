@@ -5,6 +5,10 @@ import {
   UPDATE_SELECTED_ROOF_ANGLE,
   UPDATE_SELECTED_ROOF_PITCH,
   UPDATE_SELECTED_RIDGE_DIRECTION,
+  UPDATE_SELECTED_BUILDING_WIDTH,
+  UPDATE_SELECTED_BUILDING_LENGTH,
+  UPDATE_SELECTED_BUILDING_HEIGHT,
+  UPDATE_SELECTED_BUILDING_ROTATION
 } from "./types";
 
 export const setSelectedBuildingNumber = value => ({
@@ -34,5 +38,25 @@ export const updateSelectedRoofPitch = value => ({
 
 export const updateSelectedRidgeDirection = value => ({
   type: UPDATE_SELECTED_RIDGE_DIRECTION,
+  value: value
+})
+
+export const updateSelectedBuildingWidth = value => ({
+  type: UPDATE_SELECTED_BUILDING_WIDTH,
+  value: value
+})
+
+export const updateSelectedBuildingLength = value => ({
+  type: UPDATE_SELECTED_BUILDING_LENGTH,
+  value: value
+})
+
+export const updateSelectedBuildingHeight = value => ({
+  type: UPDATE_SELECTED_BUILDING_HEIGHT,
+  value: value
+})
+
+export const updateSelectedBuildingRotation = value => ({
+  type: UPDATE_SELECTED_BUILDING_ROTATION,
   value: value
 })

@@ -1,6 +1,6 @@
-import { Button, Col, Row, Drawer, Select } from 'antd'
+import { Button, Col, Row, Drawer } from 'antd'
 import styles from './configurator.module.scss'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Suspense, useState } from 'react'
 import { OrbitControls } from '@react-three/drei'
@@ -17,6 +17,7 @@ const Configurator = () => {
     const [isOpenModal, setIsOpenModal] = useState(false);
 
     const buildingData = useSelector((state)=>state.configurator.buildingData)
+    const selectedBuildingNumber = useSelector((state)=>state.configurator.selectedBuildingNumber)
 
   return (
     <div className={styles.mainWrapper}>
@@ -48,7 +49,7 @@ const Configurator = () => {
                     </div>
                 </div>
                 <Drawer
-                    title="Building Number"
+                    title={`Building No ${selectedBuildingNumber}`} 
                     placement="left"
                     closable={true}
                     visible={isOpenModal}

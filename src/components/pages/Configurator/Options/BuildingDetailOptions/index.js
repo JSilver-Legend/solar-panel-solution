@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Radio, Slider, Select, InputNumber } from 'antd'
 import { RoofMaterialData, RoofStyleData } from '../../../../../utils/BuildingInitInfo'
-import { updateSelectedBuildingType, updateSelectedRidgeDirection, updateSelectedRoofAngle, updateSelectedRoofPitch, updateSelectedRoofType } from 'state/configurator/actions'
+import { updateSelectedBuildingHeight, updateSelectedBuildingLength, updateSelectedBuildingRotation, updateSelectedBuildingType, updateSelectedBuildingWidth, updateSelectedRidgeDirection, updateSelectedRoofAngle, updateSelectedRoofPitch, updateSelectedRoofType } from 'state/configurator/actions'
 
 import type from '../../../../../assets/buildings/type-1.svg'
 import type21 from '../../../../../assets/buildings/type-2-1.svg'
@@ -35,10 +35,6 @@ const BuildingDetailOptions = () => {
     const selectedBuildingData = useMemo(() => {
         return buildingData?.find((item)=>item.buildingNumber === selectedBuildingNumber)
     }, [selectedBuildingNumber, buildingData])
-
-    useEffect(() => {
-      console.log('selectedBuildingData', selectedBuildingData)
-    }, [selectedBuildingData])
 
     const onChangeBuildingType = (value) => {
         dispatch(updateSelectedBuildingType({
@@ -79,23 +75,63 @@ const BuildingDetailOptions = () => {
             <div>Building Options</div>
             <div className={styles.buildingOption}>
                 <div className={styles.optionTitle}>Width</div>
-                <Slider defaultValue={selectedBuildingData?.width} style={{ width: '100%' }} />
-                <InputNumber defaultValue={selectedBuildingData?.width} />
+                <Slider value={selectedBuildingData?.buildingWidth} defaultValue={selectedBuildingData?.buildingWidth} style={{ width: '100%' }} 
+                    onChange={(value)=>{ dispatch(updateSelectedBuildingWidth({
+                        buildingNumber: selectedBuildingNumber,
+                        buildingWidth: value
+                    }))}}
+                />
+                <InputNumber value={selectedBuildingData?.buildingWidth} defaultValue={selectedBuildingData?.buildingWidth} 
+                    onChange={(value)=>{ dispatch(updateSelectedBuildingWidth({
+                        buildingNumber: selectedBuildingNumber,
+                        buildingWidth: value
+                    }))}}
+                />
             </div>
             <div className={styles.buildingOption}>
                 <div className={styles.optionTitle}>Length</div>
-                <Slider defaultValue={selectedBuildingData?.length} style={{ width: '100%' }} />
-                <InputNumber defaultValue={selectedBuildingData?.length} />
+                <Slider value={selectedBuildingData?.buildingLength} defaultValue={selectedBuildingData?.buildingLength} style={{ width: '100%' }} 
+                    onChange={(value)=>{ dispatch(updateSelectedBuildingLength({
+                        buildingNumber: selectedBuildingNumber,
+                        buildingLength: value
+                    }))}}
+                />
+                <InputNumber value={selectedBuildingData?.buildingLength} defaultValue={selectedBuildingData?.buildingLength} 
+                    onChange={(value)=>{ dispatch(updateSelectedBuildingLength({
+                        buildingNumber: selectedBuildingNumber,
+                        buildingLength: value
+                    }))}}
+                />
             </div>
             <div className={styles.buildingOption}>
                 <div className={styles.optionTitle}>Height</div>
-                <Slider defaultValue={selectedBuildingData?.height} style={{ width: '100%' }} />
-                <InputNumber defaultValue={selectedBuildingData?.height} />
+                <Slider value={selectedBuildingData?.buildingHeight} defaultValue={selectedBuildingData?.height} style={{ width: '100%' }} 
+                    onChange={(value)=>{ dispatch(updateSelectedBuildingHeight({
+                        buildingNumber: selectedBuildingNumber,
+                        buildingHeight: value
+                    }))}}
+                />
+                <InputNumber value={selectedBuildingData?.buildingHeight} defaultValue={selectedBuildingData?.height} 
+                    onChange={(value)=>{ dispatch(updateSelectedBuildingHeight({
+                        buildingNumber: selectedBuildingNumber,
+                        buildingHeight: value
+                    }))}}
+                />
             </div>
             <div className={styles.buildingOption}>
                 <div className={styles.optionTitle}>Rotation</div>
-                <Slider defaultValue={selectedBuildingData?.rotation} style={{ width: '100%' }} />
-                <InputNumber defaultValue={selectedBuildingData?.rotation} />
+                <Slider value={selectedBuildingData?.buildingRotation} defaultValue={selectedBuildingData?.buildingRotation} style={{ width: '100%' }} 
+                    onChange={(value)=>{ dispatch(updateSelectedBuildingRotation({
+                        buildingNumber: selectedBuildingNumber,
+                        buildingRotation: value
+                    }))}}
+                />
+                <InputNumber value={selectedBuildingData?.buildingRotation} defaultValue={selectedBuildingData?.buildingRotation} 
+                    onChange={(value)=>{ dispatch(updateSelectedBuildingRotation({
+                        buildingNumber: selectedBuildingNumber,
+                        buildingRotation: value
+                    }))}}
+                />
             </div>
         </div>
         <div className={styles.roofWrapper}>
