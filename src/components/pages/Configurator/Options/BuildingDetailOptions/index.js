@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Radio, Slider, Select, InputNumber } from 'antd'
 import { RoofMaterialData, RoofStyleData } from '../../../../../utils/BuildingInitInfo'
-import { updateSelectedBuildingHeight, updateSelectedBuildingLength, updateSelectedBuildingRotation, updateSelectedBuildingType, updateSelectedBuildingWidth, updateSelectedRidgeDirection, updateSelectedRoofAngle, updateSelectedRoofPitch, updateSelectedRoofType } from 'state/configurator/actions'
+import { updateSelectedBuildingHeight, updateSelectedBuildingLength, updateSelectedBuildingRotation, updateSelectedBuildingType, updateSelectedBuildingWidth, updateSelectedBuildingWidth1, updateSelectedBuildingWidth2, updateSelectedRidgeDirection, updateSelectedRoofAngle, updateSelectedRoofPitch, updateSelectedRoofType } from 'state/configurator/actions'
 
 import type from '../../../../../assets/buildings/type-1.svg'
 import type21 from '../../../../../assets/buildings/type-2-1.svg'
@@ -27,7 +27,6 @@ const BuildingDetailOptions = () => {
     const dispatch = useDispatch()
 
     const [isSelectedRoofOptionStyle, setIsSelectedRoofOptionStyle] = useState('angle')
-    const [isSelectedRidgeDirection, setIsSelectedRidgeDirection] = useState('direction-1')
 
     const selectedBuildingNumber = useSelector((state)=>state.configurator.selectedBuildingNumber)
     const buildingData = useSelector((state)=>state.configurator.buildingData)
@@ -88,6 +87,41 @@ const BuildingDetailOptions = () => {
                     }))}}
                 />
             </div>
+            {
+                selectedBuildingData.buildingType !== 'type-1' &&
+                <>
+                    <div className={styles.buildingOption}>
+                        <div className={styles.optionTitle}>Width 1</div>
+                        <Slider value={selectedBuildingData?.buildingWidth1} defaultValue={selectedBuildingData?.buildingWidth1} style={{ width: '100%' }} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth1({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth1: value
+                            }))}}
+                        />
+                        <InputNumber value={selectedBuildingData?.buildingWidth1} defaultValue={selectedBuildingData?.buildingWidth1} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth1({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth1: value
+                            }))}}
+                        />
+                    </div>
+                    <div className={styles.buildingOption}>
+                        <div className={styles.optionTitle}>Width 2</div>
+                        <Slider value={selectedBuildingData?.buildingWidth2} defaultValue={selectedBuildingData?.buildingWidth2} style={{ width: '100%' }} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth2({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth2: value
+                            }))}}
+                        />
+                        <InputNumber value={selectedBuildingData?.buildingWidth2} defaultValue={selectedBuildingData?.buildingWidth2} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth2({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth: value
+                            }))}}
+                        />
+                    </div>
+                </>
+            }            
             <div className={styles.buildingOption}>
                 <div className={styles.optionTitle}>Length</div>
                 <Slider value={selectedBuildingData?.buildingLength} defaultValue={selectedBuildingData?.buildingLength} style={{ width: '100%' }} 
@@ -103,6 +137,24 @@ const BuildingDetailOptions = () => {
                     }))}}
                 />
             </div>
+            {
+                (selectedBuildingData.buildingType === 'type-4-1' || selectedBuildingData.buildingType === 'type-4-2' || selectedBuildingData.buildingType === 'type-4-3' || selectedBuildingData.buildingType === 'type-4-4') &&
+                <div className={styles.buildingOption}>
+                    <div className={styles.optionTitle}>Length 1</div>
+                    <Slider value={selectedBuildingData?.buildingLength1} defaultValue={selectedBuildingData?.buildingLength1} style={{ width: '100%' }} 
+                        onChange={(value)=>{ dispatch(updateSelectedBuildingLength({
+                            buildingNumber: selectedBuildingNumber,
+                            buildingLength1: value
+                        }))}}
+                    />
+                    <InputNumber value={selectedBuildingData?.buildingLength1} defaultValue={selectedBuildingData?.buildingLength1} 
+                        onChange={(value)=>{ dispatch(updateSelectedBuildingLength({
+                            buildingNumber: selectedBuildingNumber,
+                            buildingLength1: value
+                        }))}}
+                    />
+                </div>
+            }
             <div className={styles.buildingOption}>
                 <div className={styles.optionTitle}>Height</div>
                 <Slider value={selectedBuildingData?.buildingHeight} defaultValue={selectedBuildingData?.height} style={{ width: '100%' }} 
@@ -188,18 +240,21 @@ const BuildingDetailOptions = () => {
                     </div>
                 </Radio.Group>
             </div>
-            <div className={styles.ridgeOptions}>
-                <div className={styles.title}>Ridge Direction</div>
-                <Radio.Group defaultValue={selectedBuildingData?.ridgeDirection} 
-                    onChange={(e)=>{ dispatch(updateSelectedRidgeDirection({
-                        buildingNumber: selectedBuildingNumber,
-                        ridgeDirection: e.target.value
-                    }))}}
-                >
-                    <Radio value={'direction-1'}>direction1</Radio>
-                    <Radio value={'direction-2'}>direction2</Radio>
-                </Radio.Group>
-            </div>
+            {
+                selectedBuildingData.buildingType === 'type-1' &&
+                <div className={styles.ridgeOptions}>
+                    <div className={styles.title}>Ridge Direction</div>
+                    <Radio.Group defaultValue={selectedBuildingData?.ridgeDirection} 
+                        onChange={(e)=>{ dispatch(updateSelectedRidgeDirection({
+                            buildingNumber: selectedBuildingNumber,
+                            ridgeDirection: e.target.value
+                        }))}}
+                    >
+                        <Radio value={'direction-1'}>direction1</Radio>
+                        <Radio value={'direction-2'}>direction2</Radio>
+                    </Radio.Group>
+                </div>
+            }
             <div className={styles.materialOptions}>
                 <div>Material</div>
                 <Select defaultValue={selectedBuildingData?.material} style={{ width: '150px' }} onChange={(e)=>{  }}>

@@ -6,7 +6,10 @@ import {
   UPDATE_SELECTED_ROOF_PITCH,
   UPDATE_SELECTED_RIDGE_DIRECTION,
   UPDATE_SELECTED_BUILDING_WIDTH,
+  UPDATE_SELECTED_BUILDING_WIDTH1,
+  UPDATE_SELECTED_BUILDING_WIDTH2,
   UPDATE_SELECTED_BUILDING_LENGTH,
+  UPDATE_SELECTED_BUILDING_LENGTH1,
   UPDATE_SELECTED_BUILDING_HEIGHT,
   UPDATE_SELECTED_BUILDING_ROTATION
 } from "./types";
@@ -46,8 +49,23 @@ export const updateSelectedBuildingWidth = value => ({
   value: value
 })
 
+export const updateSelectedBuildingWidth1 = value => ({
+  type: UPDATE_SELECTED_BUILDING_WIDTH1,
+  value: value
+})
+
+export const updateSelectedBuildingWidth2 = value =>({
+  type: UPDATE_SELECTED_BUILDING_WIDTH2,
+  value: value
+})
+
 export const updateSelectedBuildingLength = value => ({
   type: UPDATE_SELECTED_BUILDING_LENGTH,
+  value: value
+})
+
+export const updateSelectedBuildingLength1 = value => ({
+  type: UPDATE_SELECTED_BUILDING_LENGTH1,
   value: value
 })
 
