@@ -22,7 +22,7 @@ const Buildings = ({ index, item }) => {
             rotation={[0, item.buildingRotation, 0]}
         >
             <BodyModel item={item} />
-            <RoofModel item={item} />
+            {/* <RoofModel item={item} /> */}
         </group>
     )
 }

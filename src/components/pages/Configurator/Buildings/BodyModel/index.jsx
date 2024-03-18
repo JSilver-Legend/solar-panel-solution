@@ -4,27 +4,37 @@ import * as THREE from 'three'
 import { extrudeSetting } from 'utils/Function';
 
 const BodyModel = ({ item }) => {
+    console.log('item: ', item);
     const width = item.buildingWidth;
+    const width_1 = item.buildingWidth1
+    const width_2 = item.buildingWidth2
     const length = item.buildingLength;
+    const length_1 = item.buildingLength1;
+    const length_2 = item.buildingLength2;
     const height = item.buildingHeight;
     const pitch = item.roofPitch;
-    const type = item.roofType
+    const buildingType = item.buildingType;
+    const roofType = item.roofType
 
     const model = useMemo(() => {
-        switch (type) {
-            case "shed":
-                return shedModel(width, height, pitch);
-            case "open-gable":
-                return openGableModel(width, height, pitch);
-            case "saltt-box":
-                return salttBoxModel(width, height, pitch);
-            default:
-                return boxGableModel(width, height);
+        if (buildingType === 'type-1') {
+            switch (roofType) {
+                case "shed":
+                    return shedModel(width, height, pitch);
+                case "open-gable":
+                    return openGableModel(width, height, pitch);
+                case "saltt-box":
+                    return salttBoxModel(width, height, pitch);
+                default:
+                    return boxGableModel(width, height);
+            }
+        } else {
+            return complexModel(buildingType, width, length, pitch)
         }
-    }, [height, type, pitch, width])
+    }, [buildingType, roofType, width, height, pitch, length])
 
     return (
-        <group position={[0, 0, -length / 2]}>
+        <group position={[0, 0, buildingType === 'type-1' ? -length / 2 : 0]}>
             <mesh castShadow>
                 <extrudeGeometry name="body" args={[model, extrudeSetting(length)]} />
                 <meshStandardMaterial
@@ -85,3 +95,15 @@ const salttBoxModel = (width, height, pitch) => {
 
     return model;
 };
+
+const complexModel = (buildingType, width, length, pitch) => {
+    const model = new THREE.Shape();
+
+    if (buildingType.includes('type-2')) {
+
+    } else if (buildingType.includes('type-3')) {
+
+    } else if (buildingType.includes('type-4')) {
+        model.moveTo()
+    }
+}

@@ -135,7 +135,7 @@ const Configurator = () => {
                 roofType: getRoofType(roofsSource[index].southPosition),
                 roofAngle: '3',
                 roofPitch: getRoofType(roofsSource[index].southPosition) === "flat" ? 0 : 2,
-                roofRidge: 'direction-2',
+                ridgeDirection: 'direction-2',
                 //
                 buildingPosition: [-distance_x, 0, distance_y],
                 pointsInfo: item.pointsInfo,
