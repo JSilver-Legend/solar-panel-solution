@@ -42,7 +42,8 @@ export const addRoof = (roofCoords, area) => ({
     area: area,
     southPosition: "0",
     obstacles: "0",
-    roofType: "0"
+    roofType: "0",
+    buildingType: "0"
   }
 });
 

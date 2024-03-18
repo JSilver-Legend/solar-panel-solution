@@ -1,3 +1,5 @@
+import { type1, type21, type22, type23, type24, type31, type32, type33, type34, type41, type42, type43, type44 } from "./ImageInfo";
+
 export const extrudeSetting = (value) => {
     const setting = {
         steps: 1,
@@ -38,6 +40,39 @@ export const getRoofTexture = (value) => {
             return "plate";
         default:
             return "metal";
+    }
+}
+
+export const getDefaultBuildingType = (value) => {
+    switch (value) {
+        case "1":
+            return type1;
+        case "2-1":
+            return type21;
+        case "2-2":
+            return type22;
+        case "2-3":
+            return type23;
+        case "2-4":
+            return type24;
+        case "3-1":
+            return type31;
+        case "3-2":
+            return type32;
+        case "3-3":
+            return type33;
+        case "3-4":
+            return type34;
+        case "4-1":
+            return type41;
+        case "4-2":
+            return type42;
+        case "4-3":
+            return type43;
+        case "4-4":
+            return type44;
+        default:
+            return type1;
     }
 }
 

@@ -85,7 +85,8 @@ const RoofList = ({
                             roofItem.southPosition,
                             roofItem.obstacles,
                             roofItem.roofType,
-                            roofItem.area
+                            roofItem.area,
+                            roofItem.buildingType,
                         )
                     }
                     //title={roofItem.name}

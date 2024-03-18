@@ -3,7 +3,6 @@ import styles from './configurator.module.scss'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Suspense, useState } from 'react'
-import { OrbitControls } from '@react-three/drei'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -121,8 +120,8 @@ const Configurator = () => {
             if (buildingCenterPoint.lat < globalCenterPoint.lat) distance_y *= -1;
             
             initialDataInfo.push({
-                buildingNumber: index,
-                buildingType: 'type-2-3',
+                buildingNumber: index + 1,
+                buildingType: roofsSource[index].buildingType,
                 buildingWidth: item.width,
                 buildingLength: item.length,
                 buildingHeight: 3,
