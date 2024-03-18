@@ -203,7 +203,8 @@ export const roofs = (state = initialState, action) => {
         area: 63,
         southPosition: "0",
         obstacles: "0",
-        roofType: "0"
+        roofType: "0",
+        buildingType: "0"
       }
 
       return {

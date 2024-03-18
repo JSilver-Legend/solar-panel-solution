@@ -4,7 +4,8 @@ const roof = {
   space: [],
   southPostition: false,
   obstacles: false,
-  roofType: "Plåt"
+  roofType: "Plåt",
+  buildingType: false,
 };
 
 export default roof;

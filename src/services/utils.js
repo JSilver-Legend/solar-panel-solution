@@ -35,7 +35,7 @@ export function getIfMobile() {
     return false;
 }
 
-export const roofInfoString = (southPosition, obstacles, roofType, area) => {
+export const roofInfoString = (southPosition, obstacles, roofType, area, buildingType) => {
     let roofInfoString = "";
 
     if (roofType) {
@@ -51,8 +51,13 @@ export const roofInfoString = (southPosition, obstacles, roofType, area) => {
     }
 
     if (area) {
-        roofInfoString = roofInfoString + "Yta: " + Math.round(area) + " kvm |";
+        roofInfoString = roofInfoString + "Yta: " + Math.round(area) + " kvm | ";
     }
+
+    if (buildingType) {
+        roofInfoString = roofInfoString + "Form: " + buildingType;
+    }
+    
     return roofInfoString;
 };
 

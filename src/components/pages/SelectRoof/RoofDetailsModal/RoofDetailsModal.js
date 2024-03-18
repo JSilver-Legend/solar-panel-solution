@@ -5,7 +5,7 @@ import { Select } from "formik-antd";
 import { utils } from 'services';
 import { connect } from "react-redux";
 import { roofsActions, roofsSelectors } from "state/roofs";
-import { roofTypeChoices } from "constants.js";
+import { buildingTypeChoices, roofTypeChoices } from "constants.js";
 import styles from "./modal.module.scss";
 import { Formik } from "formik";
 
@@ -29,7 +29,7 @@ const RoofDetailsModal = ({
             experter dig och berättar mer om hur vi kan hjälpa dig att byta tak.
         </Typography>
     let testText = "";
-
+    
     if (addRoofDialogOpen && selectedRoof.roofType === '5') {
         testText = asbestosWarning;
     } else {
@@ -78,7 +78,8 @@ const RoofDetailsModal = ({
                     selectedRoof && {
                         name: selectedRoof.name,
                         southPosition: selectedRoof.southPosition,
-                        roofType: selectedRoof.roofType
+                        roofType: selectedRoof.roofType,
+                        buildingType: selectedRoof.buildingType,
                     }
                 }
 
@@ -91,6 +92,10 @@ const RoofDetailsModal = ({
 
                     if (values.roofType === "0") {
                         errors.roofType = "warning";
+                    }
+
+                    if (values.buildingType === "0") {
+                        errors.buildingType = "warning";
                     }
 
                     return errors;
@@ -117,56 +122,8 @@ const RoofDetailsModal = ({
             }) => (
                 <form id="roofForm" onSubmit={handleSubmit}>
                     <Col xs={24} md={24}>
-                        {/* <Form.Item
-                            label=<span style={{ fontWeight: "bold" }}>Välj din takform</span>
-                            required={true}
-                            colon={false}
-                            hasFeedback={!!errors["southPosition"]}
-                            validateStatus={errors["southPosition"]}
-                            help={errors["southPosition"] && "Du måste ange ifall taket är platt"}
-                        >
-                            <Select
-                                name="southPosition"
-                                style={{ width: "100%" }}
-                                onChange={function () {
-                                if (errors.hasOwnProperty("southPosition")) {
-                                    delete errors["southPosition"];
-                                }
-                                }}
-                            >
-                                <Select.Option
-                                    value="0"
-                                    name="southPosition"
-                                    size="default"
-                                    hidden
-                                >
-                                    <Typography style={{ color: "grey", fontStyle: "italic" }}>Välj alternativ</Typography>
-                                </Select.Option>
-                                <Select.Option
-                                    value="1"
-                                    name="southPosition"
-                                    size="default"
-                                >
-                                    <Typography style={{ color: "black" }}>ㄱ - formad byggnad</Typography>
-                                </Select.Option>
-                                <Select.Option
-                                    value="2"
-                                    name="southPosition"
-                                    size="default"
-                                >
-                                    <Typography style={{ color: "black" }}>ㄷ - formad byggnad</Typography>
-                                </Select.Option>
-                                <Select.Option
-                                    value="2"
-                                    name="southPosition"
-                                    size="default"
-                                >
-                                    <Typography style={{ color: "black" }}>T - formad byggnad</Typography>
-                                </Select.Option>
-                            </Select>
-                        </Form.Item> */}
                         <Form.Item
-                            label=<span style={{ fontWeight: "bold" }}>Är det ett platt tak?</span>
+                            label={<span style={{ fontWeight: "bold" }}>Är det ett platt tak?</span>}
                             required={true}
                             colon={false}
                             hasFeedback={!!errors["southPosition"]}
@@ -177,9 +134,9 @@ const RoofDetailsModal = ({
                                 name="southPosition"
                                 style={{ width: "100%" }}
                                 onChange={function () {
-                                if (errors.hasOwnProperty("southPosition")) {
-                                    delete errors["southPosition"];
-                                }
+                                    if (errors.hasOwnProperty("southPosition")) {
+                                        delete errors["southPosition"];
+                                    }
                                 }}
                             >
                                 <Select.Option
@@ -212,7 +169,7 @@ const RoofDetailsModal = ({
                             hasFeedback={!!errors["roofType"]}
                             validateStatus={errors["roofType"]}
                             help={errors["roofType"] && "Du måste ange en typ av tak"}
-                            label=<span style={{ fontWeight: "bold" }}>Välj typ av tak</span>
+                            label={<span style={{ fontWeight: "bold" }}>Välj typ av tak</span>}
                         >
                             <Select
                                 name="roofType"
@@ -236,6 +193,44 @@ const RoofDetailsModal = ({
                                 ))}
                             </Select>
                             {testText}
+                        </Form.Item>
+                        <Form.Item
+                            label={<span style={{ fontWeight: "bold" }}>Välj din byggnadsform</span>}
+                            required={true}
+                            colon={false}
+                            hasFeedback={!!errors["buildingType"]}
+                            validateStatus={errors["buildingType"]}
+                            help={errors["buildingType"] && "Du måste ange byggnadens form"}
+                        >
+                            <Select
+                                name="buildingType"
+                                style={{ width: "100%" }}
+                                onChange={function () {
+                                    if (errors.hasOwnProperty("buildingType")) {
+                                        delete errors["buildingType"];
+                                    }
+                                }}
+                            >
+                                {buildingTypeChoices.map(choice => (
+                                    <Select.Option
+                                        hidden={choice.value === "0" ? true : false}
+                                        value={choice.value}
+                                        size="default"
+                                        key={choice.value}
+                                    >
+                                        {choice.value === "0" &&
+                                            <Typography style={{ color: "grey", fontStyle: "italic" }}>{choice.name}</Typography>
+                                        }
+                                        {choice.value !== "0" &&
+                                            <Typography style={{ color: "black" }}>
+                                                <img src={choice.src} alt={choice.name} width={25} height={25}/>
+                                                &nbsp;&nbsp;&nbsp;
+                                                {choice.name}
+                                            </Typography>
+                                        }
+                                    </Select.Option>
+                                ))}
+                            </Select>
                         </Form.Item>
                     </Col>
                 </form>

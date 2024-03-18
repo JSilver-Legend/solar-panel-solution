@@ -6,6 +6,8 @@ import { updateSelectedBuildingHeight, updateSelectedBuildingLength, updateSelec
 
 import styles from './styles.module.scss'
 import { type1, type21, type22, type23, type24, type31, type32, type33, type34, type41, type42, type43, type44 } from 'utils/ImageInfo'
+import { getDefaultBuildingType } from 'utils/Function'
+import { buildingTypeChoices } from 'constants.js'
 
 const { Option } = Select;
 
@@ -55,20 +57,14 @@ const BuildingDetailOptions = () => {
     <div className={styles.mainWrapper}>
         <div className={styles.typeSelection}>
             <div>Building Type</div>
-            <Select defaultValue={selectedBuildingData?.buildingType} style={{ width: 90 }} onChange={onChangeBuildingType}>
-                <Option value="type-1"><img src={type1} alt='type-1' width={30} height={30}/></Option>
-                <Option value="type-2-1"><img src={type21} alt='type-2-1' width={30} height={30}/></Option>
-                <Option value="type-2-2"><img src={type22} alt='type-2-2' width={30} height={30}/></Option>
-                <Option value="type-2-3"><img src={type23} alt='type-2-3' width={30} height={30}/></Option>
-                <Option value="type-2-4"><img src={type24} alt='type-2-4' width={30} height={30}/></Option>
-                <Option value="type-3-1"><img src={type31} alt='type-3-1' width={30} height={30}/></Option>
-                <Option value="type-3-2"><img src={type32} alt='type-3-2' width={30} height={30}/></Option>
-                <Option value="type-3-3"><img src={type33} alt='type-3-3' width={30} height={30}/></Option>
-                <Option value="type-3-4"><img src={type34} alt='type-3-4' width={30} height={30}/></Option>
-                <Option value="type-4-1"><img src={type41} alt='type-4-1' width={30} height={30}/></Option>
-                <Option value="type-4-2"><img src={type42} alt='type-4-2' width={30} height={30}/></Option>
-                <Option value="type-4-3"><img src={type43} alt='type-4-3' width={30} height={30}/></Option>
-                <Option value="type-4-4"><img src={type44} alt='type-4-4' width={30} height={30}/></Option>
+            <Select
+                defaultValue={<div><img src={getDefaultBuildingType(selectedBuildingData.buildingType)} alt={selectedBuildingData.buildingType} width={30} height={30}/>&nbsp;&nbsp;{selectedBuildingData.buildingType}</div>}
+                style={{ width: 120 }}
+                onChange={onChangeBuildingType}
+            >
+                {buildingTypeChoices.map((item, index) => (
+                    index !== 0 && <Option value={item.value}><img src={item.src} alt={item.name} width={30} height={30}/>&nbsp;&nbsp;{item.value}</Option>
+                ))}
             </Select>
         </div>
         <div className={styles.buildingWrapper}>
