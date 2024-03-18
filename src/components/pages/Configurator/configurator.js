@@ -24,6 +24,11 @@ const Configurator = () => {
     const buildingData = useSelector((state)=>state.configurator.buildingData)
     const selectedBuildingNumber = useSelector((state)=>state.configurator.selectedBuildingNumber)
     
+    useEffect(() => {
+        if(selectedBuildingNumber === null) setIsOpenModal(false)
+        else setIsOpenModal(true)
+    }, [selectedBuildingNumber])
+
     let globalCenterPos_X = useRef();
     let globalCenterPos_Y = useRef();
 
@@ -188,7 +193,7 @@ const Configurator = () => {
                     getContainer={false}
                     style={{ position: 'absolute' }}
                     width={'100%'}
-                    onClose={()=>{ dispatch(setSelectedBuildingNumber(null)); setIsOpenModal(false) }}
+                    onClose={()=>{ dispatch(setSelectedBuildingNumber(null)) }}
                 >
                     <BuildingDetailOptions />
                 </Drawer>
