@@ -1,13 +1,13 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Radio, Slider, Select, InputNumber } from 'antd'
-import { RoofMaterialData, RoofStyleData } from '../../../../../utils/BuildingInitInfo'
 import { updateSelectedBuildingHeight, updateSelectedBuildingLength, updateSelectedBuildingRotation, updateSelectedBuildingType, updateSelectedBuildingWidth, updateSelectedBuildingWidth1, updateSelectedBuildingWidth2, updateSelectedRidgeDirection, updateSelectedRoofAngle, updateSelectedRoofMaterial, updateSelectedRoofPitch, updateSelectedRoofType } from 'state/configurator/actions'
 
 import styles from './styles.module.scss'
-import { type1, type21, type22, type23, type24, type31, type32, type33, type34, type41, type42, type43, type44 } from 'utils/ImageInfo'
+
 import { getDefaultBuildingType } from 'utils/Function'
 import { buildingTypeChoices } from 'constants.js'
+import { RoofMaterialData, RoofStyleData } from 'utils/BuildingInitInfo'
 
 const { Option } = Select;
 
@@ -59,7 +59,7 @@ const BuildingDetailOptions = () => {
             <div>Building Type</div>
             <Select
                 defaultValue={<div><img src={getDefaultBuildingType(selectedBuildingData.buildingType)} alt={selectedBuildingData.buildingType} width={30} height={30}/>&nbsp;&nbsp;{selectedBuildingData.buildingType}</div>}
-                style={{ width: 120 }}
+                style={{ width: 150 }}
                 onChange={onChangeBuildingType}
             >
                 {buildingTypeChoices.map((item, index) => (
