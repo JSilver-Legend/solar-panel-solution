@@ -23,9 +23,7 @@ const EnvCmp = () => {
             {/* <fog attach="fog" args={['#17171b', 30, 40]} /> */}
             
             <axesHelper args={[150]} position={[0, 0.1, 0]} />
-            {!mapTextureShowState &&
-                <Grid position={[0, 0.05, 0]} args={[5000, 5000]} { ...gridConfig } />
-            }
+            {/* <Grid position={[0, 0.05, 0]} args={[5000, 5000]} { ...gridConfig } /> */}
             <Environment files={'/assets/background/hilly_terrain_01_8k.hdr'} background blur={1} />
         </group>
     )

@@ -25,10 +25,9 @@ const CanvasEnv = () => {
             <OrbitControls
                 ref={orbitCam}
                 target={[0, 0, 0]}
-                minPolarAngle={0}
-                // maxPolarAngle={Math.PI / 2.2}
+                minPolarAngle={-Infinity}
                 maxPolarAngle={Infinity}
-                minAzimuthAngle={Infinity}
+                minAzimuthAngle={-Infinity}
                 maxAzimuthAngle={Infinity}
                 enablePan={true}
                 minDistance={5}

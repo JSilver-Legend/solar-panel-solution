@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Radio, Slider, Select, InputNumber } from 'antd'
-import { updateSelectedBuildingHeight, updateSelectedBuildingLength, updateSelectedBuildingRotation, updateSelectedBuildingType, updateSelectedBuildingWidth, updateSelectedBuildingWidth1, updateSelectedBuildingWidth2, updateSelectedRidgeDirection, updateSelectedRoofAngle, updateSelectedRoofMaterial, updateSelectedRoofPitch, updateSelectedRoofType } from 'state/configurator/actions'
+import { updateSelectedBuildingHeight, updateSelectedBuildingLength, updateSelectedBuildingLength1, updateSelectedBuildingRotation, updateSelectedBuildingType, updateSelectedBuildingWidth, updateSelectedBuildingWidth1, updateSelectedBuildingWidth2, updateSelectedRidgeDirection, updateSelectedRoofAngle, updateSelectedRoofMaterial, updateSelectedRoofPitch, updateSelectedRoofType } from 'state/configurator/actions'
 
 import styles from './styles.module.scss'
 
@@ -44,10 +44,10 @@ const BuildingDetailOptions = () => {
         if( selectedBuildingData && !isSetedLimitValues) {
             setIsSetedLimitValues(true)
             setLimitValues({
-                minWidth: Number(selectedBuildingData.buildingWidth.toFixed(1))-2,
-                maxWidth: Number(selectedBuildingData.buildingWidth.toFixed(1))+2,
-                minLength: Number(selectedBuildingData.buildingLength.toFixed(1))-2,
-                maxLength: Number(selectedBuildingData.buildingLength.toFixed(1))+2,
+                minWidth: Number(selectedBuildingData.buildingWidth.toFixed(1)) - 2,
+                maxWidth: Number(selectedBuildingData.buildingWidth.toFixed(1)) + 2,
+                minLength: Number(selectedBuildingData.buildingLength.toFixed(1)) - 2,
+                maxLength: Number(selectedBuildingData.buildingLength.toFixed(1)) + 2,
             })
         }
     }, [selectedBuildingData])
@@ -143,14 +143,14 @@ const BuildingDetailOptions = () => {
                 (selectedBuildingData.buildingType === 'type-4-1' || selectedBuildingData.buildingType === 'type-4-2' || selectedBuildingData.buildingType === 'type-4-3' || selectedBuildingData.buildingType === 'type-4-4') &&
                 <div className={styles.buildingOption}>
                     <div className={styles.optionTitle}>Length 1</div>
-                    <Slider min={Number(0)} max={Number(selectedBuildingData?.buildingLength)} value={selectedBuildingData?.buildingLength1} defaultValue={selectedBuildingData?.buildingLength1} style={{ width: '100%' }} 
-                        onChange={(value)=>{ dispatch(updateSelectedBuildingLength({
+                    <Slider step={Number(0.1)} min={Number(0)} max={Number(selectedBuildingData?.buildingLength)} value={selectedBuildingData?.buildingLength1} defaultValue={selectedBuildingData?.buildingLength1} style={{ width: '100%' }} 
+                        onChange={(value)=>{ dispatch(updateSelectedBuildingLength1({
                             buildingNumber: selectedBuildingNumber,
                             buildingLength1: value
                         }))}}
                     />
                     <InputNumber step={0.1} style={{ minWidth: '70px' }} value={selectedBuildingData?.buildingLength1} defaultValue={selectedBuildingData?.buildingLength1} 
-                        onChange={(value)=>{ dispatch(updateSelectedBuildingLength({
+                        onChange={(value)=>{ dispatch(updateSelectedBuildingLength1({
                             buildingNumber: selectedBuildingNumber,
                             buildingLength1: value
                         }))}}

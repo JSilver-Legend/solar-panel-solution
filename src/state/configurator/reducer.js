@@ -173,7 +173,7 @@ export const configurator = (state = initialState, action) => {
             if (item.buildingNumber === action.value.buildingNumber) {
                 return {
                     ...item,
-                    buildingLength1: action.value.buildingLength
+                    buildingLength1: action.value.buildingLength1
                 };
             }
             return item;

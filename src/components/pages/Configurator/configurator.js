@@ -82,7 +82,7 @@ const Configurator = () => {
             //---building rotate anglefunction getAngle(point1, point2) { 
             const tempAngle = getAngleTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[1]);
             buildingAngle = tempAngle * Math.PI / 180 - Math.PI / 2;
-            if (buildingAngle >= Math.PI * 2){
+            if (buildingAngle > Math.PI * 2){
                 buildingAngle = Math.PI * 2 - buildingAngle;
             }
 
@@ -128,10 +128,10 @@ const Configurator = () => {
                 buildingNumber: index + 1,
                 buildingType: roofsSource[index].buildingType,
                 buildingWidth: item.width,
-                buildingWidth1: (item.width/3).toFixed(1),
-                buildingWidth2: (item.width/3).toFixed(1),
+                buildingWidth1: parseFloat((item.width / 3).toFixed(1)),
+                buildingWidth2: parseFloat((item.width / 3).toFixed(1)),
                 buildingLength: item.length,
-                buildingLength1: (item.length/2).toFixed(1),
+                buildingLength1: parseFloat((item.length/2).toFixed(1)),
                 buildingHeight: 3,
                 buildingRotation: -item.angle,
                 material: getRoofTexture(roofsSource[index].roofType),
@@ -211,6 +211,9 @@ const Configurator = () => {
                                 far: 10000,
                                 position: [0, 80, 0]
                             }}
+                        style={{
+                            backgroundColor: 'grey'
+                        }}
                         shadows
                     >
                         <CanvasEnv />
