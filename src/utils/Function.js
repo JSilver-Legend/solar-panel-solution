@@ -45,31 +45,31 @@ export const getRoofTexture = (value) => {
 
 export const getDefaultBuildingType = (value) => {
     switch (value) {
-        case "1":
+        case "type-1":
             return type1;
-        case "2-1":
+        case "type-2-1":
             return type21;
-        case "2-2":
+        case "type-2-2":
             return type22;
-        case "2-3":
+        case "type-2-3":
             return type23;
-        case "2-4":
+        case "type-2-4":
             return type24;
-        case "3-1":
+        case "type-3-1":
             return type31;
-        case "3-2":
+        case "type-3-2":
             return type32;
-        case "3-3":
+        case "type-3-3":
             return type33;
-        case "3-4":
+        case "type-3-4":
             return type34;
-        case "4-1":
+        case "type-4-1":
             return type41;
-        case "4-2":
+        case "type-4-2":
             return type42;
-        case "4-3":
+        case "type-4-3":
             return type43;
-        case "4-4":
+        case "type-4-4":
             return type44;
         default:
             return type1;
