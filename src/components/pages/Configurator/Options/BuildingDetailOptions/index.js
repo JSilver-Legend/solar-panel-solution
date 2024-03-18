@@ -164,7 +164,7 @@ const BuildingDetailOptions = () => {
                         buildingHeight: value
                     }))}}
                 />
-                <InputNumber step={0.1} min={0} value={selectedBuildingData?.buildingHeight} defaultValue={selectedBuildingData?.height} 
+                <InputNumber step={0.1} style={{ minWidth: '70px' }} min={0} value={selectedBuildingData?.buildingHeight} defaultValue={selectedBuildingData?.height} 
                     onChange={(value)=>{ dispatch(updateSelectedBuildingHeight({
                         buildingNumber: selectedBuildingNumber,
                         buildingHeight: value
@@ -173,13 +173,13 @@ const BuildingDetailOptions = () => {
             </div>
             <div className={styles.buildingOption}>
                 <div className={styles.optionTitle}>Rotation</div>
-                <Slider value={selectedBuildingData?.buildingRotation} defaultValue={selectedBuildingData?.buildingRotation} style={{ width: '100%' }} 
+                <Slider step={1} min={0} max={360} value={selectedBuildingData?.buildingRotation} defaultValue={selectedBuildingData?.buildingRotation} style={{ width: '100%' }} 
                     onChange={(value)=>{ dispatch(updateSelectedBuildingRotation({
                         buildingNumber: selectedBuildingNumber,
                         buildingRotation: value
                     }))}}
                 />
-                <InputNumber value={selectedBuildingData?.buildingRotation} defaultValue={selectedBuildingData?.buildingRotation} 
+                <InputNumber step={1} style={{ minWidth: '70px' }} min={0} max={360} value={selectedBuildingData?.buildingRotation} defaultValue={selectedBuildingData?.buildingRotation} 
                     onChange={(value)=>{ dispatch(updateSelectedBuildingRotation({
                         buildingNumber: selectedBuildingNumber,
                         buildingRotation: value
@@ -211,7 +211,7 @@ const BuildingDetailOptions = () => {
                                 }
                             ))}}
                         />
-                        <InputNumber value={selectedBuildingData?.roofAngle} defaultValue={selectedBuildingData?.roofAngle} disabled={isSelectedRoofOptionStyle!=='angle'} 
+                        <InputNumber style={{ minWidth: '70px' }} value={selectedBuildingData?.roofAngle} defaultValue={selectedBuildingData?.roofAngle} disabled={isSelectedRoofOptionStyle!=='angle'} 
                             onChange={(value)=>{ dispatch(updateSelectedRoofAngle(
                                 {
                                     buildingNumber: selectedBuildingNumber,
@@ -230,7 +230,7 @@ const BuildingDetailOptions = () => {
                                 }
                             ))}} 
                         />
-                        <InputNumber value={selectedBuildingData?.roofPitch} defaultValue={selectedBuildingData?.roofPitch} disabled={isSelectedRoofOptionStyle!=='pitch'} 
+                        <InputNumber style={{ minWidth: '70px' }} value={selectedBuildingData?.roofPitch} defaultValue={selectedBuildingData?.roofPitch} disabled={isSelectedRoofOptionStyle!=='pitch'} 
                             onChange={(value)=>{ dispatch(updateSelectedRoofPitch(
                                 {
                                     buildingNumber: selectedBuildingNumber,
