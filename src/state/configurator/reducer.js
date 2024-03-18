@@ -14,29 +14,31 @@ import {
   UPDATE_SELECTED_BUILDING_ROTATION,
   SET_BUILDING_INIT_DATA,
   UPDATE_SELECTED_ROOF_MATERIAL,
+  SET_ORBITCAM,
+  SET_GOOGLE_MAP_IMAGE_URL,
 } from "./types";
 
 export const initialState = {
   selectedBuildingNumber: null,
-  buildingData: [
-    // { buildingNumber: 1, buildingType: 'type-1', buildingWidth: 3, buildingLength: 3, buildingHeight: 3, buildingRotation: 3, material: 'brick', roofType: 'flat', roofAngle: 3, roofPitch: 5, ridgeDirection: 'direction-1'},
-    // { buildingNumber: 2, buildingType: 'type-2-1', buildingWidth: 3, buildingLength: 4, buildingHeight: 3, buildingRotation: 3, material: 'concrete', roofType: 'shed', roofAngle: 4, roofPitch: 5, ridgeDirection: 'direction-1'},
-    // { buildingNumber: 3, buildingType: 'type-2-2', buildingWidth: 3, buildingLength: 5, buildingHeight: 3, buildingRotation: 3, material: 'metal', roofType: 'box-gable', roofAngle: 3, roofPitch: 5, ridgeDirection: 'direction-1'},
-    // { buildingNumber: 4, buildingType: 'type-2-3', buildingWidth: 3, buildingLength: 6, buildingHeight: 3, buildingRotation: 3, material: 'plate', roofType: 'open-gable', roofAngle: 5, roofPitch: 5, ridgeDirection: 'direction-1'},
-    // { buildingNumber: 5, buildingType: 'type-2-4', buildingWidth: 3, buildingLength: 7, buildingHeight: 3, buildingRotation: 3, material: 'plegel', roofType: 'saltt-box', roofAngle: 3, roofPitch: 5, ridgeDirection: 'direction-1'},
-    // { buildingNumber: 6, buildingType: 'type-3-1', buildingWidth: 3, buildingLength: 8, buildingHeight: 3, buildingRotation: 3, material: 'cardboard', roofType: 'flat', roofAngle: 3, roofPitch: 7, ridgeDirection: 'direction-1'},
-    // { buildingNumber: 7, buildingType: 'type-3-2', buildingWidth: 3, buildingLength: 9, buildingHeight: 3, buildingRotation: 3, material: 'brick', roofType: 'shed', roofAngle: 3, roofPitch: 5, ridgeDirection: 'direction-2'},
-    // { buildingNumber: 8, buildingType: 'type-3-3', buildingWidth: 3, buildingLength: 10, buildingHeight: 3, buildingRotation: 3, material: 'concrete', roofType: 'box-gable', roofAngle: 3, roofPitch: 5, ridgeDirection: 'direction-2'},
-    // { buildingNumber: 9, buildingType: 'type-3-4', buildingWidth: 3, buildingLength: 11, buildingHeight: 3, buildingRotation: 3, material: 'metal', roofType: 'open-gable', roofAngle: 6, roofPitch: 5, ridgeDirection: 'direction-2'},
-    // { buildingNumber: 10, buildingType: 'type-4-1', buildingWidth: 3, buildingLength: 12, buildingHeight: 3, buildingRotation: 3, material: 'plate', roofType: 'saltt-box', roofAngle: 3, roofPitch: 5, ridgeDirection: 'direction-2'},
-    // { buildingNumber: 11, buildingType: 'type-4-2', buildingWidth: 3, buildingLength: 13, buildingHeight: 3, buildingRotation: 3, material: 'plegel', roofType: 'flat', roofAngle: 3, roofPitch: 5, ridgeDirection: 'direction-2'},
-    // { buildingNumber: 12, buildingType: 'type-4-3', buildingWidth: 3, buildingLength: 14, buildingHeight: 3, buildingRotation: 3, material: 'cardboard', roofType: 'shed', roofAngle: 3, roofPitch: 5, ridgeDirection: 'direction-2'},
-    // { buildingNumber: 13, buildingType: 'type-4-4', buildingWidth: 3, buildingLength: 15, buildingHeight: 3, buildingRotation: 3, material: 'brick', roofType: 'box-gable', roofAngle: 3, roofPitch: 5, ridgeDirection: 'direction-2'},
-  ],
+  buildingData: [],
+  orbitCam: null,
+  googleMapImageURL: "",
 };
 
 export const configurator = (state = initialState, action) => {
   switch (action.type) {
+    case SET_ORBITCAM:
+      return {
+        ...state,
+        orbitCam: action.value
+      }
+
+    case SET_GOOGLE_MAP_IMAGE_URL:
+      return {
+        ...state,
+        googleMapImageURL: action.value
+      }
+    
     case SET_BUILDING_INIT_DATA:
       return {
         ...state,

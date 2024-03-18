@@ -13,6 +13,7 @@ import BuildingDetailOptions from './Options/BuildingDetailOptions'
 import { getAngleTwoPointsFromGoogleMap, getDistanceTwoPointsFromGoogleMap, getRoofTexture, getRoofType } from 'utils/Function'
 import CanvasEnv from './CanvasEnv'
 import Buildings from './Buildings'
+import CameraControl from './CameraControl'
 
 const Configurator = () => {
     
@@ -206,6 +207,7 @@ const Configurator = () => {
                         shadows
                     >
                         <CanvasEnv />
+                        <CameraControl />
                         {buildingData.map((item, index) => 
                             <Buildings key={`building-${index}`} index={index} item={item} />
                         )}

@@ -19,8 +19,26 @@ import BG4 from '../assets/texture/envMap/4.jpg'
 import BG5 from '../assets/texture/envMap/5.jpg'
 import BG6 from '../assets/texture/envMap/6.jpg'
 
+/**
+ *  Building Type SVG
+ */
+
+import type1 from '../assets/buildings/type-1.svg'
+import type21 from '../assets/buildings/type-2-1.svg'
+import type22 from '../assets/buildings/type-2-2.svg'
+import type23 from '../assets/buildings/type-2-3.svg'
+import type24 from '../assets/buildings/type-2-4.svg'
+import type31 from '../assets/buildings/type-3-1.svg'
+import type32 from '../assets/buildings/type-3-2.svg'
+import type33 from '../assets/buildings/type-3-3.svg'
+import type34 from '../assets/buildings/type-3-4.svg'
+import type41 from '../assets/buildings/type-4-1.svg'
+import type42 from '../assets/buildings/type-4-2.svg'
+import type43 from '../assets/buildings/type-4-3.svg'
+import type44 from '../assets/buildings/type-4-4.svg'
+
 export {
-    // --- roof textures ---
+    //roof textures
     Brick,
     Concrete,
     Metal,
@@ -35,4 +53,19 @@ export {
     BG4,
     BG5,
     BG6,
+
+    //building type svg
+    type1,
+    type21,
+    type22,
+    type23,
+    type24,
+    type31,
+    type32,
+    type33,
+    type34,
+    type41,
+    type42,
+    type43,
+    type44,
 }

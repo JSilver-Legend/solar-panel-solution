@@ -1,19 +1,29 @@
-import React, { useRef, useEffect } from "react";
-// import { useDispatch } from "react-redux";
+import React, { useEffect, useRef,  } from "react";
 import { OrbitControls } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useDispatch } from "react-redux";
 
-// import { handleOrbitCamera } from "state/roofs/actions";
+import { setOrbitCam } from "state/configurator/actions";
 
 import Ground from "./Ground";
 import Light from "./Light";
 import EnvCmp from "./EnvCmp";
 
 const CanvasEnv = () => {
+    const dispatch = useDispatch();
+    const orbitCam = useRef();
+
+    useEffect(() => {
+        if (orbitCam !== undefined) {
+            if (orbitCam.current !== undefined) {
+                dispatch(setOrbitCam(orbitCam.current))
+            }
+        }
+    }, [orbitCam])
 
     return (
         <group>
             <OrbitControls
+                ref={orbitCam}
                 target={[0, 0, 0]}
                 minPolarAngle={0}
                 // maxPolarAngle={Math.PI / 2.2}

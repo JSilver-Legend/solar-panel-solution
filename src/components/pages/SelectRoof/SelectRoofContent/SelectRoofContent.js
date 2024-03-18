@@ -6,11 +6,13 @@ import { Typography } from "antd";
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import styles from "./roof-content.module.scss";
+
 import { mapActions, mapSelectors } from "state/map";
 import { roofsSelectors, roofsActions } from "state/roofs";
 import { obstaclesSelectors, obstaclesActions } from "state/obstacles";
 import { resultActions } from "state/result";
 import { utils } from 'services';
+
 import {
     Button,
     Content,
@@ -21,9 +23,10 @@ import {
     PrevButton,
     NextButton
 } from "components/common";
+import { setGoogleMapImageURL } from "state/configurator/actions";
+
 import RoofList from "../RoofList";
 import ObstacleList from "../ObstacleList";
-import { setGoogleMapImageURL } from "state/roofs/actions";
 
 const SelectRoofContent = ({
     activateDrawingMode,

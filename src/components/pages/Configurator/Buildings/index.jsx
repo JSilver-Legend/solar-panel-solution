@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setSelectedBuildingNumber } from 'state/configurator/actions'
 
 const Buildings = ({ index, item }) => {
-    console.log('item: ', item);
     const dispatch = useDispatch();
     
     return (

@@ -14,7 +14,19 @@ import {
   UPDATE_SELECTED_BUILDING_HEIGHT,
   UPDATE_SELECTED_BUILDING_ROTATION,
   UPDATE_SELECTED_ROOF_MATERIAL,
+  SET_ORBITCAM,
+  SET_GOOGLE_MAP_IMAGE_URL,
 } from "./types";
+
+export const setOrbitCam = value => ({
+  type: SET_ORBITCAM,
+  value: value
+});
+
+export const setGoogleMapImageURL = value => ({
+  type: SET_GOOGLE_MAP_IMAGE_URL,
+  value: value
+})
 
 export const setBuildingInitData = value => ({
   type: SET_BUILDING_INIT_DATA,
