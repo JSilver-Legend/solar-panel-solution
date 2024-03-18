@@ -6,7 +6,10 @@ import {
   UPDATE_SELECTED_ROOF_PITCH,
   UPDATE_SELECTED_RIDGE_DIRECTION,
   UPDATE_SELECTED_BUILDING_WIDTH,
+  UPDATE_SELECTED_BUILDING_WIDTH1,
+  UPDATE_SELECTED_BUILDING_WIDTH2,
   UPDATE_SELECTED_BUILDING_LENGTH,
+  UPDATE_SELECTED_BUILDING_LENGTH1,
   UPDATE_SELECTED_BUILDING_HEIGHT,
   UPDATE_SELECTED_BUILDING_ROTATION,
   SET_BUILDING_INIT_DATA,
@@ -122,6 +125,32 @@ export const configurator = (state = initialState, action) => {
             return item;
           })
         }
+      case UPDATE_SELECTED_BUILDING_WIDTH1:
+        return {
+          ...state,
+          buildingData: state.buildingData.map(item => {
+            if (item.buildingNumber === action.value.buildingNumber) {
+                return {
+                    ...item,
+                    buildingWidth1: action.value.buildingWidth1
+                };
+            }
+            return item;
+          })
+        }
+      case UPDATE_SELECTED_BUILDING_WIDTH2:
+        return {
+          ...state,
+          buildingData: state.buildingData.map(item => {
+            if (item.buildingNumber === action.value.buildingNumber) {
+                return {
+                    ...item,
+                    buildingWidth2: action.value.buildingWidth2
+                };
+            }
+            return item;
+          })
+        }
       case UPDATE_SELECTED_BUILDING_LENGTH:
         return {
           ...state,
@@ -130,6 +159,19 @@ export const configurator = (state = initialState, action) => {
                 return {
                     ...item,
                     buildingLength: action.value.buildingLength
+                };
+            }
+            return item;
+          })
+        }
+      case UPDATE_SELECTED_BUILDING_LENGTH1:
+        return {
+          ...state,
+          buildingData: state.buildingData.map(item => {
+            if (item.buildingNumber === action.value.buildingNumber) {
+                return {
+                    ...item,
+                    buildingLength1: action.value.buildingLength
                 };
             }
             return item;
