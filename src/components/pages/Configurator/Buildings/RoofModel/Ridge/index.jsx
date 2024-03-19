@@ -30,7 +30,7 @@ const Ridge = ({ item, constValueData }) => {
     return (
         <mesh name={`roofModel-${item.buildingNumber}`} position={[0, height + pitch + 0.32,  -length / 2 - constValueData.coverAddSize]}>
             <extrudeGeometry args={[ridgeModel(width, pitch, type), extrudeSetting(length + constValueData.coverAddSize * 2)]} />
-            <meshStandardMaterial color="white" side={DoubleSide} metalness={0.7} roughness={0.3} transparent />
+            <meshStandardMaterial color="white" side={DoubleSide} metalness={0.7} roughness={0.5} transparent />
         </mesh>
     );
 };

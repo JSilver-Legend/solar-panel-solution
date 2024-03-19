@@ -1,36 +1,21 @@
 import React, { useState, useEffect } from "react";
-import * as THREE from "three";
-import { TextureLoader, DoubleSide } from "three";
+import { TextureLoader } from "three";
 import { useThree } from "@react-three/fiber";
 
 import { Brick, Concrete, Metal, Plate, Plegel, Cardboard } from "utils/ImageInfo";
 import { TextureCustomize } from "utils/TextureInfo";
-import { extrudeSetting } from "utils/Function";
 
-const Roof = ({ item, constValueData }) => {
+import Type1 from "./Type1";
+import Type22 from "./Type22";
+import Type33 from "./Type33";
+import Type44 from "./Type44";
+
+const Roof = ({ item }) => {
     const { gl } = useThree();
+    const [roofTexture, setRoofTexture] = useState(null);
 
-    const width = item.buildingWidth;
-    const length = item.buildingLength;
-    const height = item.buildingHeight;
-    const pitch = item.roofPitch;
-
-    const model = () => {
-        switch (item.roofType) {
-            case "flat":
-                return flatModel(width, constValueData.roofThickness);
-            case "shed":
-                return shedModel(width, pitch, constValueData.roofThickness);
-            case "box-gable":
-                return boxGableModel(width, pitch, constValueData.roofThickness);
-            case "open-gable":
-                return openGableModel(width, pitch, constValueData.roofThickness);
-            case "saltt-box":
-                return salttBoxModel(width, pitch, constValueData.roofThickness);
-            default:
-                return flatModel(width, pitch, constValueData.roofThickness);
-        }
-    };
+    const roofThickness = 0.005;
+    const overHang = 0.1;
 
     // load roof textures
     const BrickJPG = new TextureLoader().load(Brick);
@@ -45,9 +30,6 @@ const Roof = ({ item, constValueData }) => {
     TextureCustomize(PlegelJPG, gl, 1, 3, -Math.PI / 2);
     const CardboardJPG = new TextureLoader().load(Cardboard);
     TextureCustomize(CardboardJPG, gl, 0.7, 0.7, -Math.PI / 2);
-
-    // set texture of roof
-    const [roofTexture, setRoofTexture] = useState(BrickJPG);
 
     useEffect(() => {
         if (item.roofMaterial === "brick") {
@@ -72,71 +54,28 @@ const Roof = ({ item, constValueData }) => {
     }, [item.roofMaterial]);
 
     return (
-        <mesh name={`roofModel-${item.buildingNumber}`} position={[0, height + 0.025, -length / 2]}>
-            <extrudeGeometry args={[model(), extrudeSetting(length)]} />
-            <meshPhongMaterial map={roofTexture} bumpMap={roofTexture} bumpScale={0.2} side={DoubleSide} transparent />
-        </mesh>
+        <group>
+            {item.buildingType === 'type-1' && <Type1 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />}
+            {item.buildingType === 'type-2-2' && <Type22 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />}
+            {item.buildingType === 'type-2-3' &&
+                <group rotation={[0, Math.PI, 0]}>
+                    <Type22 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />
+                </group>
+            }
+            {item.buildingType === 'type-3-2' &&
+                <group rotation={[0, Math.PI, 0]}>
+                    <Type33 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />
+                </group>
+            }
+            {item.buildingType === 'type-3-3' && <Type33 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />}
+            {item.buildingType === 'type-4-3' &&
+                <group rotation={[0, Math.PI, 0]}>
+                    <Type44 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />
+                </group>
+            }
+            {item.buildingType === 'type-4-4' && <Type44 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />}
+        </group>
     );
 };
 
 export default Roof;
-
-const flatModel = (width, roofThickness) => {
-    const model = new THREE.Shape();
-    model.moveTo(width / 2, 0);
-    model.lineTo(width / 2, roofThickness);
-    model.lineTo(-width / 2, roofThickness);
-    model.lineTo(-width / 2, 0);
-    model.lineTo(width / 2, 0);
-
-    return model;
-};
-
-const boxGableModel = (width, pitch, roofThickness) => {
-    const model = new THREE.Shape();
-    model.moveTo(width / 2, 0);
-    model.lineTo(width / 2, roofThickness);
-    model.lineTo(0, pitch + roofThickness);
-    model.lineTo(-width / 2, roofThickness);
-    model.lineTo(-width / 2, 0);
-    model.lineTo(width / 2, 0);
-
-    return model;
-};
-
-const openGableModel = (width, pitch, roofThickness) => {
-    const model = new THREE.Shape();
-    model.moveTo(width / 2, 0);
-    model.lineTo(width / 2, roofThickness);
-    model.lineTo(0, pitch + roofThickness);
-    model.lineTo(-width / 2, roofThickness);
-    model.lineTo(-width / 2, 0);
-    model.lineTo(0, pitch);
-    model.lineTo(width / 2, 0);
-
-    return model;
-};
-
-const shedModel = (width, pitch, roofThickness) => {
-    const model = new THREE.Shape();
-    model.moveTo(width / 2, 0);
-    model.lineTo(width / 2, roofThickness);
-    model.lineTo(-width / 2, pitch + roofThickness);
-    model.lineTo(-width / 2, pitch);
-    model.lineTo(width / 2, 0);
-
-    return model;
-};
-
-const salttBoxModel = (width, pitch, roofThickness) => {
-    const model = new THREE.Shape();
-    model.moveTo(width / 2, 0);
-    model.lineTo(width / 2, roofThickness);
-    model.lineTo(-width / 4, pitch + roofThickness);
-    model.lineTo(-width / 2, pitch / 2 + roofThickness);
-    model.lineTo(-width / 2, pitch / 2);
-    model.lineTo(-width / 4, pitch);
-    model.lineTo(width / 2, 0);
-
-    return model;
-};

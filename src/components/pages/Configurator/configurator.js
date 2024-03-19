@@ -76,15 +76,15 @@ const Configurator = () => {
             })
 
             //---building width & length
-            width = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[1]);
-            length = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[3]);
+            width = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[3]);
+            length = getDistanceTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[1]);
 
             //---building rotate anglefunction getAngle(point1, point2) { 
-            const tempAngle = getAngleTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[1]);
-            buildingAngle = tempAngle * Math.PI / 180 - Math.PI / 2;
-            if (buildingAngle > Math.PI * 2){
-                buildingAngle = Math.PI * 2 - buildingAngle;
+            let tempAngle = getAngleTwoPointsFromGoogleMap(sortPointsPosData[0], sortPointsPosData[1]);
+            if (tempAngle > 180) {
+                tempAngle = 360 - tempAngle;
             }
+            buildingAngle = tempAngle;
 
             //---get building center position
             pointMin_X = Math.min(...pointLng);
@@ -133,7 +133,7 @@ const Configurator = () => {
                 buildingLength: item.length,
                 buildingLength1: parseFloat((item.length/2).toFixed(1)),
                 buildingHeight: 3,
-                buildingRotation: -item.angle,
+                buildingRotation: item.angle,
                 material: getRoofTexture(roofsSource[index].roofType),
                 roofType: getRoofType(roofsSource[index].southPosition),
                 roofAngle: 3,
@@ -212,7 +212,7 @@ const Configurator = () => {
                                 position: [0, 80, 0]
                             }}
                         style={{
-                            backgroundColor: 'grey'
+                            backgroundColor: '#EEEEEE'
                         }}
                         shadows
                     >

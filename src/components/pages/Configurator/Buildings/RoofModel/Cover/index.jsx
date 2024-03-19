@@ -30,7 +30,7 @@ const Cover = ({ item, constValueData }) => {
     return (
         <mesh name={`roofModel-${item.buildingNumber}`} position={[0, height, -length / 2 - constValueData.coverAddSize]}>
             <extrudeGeometry args={[model(), extrudeSetting(length + constValueData.coverAddSize * 2)]} />
-            <meshStandardMaterial color="white" side={DoubleSide} metalness={0.7} roughness={0.3} transparent />
+            <meshStandardMaterial color="white" side={DoubleSide} metalness={0.7} roughness={0.5} transparent />
         </mesh>
     );
 };

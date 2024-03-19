@@ -36,7 +36,7 @@ const RoofCoverModel = ({ index, item, constValueData, opacityValue }) => {
             rotation={angle}
         >
             <extrudeGeometry args={[model(), extrudeRoofSettings(length + constValueData.coverAddSize * 2)]} />
-            <meshStandardMaterial color="white" side={DoubleSide} metalness={0.7} roughness={0.3} opacity={opacityValue} transparent />
+            <meshStandardMaterial color="white" side={DoubleSide} metalness={0.7} roughness={0.5} opacity={opacityValue} transparent />
         </mesh>
     );
 };
