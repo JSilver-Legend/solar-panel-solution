@@ -3,7 +3,7 @@ import * as THREE from 'three'
 
 import { extrudeSetting } from 'utils/Function';
 
-const Type22 = ({ item, overHang }) => {
+const Type22 = ({ item, overHang, wallTexture }) => {
     const width = item.buildingWidth;
     const width_1 = item.buildingWidth1
     const width_2 = item.buildingWidth2
@@ -27,12 +27,13 @@ const Type22 = ({ item, overHang }) => {
         <group>
             <mesh castShadow position={[0, 0.1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
                 <extrudeGeometry name='body' args={[model, extrudeSetting(height - 0.2)]} />
-                <meshStandardMaterial
+                <meshPhongMaterial
                     side={THREE.DoubleSide}
-                    color={'#0066FF'}
                     transparent
-                    metalness={0.5}
-                    roughness={0.5}
+                    map={wallTexture}
+                    bumpMap={wallTexture}
+                    bumpScale={0.3}
+                    shininess={100}
                 />
             </mesh>
         </group>

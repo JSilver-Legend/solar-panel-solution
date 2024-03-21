@@ -13,17 +13,17 @@ const { Option } = Select;
 
 const BuildingDetailOptions = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const [isSelectedRoofOptionStyle, setIsSelectedRoofOptionStyle] = useState('angle')
-    const [limitValues, setLimitValues] = useState(null)
-    const [isSetedLimitValues, setIsSetedLimitValues] = useState(false)
+    const [isSelectedRoofOptionStyle, setIsSelectedRoofOptionStyle] = useState('angle');
+    const [limitValues, setLimitValues] = useState(null);
+    const [isSetedLimitValues, setIsSetedLimitValues] = useState(false);
 
-    const selectedBuildingNumber = useSelector((state)=>state.configurator.selectedBuildingNumber)
-    const buildingData = useSelector((state)=>state.configurator.buildingData)
+    const selectedBuildingNumber = useSelector((state)=>state.configurator.selectedBuildingNumber);
+    const buildingData = useSelector((state)=>state.configurator.buildingData);
 
     const selectedBuildingData = useMemo(() => {
-        return buildingData?.find((item)=>item.buildingNumber === selectedBuildingNumber)
+        return buildingData?.find((item)=>item.buildingNumber === selectedBuildingNumber);
     }, [selectedBuildingNumber, buildingData])
     
     const onChangeBuildingType = (value) => {

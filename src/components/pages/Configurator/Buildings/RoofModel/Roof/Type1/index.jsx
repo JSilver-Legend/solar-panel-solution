@@ -89,14 +89,15 @@ const Type1 = ({ item, roofThickness, roofTexture }) => {
 
     return (
         <group>
-            <mesh castShadow position={[0, height, -length / 2]}>
-                <extrudeGeometry name="body" args={[model, extrudeSetting(length)]} />
-                <meshStandardMaterial
+            <mesh name='roof-model-1' castShadow position={[0, height, -length / 2]}>
+                <extrudeGeometry args={[model, extrudeSetting(length)]} />
+                <meshPhongMaterial
                     side={THREE.DoubleSide}
-                    color={'lightgreen'}
                     transparent
-                    metalness={0.5}
-                    roughness={0.5}
+                    map={roofTexture}
+                    bumpMap={roofTexture}
+                    bumpScale={0.3}
+                    shininess={100}
                 />
             </mesh>
         </group>

@@ -46,12 +46,12 @@ const CanvasEnv = () => {
                 maxDistance={200}
                 dampingFactor={0.7}
                 makeDefault
-            />            
+            />
             <Light />
             <axesHelper args={[150]} position={[0, 0.01, 0]}/>
             <Grid args={[5000, 5000]} { ...gridConfig } />
-            {/* <Environment files={'/assets/background/hilly_terrain_01_8k.hdr'} background blur={1} /> */}
             {/* <Ground /> */}
+            {/* <Environment files={'/assets/background/hilly_terrain_01_8k.hdr'} background blur={1} /> */}
         </group>
     );
 };

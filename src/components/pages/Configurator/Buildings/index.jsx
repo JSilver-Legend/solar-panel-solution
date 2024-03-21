@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { setSelectedBuildingNumber } from 'state/configurator/actions'
 
-import BodyModel from './BodyModel'
+import WallModel from './WallModel'
 import RoofModel from './RoofModel'
 
 const Buildings = ({ index, item }) => {
@@ -23,7 +23,7 @@ const Buildings = ({ index, item }) => {
             position={item.buildingPosition}
             rotation={[0, item.buildingRotation * Math.PI / 180, 0]}
         >
-            <BodyModel item={item} />
+            <WallModel item={item} />
             <RoofModel item={item} />
         </group>
     )
