@@ -88,8 +88,6 @@ const Type33 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
 
     const coverModel = useMemo(() => {
 
-        
-
         const model_1_base = new THREE.Shape()
         model_1_base.moveTo( -width / 2, 0);
         model_1_base.lineTo(  width / 2, 0 );
@@ -111,137 +109,270 @@ const Type33 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
         model_3_base.lineTo(  length / 2 - width_1, -model_height );
         model_3_base.closePath();
 
-        // const model_3_base = new THREE.Shape()
-        // model_3_base.moveTo(  length / 2, 0);
-        // model_3_base.lineTo( -length / 2, 0);
-        // model_3_base.lineTo( -length / 2, -model_height );
-        // model_3_base.lineTo(  length / 2, -model_height );
-        // model_3_base.closePath();
+        const model_4_base = new THREE.Shape()
+        model_4_base.moveTo(  length / 2 - width_1, 0);
+        model_4_base.lineTo( -length / 2, 0);
+        model_4_base.lineTo( -length / 2, -model_height );
+        model_4_base.lineTo(  length / 2 - width_1, -model_height );
+        model_4_base.closePath();
 
-        // const model_4_base = new THREE.Shape()
-        // model_4_base.moveTo( -width / 2, 0);
-        // model_4_base.lineTo(  width / 2, 0 );
-        // model_4_base.lineTo(  width / 2, -model_height );
-        // model_4_base.lineTo( -width / 2, -model_height );
-        // model_4_base.closePath();
+        const model_1_slope = new THREE.Shape();
+        model_1_slope.moveTo( 0, 0 );
+        model_1_slope.lineTo( 0, model_height );
+        model_1_slope.lineTo( width_1 / 2, pitch + model_height );
+        model_1_slope.lineTo( width_1 / 2, pitch );
+        model_1_slope.closePath();
 
-        // const model_1_slope = new THREE.Shape();
-        // model_1_slope.moveTo( 0, model_height );
-        // model_1_slope.lineTo( 0, 0 );
-        // model_1_slope.lineTo( -width_1 / 2, pitch );
-        // model_1_slope.lineTo( -width_1 / 2, pitch + model_height);
-        // model_1_slope.closePath();
+        const model_2_slope = new THREE.Shape();
+        model_2_slope.moveTo( 0, model_height );
+        model_2_slope.lineTo( 0, 0 );
+        model_2_slope.lineTo( -width_1 / 2, pitch );
+        model_2_slope.lineTo( -width_1 / 2, pitch + model_height);
+        model_2_slope.closePath();
 
-        // const model_2_slope = new THREE.Shape();
-        // model_2_slope.moveTo( 0, 0 );
-        // model_2_slope.lineTo( 0, model_height );
-        // model_2_slope.lineTo( width_2 / 2, pitch + model_height );
-        // model_2_slope.lineTo( width_2 / 2, pitch );
-        // model_2_slope.closePath();
-        
-        // const model_3_slope = new THREE.Shape();
-        // model_3_slope.moveTo( 0, 0 );
-        // model_3_slope.lineTo( 0, model_height );
-        // model_3_slope.lineTo( width_1 / 2, pitch + model_height  );
-        // model_3_slope.lineTo( width_1 / 2, pitch );
-        // model_3_slope.closePath();
-        
-        // const model_4_slope = new THREE.Shape();
-        // model_4_slope.moveTo( 0, model_height );
-        // model_4_slope.lineTo( 0, 0 );
-        // model_4_slope.lineTo( -width_2 / 2, pitch  );
-        // model_4_slope.lineTo( -width_2 / 2, pitch + model_height);
-        // model_4_slope.closePath();
+        const model_3_slope = new THREE.Shape();
+        model_3_slope.moveTo( 0, 0 );
+        model_3_slope.lineTo( 0, model_height );
+        model_3_slope.lineTo( width_2 / 2, pitch + model_height );
+        model_3_slope.lineTo( width_2 / 2, pitch );
+        model_3_slope.closePath();
+
+        const model_4_slope = new THREE.Shape();
+        model_4_slope.moveTo( 0, model_height );
+        model_4_slope.lineTo( 0, 0 );
+        model_4_slope.lineTo( -width_2 / 2, pitch );
+        model_4_slope.lineTo( -width_2 / 2, pitch + model_height);
+        model_4_slope.closePath();
 
         return{
             model_1_base: model_1_base,
-            model_2_base: model_2_base
-            // model_2_base: model_2_base,
-            // model_3_base: model_3_base,
-            // model_4_base: model_4_base,
-            // model_1_slope: model_1_slope,
-            // model_2_slope: model_2_slope,
-            // model_3_slope: model_3_slope,
-            // model_4_slope: model_4_slope
+            model_2_base: model_2_base,
+            model_3_base: model_3_base,
+            model_4_base: model_4_base,
+            model_1_slope: model_1_slope,
+            model_2_slope: model_2_slope,
+            model_3_slope: model_3_slope,
+            model_4_slope: model_4_slope,
         }
     }, [length, pitch, width, width_1, width_2])
 
     return (
         <group>
-            <mesh name='roof-model-3-3-1' position={[0, height, -length / 2]} rotation={[model.angle1, 0, 0]} scale={[1, 1, 0.1]}>
-                <extrudeGeometry args={[model.model1, extrudeSetting(roofThickness)]} />
-                    <meshPhongMaterial
-                        side={THREE.DoubleSide}
-                        map={roofTexture}
-                        bumpMap={roofTexture}
-                        bumpScale={0.3}
-                        shininess={100}
-                    />
-            </mesh>
-            <mesh name='roof-model-3-3-2' position={[0, height, -length / 2 + width_1]} rotation={[-model.angle1, 0, 0]} scale={[1, 1, 0.1]}>
-                <extrudeGeometry args={[model.model2, extrudeSetting(roofThickness)]} />
-                    <meshPhongMaterial
-                        side={THREE.DoubleSide}
-                        map={roofTexture}
-                        bumpMap={roofTexture}
-                        bumpScale={0.3}
-                        shininess={100}
-                    />
-            </mesh>
-            <group position={[-width_2 / 2, height, 0]} rotation={[0, 0, model.angle2]}>
-                <mesh name='roof-model-3-3-3' rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 0.1]}>
-                    <extrudeGeometry args={[model.model3, extrudeSetting(roofThickness)]} />
-                    <meshPhongMaterial
-                        side={THREE.DoubleSide}
-                        map={roofTexture}
-                        bumpMap={roofTexture}
-                        bumpScale={0.3}
-                        shininess={100}
-                    />
-                </mesh>
+            <group name='roof-model-1'>
+                <group>
+                    <mesh name='roof-model-3-3-1' position={[0, height, -length / 2]} rotation={[model.angle1, 0, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[model.model1, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                map={roofTexture}
+                                bumpMap={roofTexture}
+                                bumpScale={0.3}
+                                shininess={100}
+                            />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='model-1-base' position={[0, height, -length / 2]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[coverModel.model_1_base, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='model-1-slope-left' position={[-width / 2, height - model_height, -length / 2]} rotation={[0, -Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[coverModel.model_1_slope, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='model-1-slope-right' position={[ width / 2, height - model_height, -length / 2]} rotation={[0, -Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[coverModel.model_1_slope, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                    </mesh>
+                </group>
             </group>
-            <group position={[width_2 / 2, height, 0]} rotation={[0, 0, -model.angle2]}>
-                <mesh name='roof-model-3-3-4' rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 0.1]}>
-                    <extrudeGeometry args={[model.model4, extrudeSetting(roofThickness)]} />
-                    <meshPhongMaterial
-                        side={THREE.DoubleSide}
-                        map={roofTexture}
-                        bumpMap={roofTexture}
-                        bumpScale={0.3}
-                        shininess={100}
-                    />
-                </mesh>
+            <group name='roof-model-2'>
+                <group>
+                    <mesh name='roof-model-3-3-2' position={[0, height, -length / 2 + width_1]} rotation={[-model.angle1, 0, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[model.model2, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                map={roofTexture}
+                                bumpMap={roofTexture}
+                                bumpScale={0.3}
+                                shininess={100}
+                            />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='model-2-base-left' position={[-width / 2, height, -(length / 2 - width_1)]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[coverModel.model_2_base, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='model-2-base-right' position={[width / 2 - width_3, height, -(length / 2 - width_1)]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[coverModel.model_2_base, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='model-2-slope-left' position={[-width / 2, height - model_height, -(length / 2 - width_1)]} rotation={[0, -Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[coverModel.model_2_slope, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='model-2-slope-right' position={[ width / 2, height - model_height, -(length / 2 - width_1)]} rotation={[0, -Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[coverModel.model_2_slope, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                    </mesh>
+                </group>
             </group>
-            <mesh name='roof-side-model-3-3-1' position={[-width / 2 + overHang, height, -length / 2 + width_1 / 2]} rotation={[0, -Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
-                <extrudeGeometry args={[model.sideModel1, extrudeSetting(roofThickness)]} />
-                <meshPhongMaterial
-                    side={THREE.DoubleSide}
-                    map={wallTexture}
-                    bumpMap={wallTexture}
-                    bumpScale={0.3}
-                    shininess={100}
-                />
-            </mesh>
-            <mesh name='roof-side-model-3-3-2' position={[width / 2 - overHang, height, -length / 2 + width_1 / 2]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
-                <extrudeGeometry args={[model.sideModel1, extrudeSetting(roofThickness)]} />
-                <meshPhongMaterial
-                    side={THREE.DoubleSide}
-                    map={wallTexture}
-                    bumpMap={wallTexture}
-                    bumpScale={0.3}
-                    shininess={100}
-                />
-            </mesh>
-            <mesh name='roof-side-model-3-3-3' position={[0, height, length / 2 - overHang]} scale={[1, 1, 0.1]}>
-                <extrudeGeometry args={[model.sideModel2, extrudeSetting(roofThickness)]} />
-                <meshPhongMaterial
-                    side={THREE.DoubleSide}
-                    map={wallTexture}
-                    bumpMap={wallTexture}
-                    bumpScale={0.3}
-                    shininess={100}
-                />
-            </mesh>
+            <group name='roof-model-3'>
+                <group position={[-width_2 / 2, height, 0]} rotation={[0, 0, model.angle2]}>
+                    <mesh name='roof-model-3-3-3' rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[model.model3, extrudeSetting(roofThickness)]} />
+                        <meshPhongMaterial
+                            side={THREE.DoubleSide}
+                            map={roofTexture}
+                            bumpMap={roofTexture}
+                            bumpScale={0.3}
+                            shininess={100}
+                        />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='model-3-base' position={[- width_2/2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[coverModel.model_3_base, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='model-3-slope' position={[ - width_2 / 2, height - model_height, length / 2]}scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[coverModel.model_3_slope, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                    </mesh>
+                </group>
+            </group>
+            <group name='roof-model-4'>
+                <group position={[width_2 / 2, height, 0]} rotation={[0, 0, -model.angle2]}>
+                    <mesh name='roof-model-3-3-4' rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[model.model4, extrudeSetting(roofThickness)]} />
+                        <meshPhongMaterial
+                            side={THREE.DoubleSide}
+                            map={roofTexture}
+                            bumpMap={roofTexture}
+                            bumpScale={0.3}
+                            shininess={100}
+                        />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='model-4-base' position={[ width_2 / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[coverModel.model_4_base, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='model-4-slope' position={[ width_2 / 2, height - model_height, length / 2]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[coverModel.model_4_slope, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                    </mesh>
+                </group>
+            </group>
+            <group>
+                <group>
+                    <mesh name='roof-side-model-3-3-1' position={[-width / 2 + overHang, height, -length / 2 + width_1 / 2]} rotation={[0, -Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[model.sideModel1, extrudeSetting(roofThickness)]} />
+                        <meshPhongMaterial
+                            side={THREE.DoubleSide}
+                            map={wallTexture}
+                            bumpMap={wallTexture}
+                            bumpScale={0.3}
+                            shininess={100}
+                        />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='roof-side-model-3-3-2' position={[width / 2 - overHang, height, -length / 2 + width_1 / 2]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[model.sideModel1, extrudeSetting(roofThickness)]} />
+                        <meshPhongMaterial
+                            side={THREE.DoubleSide}
+                            map={wallTexture}
+                            bumpMap={wallTexture}
+                            bumpScale={0.3}
+                            shininess={100}
+                        />
+                    </mesh>
+                </group>
+                <group>
+                    <mesh name='roof-side-model-3-3-3' position={[0, height, length / 2 - overHang]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[model.sideModel2, extrudeSetting(roofThickness)]} />
+                        <meshPhongMaterial
+                            side={THREE.DoubleSide}
+                            map={wallTexture}
+                            bumpMap={wallTexture}
+                            bumpScale={0.3}
+                            shininess={100}
+                        />
+                    </mesh>
+                </group>
+            </group>
         </group>
     )
 }
