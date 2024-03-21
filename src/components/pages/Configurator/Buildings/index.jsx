@@ -11,7 +11,6 @@ import { TextureCustomize } from 'utils/TextureInfo'
 import { Brick, Cardboard, Concrete, Metal, Plate, Plegel, Wall } from 'utils/ImageInfo'
 
 const Buildings = ({ index, item }) => {
-    console.log('item: ', item);
     
     const dispatch = useDispatch();
     const { gl } = useThree();
@@ -41,20 +40,15 @@ const Buildings = ({ index, item }) => {
     useEffect(() => {
         if (item.material === "brick") {
             setRoofTexture(BrickJPG);
-        }
-        if (item.material === "concrete") {
+        } else if (item.material === "concrete") {
             setRoofTexture(ConcreteJPG);
-        }
-        if (item.material === "metal") {
+        } else if (item.material === "metal") {
             setRoofTexture(MetalJPG);
-        }
-        if (item.material === "plate") {
+        } else if (item.material === "plate") {
             setRoofTexture(PlateJPG);
-        }
-        if (item.material === "plegel") {
+        } else if (item.material === "plegel") {
             setRoofTexture(PlegelJPG);
-        }
-        if (item.material === "cardboard") {
+        } else if (item.material === "cardboard") {
             setRoofTexture(CardboardJPG);
         }
     }, [item.material]);
@@ -64,7 +58,7 @@ const Buildings = ({ index, item }) => {
       setWallTexture(tempWallTexture)
     }, [])
     
-    return (
+    return wallTexture && roofTexture && (
         <group
             name={`building-${index}`}
             onClick={(e) => {
