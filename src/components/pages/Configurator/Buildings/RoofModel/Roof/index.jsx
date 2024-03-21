@@ -15,19 +15,16 @@ const Roof = ({ item, wallTexture, roofTexture, overHang }) => {
             {item.buildingType === 'type-2-3' &&
                 <group rotation={[0, Math.PI, 0]}>
                     <Type22 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture}wallTexture={wallTexture}  />
-                </group>
-            }
+                </group>}
             {item.buildingType === 'type-3-2' &&
                 <group rotation={[0, Math.PI, 0]}>
                     <Type33 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture}wallTexture={wallTexture}  />
-                </group>
-            }
+                </group>}
             {item.buildingType === 'type-3-3' && <Type33 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} wallTexture={wallTexture} />}
             {item.buildingType === 'type-4-3' &&
                 <group rotation={[0, Math.PI, 0]}>
                     <Type44 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture}wallTexture={wallTexture}  />
-                </group>
-            }
+                </group>}
             {item.buildingType === 'type-4-4' && <Type44 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} wallTexture={wallTexture} />}
         </group>
     );
