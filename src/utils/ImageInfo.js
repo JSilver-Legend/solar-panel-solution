@@ -9,6 +9,12 @@ import Plegel from '../assets/texture/roof/plegel.jpg'
 import Cardboard from '../assets/texture/roof/cardboard.jpg'
 
 /**
+ *  Wall Texture Images
+ */
+
+import Wall from '../assets/texture/wall/wall.jpg'
+
+/**
  *  Env Texture Images : blue sky
  */
 
@@ -45,6 +51,9 @@ export {
     Plate,
     Plegel,
     Cardboard,
+
+    //wall texture,
+    Wall,
 
     //env map : blue sky
     BG1,

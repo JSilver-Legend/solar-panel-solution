@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import React, { useMemo } from 'react'
 import { extrudeSetting } from 'utils/Function';
 
-const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
+const Type22 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
     const width = item.buildingWidth;
     const width_1 = item.buildingWidth1
     const width_2 = item.buildingWidth2
@@ -157,12 +157,12 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                 <group>
                     <mesh name='roof-model-2-2-1' position={[0, height, -(length / 2 - width_1)]} rotation={[-model.angle1, 0, 0]} scale={[1, 1, 0.1]}>
                         <extrudeGeometry args={[model.model1, extrudeSetting(roofThickness)]} />
-                        <meshStandardMaterial
+                        <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            color={'#61980A'}
-                            transparent
-                            metalness={0.5}
-                            roughness={0.5}
+                            map={roofTexture}
+                            bumpMap={roofTexture}
+                            bumpScale={0.3}
+                            shininess={100}
                         />
                     </mesh>
                 </group>
@@ -172,7 +172,6 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                         <meshStandardMaterial
                             side={THREE.DoubleSide}
                             color={'white'}
-                            transparent
                             metalness={0.5}
                             roughness={0.5}
                         />
@@ -184,7 +183,6 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                         <meshStandardMaterial
                             side={THREE.DoubleSide}
                             color={'white'}
-                            transparent
                             metalness={0.5}
                             roughness={0.5}
                         />
@@ -195,12 +193,12 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                 <group position={[width / 2 - width_2, height, 0]} rotation={[0, 0, model.angle2]}>
                     <mesh name='roof-model-2-2-2' rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 0.1]}>
                         <extrudeGeometry args={[model.model2, extrudeSetting(roofThickness)]} />
-                        <meshStandardMaterial
+                        <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            color={'#61980A'}
-                            transparent
-                            metalness={0.5}
-                            roughness={0.5}
+                            map={roofTexture}
+                            bumpMap={roofTexture}
+                            bumpScale={0.3}
+                            shininess={100}
                         />
                     </mesh>
                 </group>
@@ -210,7 +208,6 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                         <meshStandardMaterial
                             side={THREE.DoubleSide}
                             color={'white'}
-                            transparent
                             metalness={0.5}
                             roughness={0.5}
                         />
@@ -222,7 +219,6 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                         <meshStandardMaterial
                             side={THREE.DoubleSide}
                             color={'white'}
-                            transparent
                             metalness={0.5}
                             roughness={0.5}
                         />
@@ -233,12 +229,12 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                 <group position={[0, height, -length / 2]} rotation={[model.angle1, 0, 0]}>
                     <mesh name='roof-model-2-2-3' rotation={[Math.PI, 0, 0]} scale={[1, 1, 0.1]}>
                         <extrudeGeometry args={[model.model3, extrudeSetting(roofThickness)]} />
-                        <meshStandardMaterial
+                        <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            color={'#61980A'}
-                            transparent
-                            metalness={0.5}
-                            roughness={0.5}
+                            map={roofTexture}
+                            bumpMap={roofTexture}
+                            bumpScale={0.3}
+                            shininess={100}
                         />
                     </mesh>
                 </group>
@@ -248,7 +244,6 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                         <meshStandardMaterial
                             side={THREE.DoubleSide}
                             color={'white'}
-                            transparent
                             metalness={0.5}
                             roughness={0.5}
                         />
@@ -260,7 +255,6 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                         <meshStandardMaterial
                             side={THREE.DoubleSide}
                             color={'white'}
-                            transparent
                             metalness={0.5}
                             roughness={0.5}
                         />
@@ -271,12 +265,12 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                 <group position={[width / 2, height, 0]} rotation={[0, 0, -model.angle2]}>
                     <mesh name='roof-model-2-2-4' rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 0.1]}>
                         <extrudeGeometry args={[model.model4, extrudeSetting(roofThickness)]} />
-                        <meshStandardMaterial
+                        <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            color={'#61980A'}
-                            transparent
-                            metalness={0.5}
-                            roughness={0.5}
+                            map={roofTexture}
+                            bumpMap={roofTexture}
+                            bumpScale={0.3}
+                            shininess={100}
                         />
                     </mesh>
                 </group>
@@ -286,7 +280,6 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                         <meshStandardMaterial
                             side={THREE.DoubleSide}
                             color={'white'}
-                            transparent
                             metalness={0.5}
                             roughness={0.5}
                         />
@@ -299,9 +292,8 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                     <meshStandardMaterial
                         side={THREE.DoubleSide}
                         color={'white'}
-                        transparent
-                        metalness={0.5}
-                        roughness={0.5}
+                        bumpScale={0.3}
+                        shininess={100}
                     />
                 </mesh>
             </group>
@@ -309,24 +301,24 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture }) => {
                 <group>
                     <mesh name='roof-side-model-2-2-1' position={[-width / 2 + overHang, height, -length / 2 + width_1 / 2]} rotation={[0, -Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
                         <extrudeGeometry args={[model.sideModel1, extrudeSetting(roofThickness)]} />
-                        <meshStandardMaterial
+                        <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            color={'#0066FF'}
-                            transparent
-                            metalness={0.5}
-                            roughness={0.5}
+                            map={wallTexture}
+                            bumpMap={wallTexture}
+                            bumpScale={0.3}
+                            shininess={100}
                         />
                     </mesh>
                 </group>
                 <group>
                     <mesh name='roof-side-model-2-2-2' position={[width / 2 - width_2 / 2, height, length / 2 - overHang]} scale={[1, 1, 0.1]}>
                         <extrudeGeometry args={[model.sideModel2, extrudeSetting(roofThickness)]} />
-                        <meshStandardMaterial
+                        <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            color={'#0066FF'}
-                            transparent
-                            metalness={0.5}
-                            roughness={0.5}
+                            map={wallTexture}
+                            bumpMap={wallTexture}
+                            bumpScale={0.3}
+                            shininess={100}
                         />
                     </mesh>
                 </group>
