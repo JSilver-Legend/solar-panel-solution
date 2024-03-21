@@ -4,23 +4,27 @@ import Type22 from './Type22';
 import Type33 from './Type33';
 import Type44 from './Type44';
 import Type1 from './Type1';
+import Type21 from './Type21';
 
 const WallModel = ({ item, wallTexture, overHang }) => {
 
     return (
         <group>
             {item.buildingType === 'type-1' && <Type1 item={item} overHang={overHang} wallTexture={wallTexture} />}
+            {item.buildingType === 'type-2-1' && <Type21 item={item} overHang={overHang} wallTexture={wallTexture} />}
             {item.buildingType === 'type-2-2' && <Type22 item={item} overHang={overHang} wallTexture={wallTexture} />}
             {item.buildingType === 'type-2-3' &&
                 <group rotation={[0, Math.PI, 0]}>
                     <Type22 item={item} overHang={overHang} wallTexture={wallTexture} />
-                </group>
-            }
+                </group>}
+            {item.buildingType === 'type-2-4' &&
+                <group rotation={[0, Math.PI, 0]}>
+                    <Type21 item={item} overHang={overHang} wallTexture={wallTexture} />
+                </group>}
             {item.buildingType === 'type-3-2' &&
                 <group rotation={[0, Math.PI, 0]}>
                     <Type33 item={item} overHang={overHang} wallTexture={wallTexture} />
-                </group>
-            }
+                </group>}
             {item.buildingType === 'type-3-3' && <Type33 item={item} overHang={overHang} wallTexture={wallTexture} />}
             {item.buildingType === 'type-4-3' &&
                 <group rotation={[0, Math.PI, 0]}>
