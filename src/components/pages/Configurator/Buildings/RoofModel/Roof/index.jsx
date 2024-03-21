@@ -10,25 +10,25 @@ const Roof = ({ item, wallTexture, roofTexture, overHang }) => {
 
     return (
         <group>
-            {item.buildingType === 'type-1' && <Type1 item={item} wallTexture={wallTexture} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />}
-            {item.buildingType === 'type-2-2' && <Type22 item={item} wallTexture={wallTexture} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />}
+            {item.buildingType === 'type-1' && <Type1 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} wallTexture={wallTexture} />}
+            {item.buildingType === 'type-2-2' && <Type22 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} wallTexture={wallTexture} />}
             {item.buildingType === 'type-2-3' &&
                 <group rotation={[0, Math.PI, 0]}>
-                    <Type22 item={item} wallTexture={wallTexture} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />
+                    <Type22 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture}wallTexture={wallTexture}  />
                 </group>
             }
             {item.buildingType === 'type-3-2' &&
                 <group rotation={[0, Math.PI, 0]}>
-                    <Type33 item={item} wallTexture={wallTexture} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />
+                    <Type33 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture}wallTexture={wallTexture}  />
                 </group>
             }
-            {item.buildingType === 'type-3-3' && <Type33 item={item} wallTexture={wallTexture} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />}
+            {item.buildingType === 'type-3-3' && <Type33 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} wallTexture={wallTexture} />}
             {item.buildingType === 'type-4-3' &&
                 <group rotation={[0, Math.PI, 0]}>
-                    <Type44 item={item} wallTexture={wallTexture} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />
+                    <Type44 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture}wallTexture={wallTexture}  />
                 </group>
             }
-            {item.buildingType === 'type-4-4' && <Type44 item={item} wallTexture={wallTexture} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} />}
+            {item.buildingType === 'type-4-4' && <Type44 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture} wallTexture={wallTexture} />}
         </group>
     );
 };
