@@ -148,9 +148,9 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
         }
     }, [length, pitch, width, width_1, width_2])
 
-    const roofTexture_1 = roofTexture.clone();
-    roofTexture_1.rotation = Math.PI / 2
-    const roofTexture_2 = roofTexture.clone();
+    const roofTexture_R = roofTexture.clone();
+    roofTexture_R.rotation = 0
+    roofTexture_R.needsUpdate = true;
 
     return (
         <group>
@@ -160,8 +160,8 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
                         <extrudeGeometry args={[model.model1, extrudeSetting(roofThickness)]} />
                         <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            map={roofTexture_1}
-                            bumpMap={roofTexture_1}
+                            map={roofTexture_R}
+                            bumpMap={roofTexture_R}
                             bumpScale={0.3}
                             shininess={100}
                         />
@@ -196,8 +196,8 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
                         <extrudeGeometry args={[model.model2, extrudeSetting(roofThickness)]} />
                         <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            map={roofTexture_2}
-                            bumpMap={roofTexture_2}
+                            map={roofTexture}
+                            bumpMap={roofTexture}
                             bumpScale={0.3}
                             shininess={100}
                         />
@@ -232,8 +232,8 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
                         <extrudeGeometry args={[model.model3, extrudeSetting(roofThickness)]} />
                         <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            map={roofTexture_1}
-                            bumpMap={roofTexture_1}
+                            map={roofTexture_R}
+                            bumpMap={roofTexture_R}
                             bumpScale={0.3}
                             shininess={100}
                         />
@@ -268,8 +268,8 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
                         <extrudeGeometry args={[model.model4, extrudeSetting(roofThickness)]} />
                         <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            map={roofTexture_2}
-                            bumpMap={roofTexture_2}
+                            map={roofTexture}
+                            bumpMap={roofTexture}
                             bumpScale={0.3}
                             shininess={100}
                         />

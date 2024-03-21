@@ -25,17 +25,17 @@ const Buildings = ({ index, item }) => {
 
     // load roof textures
     const BrickJPG = new TextureLoader().load(Brick);
-    TextureCustomize(BrickJPG, gl, 0.42, 0.35, -Math.PI / 2);
+    TextureCustomize(BrickJPG, gl, 0.42, 0.35, Math.PI / 2);
     const ConcreteJPG = new TextureLoader().load(Concrete);
-    TextureCustomize(ConcreteJPG, gl, 0.6, 2, -Math.PI / 2);
+    TextureCustomize(ConcreteJPG, gl, 0.6, 2, Math.PI / 2);
     const MetalJPG = new TextureLoader().load(Metal);
-    TextureCustomize(MetalJPG, gl, 0.1, 0.7, 0);
+    TextureCustomize(MetalJPG, gl, 0.7, 0.1, Math.PI / 2);
     const PlateJPG = new TextureLoader().load(Plate);
-    TextureCustomize(PlateJPG, gl, 3, 0.1, -Math.PI / 2);
+    TextureCustomize(PlateJPG, gl, 3, 0.1, Math.PI / 2);
     const PlegelJPG = new TextureLoader().load(Plegel);
-    TextureCustomize(PlegelJPG, gl, 1, 3, -Math.PI / 2);
+    TextureCustomize(PlegelJPG, gl, 1, 3, Math.PI / 2);
     const CardboardJPG = new TextureLoader().load(Cardboard);
-    TextureCustomize(CardboardJPG, gl, 0.5, 0.25, -Math.PI / 2);
+    TextureCustomize(CardboardJPG, gl, 0.5, 0.25, Math.PI / 2);
 
     useEffect(() => {
         if (item.material === "brick") {

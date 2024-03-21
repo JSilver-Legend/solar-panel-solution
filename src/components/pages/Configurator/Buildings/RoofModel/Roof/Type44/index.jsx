@@ -107,7 +107,6 @@ const Type44 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
     }, [length, length_1, pitch, width, width_1, width_2]);
 
     const coverModel = useMemo(() => {
-
         const model_1_base = new THREE.Shape()
         model_1_base.moveTo( -(width / 2 - width_1), 0);
         model_1_base.lineTo(  width / 2 - width_2, 0 );
@@ -193,6 +192,10 @@ const Type44 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
         }
     }, [length, length_1, pitch, width, width_1, width_2])
 
+    const roofTexture_R = roofTexture.clone();
+    roofTexture_R.rotation = 0
+    roofTexture_R.needsUpdate = true;
+
     return (
 
         <group>
@@ -202,8 +205,8 @@ const Type44 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
                         <extrudeGeometry args={[model.model1, extrudeSetting(roofThickness)]} />
                             <meshPhongMaterial
                                 side={THREE.DoubleSide}
-                                map={roofTexture}
-                                bumpMap={roofTexture}
+                                map={roofTexture_R}
+                                bumpMap={roofTexture_R}
                                 bumpScale={0.3}
                                 shininess={100}
                             />
@@ -227,8 +230,8 @@ const Type44 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
                         <extrudeGeometry args={[model.model2, extrudeSetting(roofThickness)]} />
                             <meshPhongMaterial
                                 side={THREE.DoubleSide}
-                                map={roofTexture}
-                                bumpMap={roofTexture}
+                                map={roofTexture_R}
+                                bumpMap={roofTexture_R}
                                 bumpScale={0.3}
                                 shininess={100}
                             />
