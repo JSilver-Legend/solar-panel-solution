@@ -11,12 +11,6 @@ const Type22 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
     const pitch = item.roofPitch;
     const model_height = 0.2;
 
-    const texture_1 = roofTexture.clone();
-    texture_1.needsUpdate = true;
-    const texture_2 = roofTexture.clone();
-    texture_2.rotation = -Math.PI / 2;
-    texture_2.needsUpdate = true;
-
     const model = useMemo(() => {
         /**
          *         @__________
