@@ -51,11 +51,13 @@ const Buildings = ({ index, item }) => {
         } else if (item.material === "cardboard") {
             setRoofTexture(CardboardJPG);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [item.material]);
 
 
     useEffect(() => {
       setWallTexture(tempWallTexture)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     return wallTexture && roofTexture && (
