@@ -168,72 +168,6 @@ const Type33 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
 
     return (
         <group>
-<<<<<<< HEAD
-            <group name='roof_model_1'>
-                <group>
-                    <mesh name='roof-model-3-3-1' position={[0, height, -length / 2]} rotation={[model.angle1, 0, 0]} scale={[1, 1, 0.1]}>
-                        <extrudeGeometry args={[model.model1, extrudeSetting(roofThickness)]} />
-                        <meshStandardMaterial
-                            side={THREE.DoubleSide}
-                            color={'#61980A'}
-                            transparent
-                            metalness={0.5}
-                            roughness={0.5}
-                        />
-                    </mesh>
-                </group>
-                <group>
-                    <mesh name='model_1_base' position={[0, height, -length / 2]} scale={[1, 1, 0.1]}>
-                        <extrudeGeometry args={[coverModel.model_1_base, extrudeSetting(roofThickness)]} />
-                        <meshStandardMaterial
-                            side={THREE.DoubleSide}
-                            color={'#61980A'}
-                            transparent
-                            metalness={0.5}
-                            roughness={0.5}
-                        />
-                    </mesh>
-                </group>
-            </group>
-            <group name='roof_model_2'>
-                <group>
-                    <mesh name='roof-model-3-3-2' position={[0, height, -length / 2 + width_1]} rotation={[-model.angle1, 0, 0]} scale={[1, 1, 0.1]}>
-                        <extrudeGeometry args={[model.model2, extrudeSetting(roofThickness)]} />
-                        <meshStandardMaterial
-                            side={THREE.DoubleSide}
-                            color={'#61980A'}
-                            transparent
-                            metalness={0.5}
-                            roughness={0.5}
-                        />
-                    </mesh>
-                </group>
-                <group>
-                    <mesh name='model_2_left_base' position={[-width/2, height, -(length /2 - width_1)]} scale={[1, 1, 0.1]}>
-                        <extrudeGeometry args={[coverModel.model_2_base, extrudeSetting(roofThickness)]} />
-                        <meshStandardMaterial
-                            side={THREE.DoubleSide}
-                            color={'white'}
-                            transparent
-                            metalness={0.5}
-                            roughness={0.5}
-                        />
-                    </mesh>
-                </group>
-                <group>
-                    <mesh name='model_2_right_base' position={[width / 2 - width_3, height, -(length /2 - width_1)]}  scale={[1, 1, 0.1]}>
-                        <extrudeGeometry args={[coverModel.model_2_base, extrudeSetting(roofThickness)]} />
-                        <meshStandardMaterial
-                            side={THREE.DoubleSide}
-                            color={'white'}
-                            transparent
-                            metalness={0.5}
-                            roughness={0.5}
-                        />
-                    </mesh>
-                </group>
-            </group>
-=======
             <mesh name='roof-model-3-3-1' position={[0, height, -length / 2]} rotation={[model.angle1, 0, 0]} scale={[1, 1, 0.1]}>
                 <extrudeGeometry args={[model.model1, extrudeSetting(roofThickness)]} />
                     <meshPhongMaterial
@@ -254,7 +188,6 @@ const Type33 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
                         shininess={100}
                     />
             </mesh>
->>>>>>> 5133b4d99ca6f9000d09063030fca282b4b6a967
             <group position={[-width_2 / 2, height, 0]} rotation={[0, 0, model.angle2]}>
                 <mesh name='roof-model-3-3-3' rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 0.1]}>
                     <extrudeGeometry args={[model.model3, extrudeSetting(roofThickness)]} />

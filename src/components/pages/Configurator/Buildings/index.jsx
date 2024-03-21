@@ -57,12 +57,12 @@ const Buildings = ({ index, item }) => {
         if (item.material === "cardboard") {
             setRoofTexture(CardboardJPG);
         }
-    }, [BrickJPG, CardboardJPG, ConcreteJPG, MetalJPG, PlateJPG, PlegelJPG, item.material]);
+    }, [item.material]);
 
 
     useEffect(() => {
       setWallTexture(tempWallTexture)
-    }, [tempWallTexture])
+    }, [])
     
     return (
         <group
