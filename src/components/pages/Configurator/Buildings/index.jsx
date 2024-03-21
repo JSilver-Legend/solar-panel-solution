@@ -29,7 +29,7 @@ const Buildings = ({ index, item }) => {
     const ConcreteJPG = new TextureLoader().load(Concrete);
     TextureCustomize(ConcreteJPG, gl, 0.6, 2, Math.PI / 2);
     const MetalJPG = new TextureLoader().load(Metal);
-    TextureCustomize(MetalJPG, gl, 0.7, 0.1, Math.PI / 2);
+    TextureCustomize(MetalJPG, gl, 0.7, 0.0001, Math.PI / 2);
     const PlateJPG = new TextureLoader().load(Plate);
     TextureCustomize(PlateJPG, gl, 3, 0.1, Math.PI / 2);
     const PlegelJPG = new TextureLoader().load(Plegel);
