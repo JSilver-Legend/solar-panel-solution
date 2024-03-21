@@ -10,10 +10,10 @@ const Type1 = ({ item, overHang, wallTexture }) => {
 
     const model = useMemo(() => {
         const model = new THREE.Shape();
-        model.moveTo(-width / 2, -length / 2);
-        model.lineTo(-width / 2, length / 2);
-        model.lineTo(width / 2,length / 2);
-        model.lineTo(width / 2, -length / 2);
+        model.moveTo(-width / 2 + overHang, -length / 2 + overHang);
+        model.lineTo(-width / 2 + overHang, length / 2 - overHang);
+        model.lineTo(width / 2 - overHang, length / 2 - overHang);
+        model.lineTo(width / 2 - overHang, -length / 2 + overHang);
         model.closePath();
     
         return model;
