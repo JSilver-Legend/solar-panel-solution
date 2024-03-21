@@ -1,27 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { TextureLoader } from 'three';
-import { useThree } from '@react-three/fiber';
+import React from 'react'
 
 import Type22 from './Type22';
 import Type33 from './Type33';
 import Type44 from './Type44';
 import Type1 from './Type1';
-import { Wall } from 'utils/ImageInfo';
-import { TextureCustomize } from 'utils/TextureInfo';
 
-const WallModel = ({ item }) => {
-    const { gl } = useThree();
-    const [wallTexture, setWallTexture] = useState(null)
-
-    const overHang = 0.1
-    
-    const tempWallTexture = new TextureLoader().load(Wall);
-    TextureCustomize(tempWallTexture, gl, 1, 1, 0);
-
-    useEffect(() => {
-      setWallTexture(tempWallTexture)
-    }, [])
-    
+const WallModel = ({ item, wallTexture, overHang }) => {
 
     return (
         <group>

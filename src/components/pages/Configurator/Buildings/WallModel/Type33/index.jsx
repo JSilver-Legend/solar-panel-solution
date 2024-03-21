@@ -31,7 +31,6 @@ const Type33 = ({ item, overHang, wallTexture }) => {
                 <extrudeGeometry args={[model, extrudeSetting(height - 0.2)]} />
                 <meshPhongMaterial
                     side={THREE.DoubleSide}
-                    transparent
                     map={wallTexture}
                     bumpMap={wallTexture}
                     bumpScale={0.3}
