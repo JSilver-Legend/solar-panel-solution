@@ -93,7 +93,6 @@ const Type1 = ({ item, roofThickness, roofTexture }) => {
                 <extrudeGeometry args={[model, extrudeSetting(length)]} />
                 <meshPhongMaterial
                     side={THREE.DoubleSide}
-                    transparent
                     map={roofTexture}
                     bumpMap={roofTexture}
                     bumpScale={0.3}
