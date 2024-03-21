@@ -5,4 +5,5 @@ export const TextureCustomize = (texture, render, repeatX, repeatY, rotate) => {
     texture.repeat.set(repeatX, repeatY);
     texture.rotation = rotate;
     texture.anisotropy = Math.min(render.capabilities.getMaxAnisotropy(), 50)
+    texture.needsUpdate = true;
 }
