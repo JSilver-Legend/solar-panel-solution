@@ -16,10 +16,10 @@ const Type31 = ({ item, overHang, wallTexture }) => {
         model.moveTo((width / 2 - overHang), (length / 2 - overHang));
         model.lineTo((width / 2 - overHang), -(length / 2 - overHang));
         model.lineTo((width / 2 + overHang) - width_1, -(length / 2 - overHang));
-        model.lineTo((width / 2 + overHang) - width_1, -(length / 2 + overHang) + width_3);
-        model.lineTo(-(width / 2 - overHang), -(length / 2 + overHang) + width_3);
-        model.lineTo(-(width / 2 - overHang), (length / 2 + overHang) - width_3);
-        model.lineTo((width / 2 + overHang) - width_1, (length / 2 + overHang) - width_3);
+        model.lineTo((width / 2 + overHang) - width_1, -(length / 2 - overHang) + width_3);
+        model.lineTo(-(width / 2 - overHang), -(length / 2 - overHang) + width_3);
+        model.lineTo(-(width / 2 - overHang), (length / 2 - overHang) - width_3);
+        model.lineTo((width / 2 + overHang) - width_1, (length / 2 - overHang) - width_3);
         model.lineTo((width / 2 + overHang) - width_1, (length / 2 - overHang));
         model.closePath();
 

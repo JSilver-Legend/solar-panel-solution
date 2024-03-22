@@ -30,10 +30,10 @@ const Type41 = ({ item, overHang, wallTexture }) => {
         const model = new THREE.Shape();
         model.moveTo(-width / 2 + overHang, length / 2 - overHang);
         model.lineTo(width / 2 - overHang, length / 2 - overHang);
-        model.lineTo(width / 2 - length_1 + overHang, length / 2 - overHang);
-        model.lineTo(width / 2 - length_1 + overHang, length / 2 - width_1 + overHang);
-        model.lineTo(width / 2 - length_1 + overHang, -length / 2 + width_2 - overHang);
-        model.lineTo(width / 2 - overHang, -length / 2 + width_2 - overHang);
+        model.lineTo(width / 2  - overHang, length / 2 - width_2 + overHang);
+        model.lineTo(width / 2 - length_1 - overHang,  length / 2 - width_2 + overHang);
+        model.lineTo(width / 2 - length_1 - overHang, -length / 2 + width_1 - overHang);
+        model.lineTo(width / 2 - overHang, -length / 2 + width_1 - overHang);
         model.lineTo(width / 2 - overHang, -length / 2 + overHang);
         model.lineTo(-width / 2 + overHang, -length / 2 + overHang);
         model.closePath();
