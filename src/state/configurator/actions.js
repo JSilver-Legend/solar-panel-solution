@@ -14,14 +14,20 @@ import {
   UPDATE_SELECTED_BUILDING_HEIGHT,
   UPDATE_SELECTED_BUILDING_ROTATION,
   UPDATE_SELECTED_ROOF_MATERIAL,
-  SET_ORBITCAM,
+  SET_IS_ROTATING_STATE,
   SET_GOOGLE_MAP_IMAGE_URL,
+  SET_ORBITCAM_AZIMUTHANGLE,
 } from "./types";
 
-export const setOrbitCam = value => ({
-  type: SET_ORBITCAM,
-  value: value
-});
+export const setIsRotatingState = value => ({
+  type: SET_IS_ROTATING_STATE,
+  value: value,
+})
+
+export const setOrbitCamAzimuthAngle = value => ({
+  type: SET_ORBITCAM_AZIMUTHANGLE,
+  value: value,
+})
 
 export const setGoogleMapImageURL = value => ({
   type: SET_GOOGLE_MAP_IMAGE_URL,

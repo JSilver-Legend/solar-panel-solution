@@ -1,91 +1,47 @@
-import React, { useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import gsap from 'gsap';
+import TWEEN from '@tweenjs/tween.js'
+import { useThree } from '@react-three/fiber';
 
-const CameraControl = () => {
+const CameraControl = ({ orbitCam }) => {
+    const { camera } = useThree();
     const selectedBuildingNumber = useSelector((state) => state.configurator.selectedBuildingNumber);
     const buildingData = useSelector((state)=>state.configurator.buildingData)
-    const orbitCam = useSelector((state) => state.configurator.orbitCam);
 
     const selectedBuildingData = useMemo(() => {
         return buildingData?.find((item)=> item.buildingNumber === selectedBuildingNumber)
     }, [selectedBuildingNumber, buildingData])
 
-    const camDistanceInitVal = useMemo(() => {
-        let dataVal = 0;
-        const buildingPosArr = buildingData?.map((item) => (item.buildingPosition[0]));
-        const buildingWidthArr = buildingData?.map((item) => (item.buildingWidth));
-        const buildingLengthArr = buildingData?.map((item) => (item.buildingLength));
-        
-        dataVal = (Math.max(...buildingPosArr) - Math.min(...buildingPosArr))
-        
-        return dataVal
-    }, [buildingData])
+    const buildingPosXArr = buildingData?.map((item) => (item.buildingPosition[0]));
+    const buildingPosYArr = buildingData?.map((item) => (item.buildingPosition[1]));
+    const buildingPosZArr = buildingData?.map((item) => (item.buildingPosition[2]));
+    
+    const camDistanceInitVal =  (Math.abs(Math.max(...buildingPosXArr)) + Math.abs(Math.min(...buildingPosXArr)) +
+                                Math.abs(Math.max(...buildingPosZArr)) + Math.abs(Math.min(...buildingPosZArr))) / 2 +
+                                Math.abs(Math.max(...buildingPosYArr))
 
     useEffect(() => {
         if (!!orbitCam) {
+            const d = 30;
+
             if (selectedBuildingNumber === null) {
-                gsap.to(orbitCam.target, {
-                    duration: 1,
-                    repeat: 0,
-                    x: 0,
-                    y: 0,
-                    z: 0,
-                    ease: 'power3.inOut'
-                });
-
-                gsap.to((orbitCam), {
-                    onStart: () => {},
-                    duration: 1,
-                    minPolarAngle: 0,
-                    maxPolarAngle: 0,
-                    minAzimuthAngle: 0,
-                    maxAzimuthAngle: 0,
-                    minDistance: 100,
-                    maxDistance: 100,
-                    ease: 'power3.inOut',
-                    onComplete: () => {
-                        orbitCam.minDistance = 1;
-                        orbitCam.maxDistance = 200;
-                        orbitCam.minAzimuthAngle = -Infinity;
-                        orbitCam.maxAzimuthAngle = Infinity;
-                        orbitCam.minPolarAngle = 0;
-                        orbitCam.maxPolarAngle = Math.PI / 2.2;
-                    }
-                })
-            }
-            else {
-                gsap.to(orbitCam.target, {
-                    duration: 1,
-                    repeat: 0,
-                    x: selectedBuildingData?.buildingPosition[0],
-                    y: selectedBuildingData?.buildingHeight / 2,
-                    z: selectedBuildingData?.buildingPosition[2],
-                    ease: 'power3.inOut'
-                });
-
-                gsap.to((orbitCam), {
-                    onStart: () => {},
-                    duration: 1,
-                    minPolarAngle: Math.PI / 3,
-                    maxPolarAngle: Math.PI / 3,
-                    minAzimuthAngle: 0,
-                    maxAzimuthAngle: 0,
-                    minDistance: (selectedBuildingData?.buildingWidth + selectedBuildingData?.buildingLength),
-                    maxDistance: (selectedBuildingData?.buildingWidth + selectedBuildingData?.buildingLength),
-                    ease: 'power3.inOut',
-                    onComplete: () => {
-                        orbitCam.minDistance = 1;
-                        orbitCam.maxDistance = 200;
-                        orbitCam.minAzimuthAngle = -Infinity;
-                        orbitCam.maxAzimuthAngle = Infinity;
-                        orbitCam.minPolarAngle = 0;
-                        orbitCam.maxPolarAngle = Math.PI / 2.2;
-                    }
-                })
+                new TWEEN.Tween(camera?.position).to({ x: 0, y: camDistanceInitVal + d, z: 0.1 }, 1000).easing(TWEEN.Easing.Quadratic.InOut).yoyo(true).start();
+                new TWEEN.Tween(orbitCam.target).to({ x: 0, y: 0, z: 0 }, 1000).easing(TWEEN.Easing.Quadratic.InOut).yoyo(true).start();
+            } else {
+                new TWEEN.Tween(camera?.position).to({ x: selectedBuildingData.buildingPosition[0], y: selectedBuildingData.buildingHeight + selectedBuildingData.roofPitch + d / 2, z: selectedBuildingData.buildingPosition[2] + selectedBuildingData.buildingWidth / 2 + selectedBuildingData.buildingLength / 2 + selectedBuildingData.roofPitch / 2 }, 1000).easing(TWEEN.Easing.Quadratic.InOut).yoyo(true).start();
+                new TWEEN.Tween(orbitCam.target).to({ x: selectedBuildingData.buildingPosition[0], y: selectedBuildingData.buildingHeight, z: selectedBuildingData.buildingPosition[2] }, 1000).easing(TWEEN.Easing.Quadratic.InOut).yoyo(true).start();
             }
         }
-    }, [selectedBuildingNumber, orbitCam ])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [camera, orbitCam, selectedBuildingNumber])
+
+    animate();
+    
+    function animate() {
+        requestAnimationFrame(animate);
+        TWEEN.update();
+    }
+    
 }
 
 export default CameraControl

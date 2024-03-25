@@ -5,7 +5,6 @@ import { updateSelectedBuildingHeight, updateSelectedBuildingLength, updateSelec
 
 import styles from './styles.module.scss'
 
-import { getDefaultBuildingType } from 'utils/Function'
 import { buildingTypeChoices } from 'constants.js'
 import { RoofMaterialData, RoofStyleData } from 'utils/BuildingInitInfo'
 
@@ -15,7 +14,7 @@ const BuildingDetailOptions = () => {
 
     const dispatch = useDispatch();
 
-    const [isSelectedRoofOptionStyle, setIsSelectedRoofOptionStyle] = useState('angle');
+    const [isSelectedRoofOptionStyle, setIsSelectedRoofOptionStyle] = useState('pitch');
     const [limitValues, setLimitValues] = useState(null);
     const [isSetedLimitValues, setIsSetedLimitValues] = useState(false);
 
@@ -50,6 +49,7 @@ const BuildingDetailOptions = () => {
                 maxLength: Number(selectedBuildingData.buildingLength.toFixed(1)) + 2,
             })
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedBuildingData])
 
     // useEffect(() => {
@@ -159,13 +159,13 @@ const BuildingDetailOptions = () => {
             }
             <div className={styles.buildingOption}>
                 <div className={styles.optionTitle}>Height</div>
-                <Slider min={0} step={0.1} value={selectedBuildingData?.buildingHeight} defaultValue={selectedBuildingData?.height} style={{ width: '100%' }} 
+                <Slider min={3} step={0.1} value={selectedBuildingData?.buildingHeight} defaultValue={selectedBuildingData?.height} style={{ width: '100%' }} 
                     onChange={(value)=>{ dispatch(updateSelectedBuildingHeight({
                         buildingNumber: selectedBuildingNumber,
                         buildingHeight: value
                     }))}}
                 />
-                <InputNumber step={0.1} style={{ minWidth: '70px' }} min={0} value={selectedBuildingData?.buildingHeight} defaultValue={selectedBuildingData?.height} 
+                <InputNumber min={3} step={0.1} style={{ minWidth: '70px' }} value={selectedBuildingData?.buildingHeight} defaultValue={selectedBuildingData?.height} 
                     onChange={(value)=>{ dispatch(updateSelectedBuildingHeight({
                         buildingNumber: selectedBuildingNumber,
                         buildingHeight: value
@@ -200,48 +200,51 @@ const BuildingDetailOptions = () => {
                     }
                 </Select>
             </div>
-            <div className={styles.roofAngleOptions} >
-                <Radio.Group style={{ width: '100%' }} onChange={(e)=>{ setIsSelectedRoofOptionStyle(e.target.value) }} value={isSelectedRoofOptionStyle} >
-                    <div className={styles.sliderOption} >
-                        <Radio value={'angle'} className={styles.optionTitle} >angle</Radio>
-                        <Slider step={1} min={Number(0)} max={Number(360)} value={Number(selectedBuildingData?.roofAngle)} defaultValue={Number(selectedBuildingData?.roofAngle)} style={{ width: '100%' }} disabled={isSelectedRoofOptionStyle!=='angle'} 
-                            onChange={(value)=>{ dispatch(updateSelectedRoofAngle(
-                                {
-                                    buildingNumber: selectedBuildingNumber,
-                                    roofAngle: value
-                                }
-                            ))}}
-                        />
-                        <InputNumber step={1} style={{ minWidth: '70px' }} value={selectedBuildingData?.roofAngle} defaultValue={selectedBuildingData?.roofAngle} disabled={isSelectedRoofOptionStyle!=='angle'} 
-                            onChange={(value)=>{ dispatch(updateSelectedRoofAngle(
-                                {
-                                    buildingNumber: selectedBuildingNumber,
-                                    roofAngle: value
-                                }
-                            ))}} 
-                        />
-                    </div>
-                    <div className={styles.sliderOption}>
-                        <Radio value={'pitch'} className={styles.optionTitle}>pitch</Radio>
-                        <Slider step={0.1} value={selectedBuildingData?.roofPitch} defaultValue={selectedBuildingData?.roofPitch} style={{ width: '100%' }} disabled={isSelectedRoofOptionStyle!=='pitch'} 
-                            onChange={(value)=>{ dispatch(updateSelectedRoofPitch(
-                                {
-                                    buildingNumber: selectedBuildingNumber,
-                                    roofPitch: value
-                                }
-                            ))}} 
-                        />
-                        <InputNumber step={0.1} style={{ minWidth: '70px' }} value={selectedBuildingData?.roofPitch} defaultValue={selectedBuildingData?.roofPitch} disabled={isSelectedRoofOptionStyle!=='pitch'} 
-                            onChange={(value)=>{ dispatch(updateSelectedRoofPitch(
-                                {
-                                    buildingNumber: selectedBuildingNumber,
-                                    roofPitch: value
-                                }
-                            ))}} 
-                        />
-                    </div>
-                </Radio.Group>
-            </div>
+            {
+                selectedBuildingData?.roofType !== 'flat' &&
+                <div className={styles.roofAngleOptions} >
+                    <Radio.Group style={{ width: '100%' }} onChange={(e)=>{ setIsSelectedRoofOptionStyle(e.target.value) }} value={isSelectedRoofOptionStyle} >
+                        <div className={styles.sliderOption}>
+                            <Radio value={'pitch'} className={styles.optionTitle}>pitch</Radio>
+                            <Slider min={0} max={Math.min(selectedBuildingData?.buildingWidth, selectedBuildingData?.buildingLength) / 2} step={0.1} value={selectedBuildingData?.roofPitch} defaultValue={selectedBuildingData?.roofPitch} style={{ width: '100%' }} disabled={isSelectedRoofOptionStyle!=='pitch'} 
+                                onChange={(value)=>{
+                                    dispatch(updateSelectedRoofPitch({
+                                        buildingNumber: selectedBuildingNumber,
+                                        roofPitch: value
+                                    }))
+                                }}
+                            />
+                            <InputNumber min={0} max={Math.min(selectedBuildingData?.buildingWidth, selectedBuildingData?.buildingLength) / 2} step={0.1} style={{ minWidth: '70px' }} value={selectedBuildingData?.roofPitch} defaultValue={selectedBuildingData?.roofPitch} disabled={isSelectedRoofOptionStyle!=='pitch'} 
+                                onChange={(value)=>{
+                                    dispatch(updateSelectedRoofPitch({
+                                        buildingNumber: selectedBuildingNumber,
+                                        roofPitch: value
+                                    }))
+                                }} 
+                            />
+                        </div>
+                        <div className={styles.sliderOption} >
+                            <Radio value={'angle'} className={styles.optionTitle} >angle</Radio>
+                            <Slider step={1} min={Number(0)} max={Number(360)} value={Number(selectedBuildingData?.roofAngle)} defaultValue={Number(selectedBuildingData?.roofAngle)} style={{ width: '100%' }} disabled={isSelectedRoofOptionStyle!=='angle'} 
+                                onChange={(value)=>{
+                                    dispatch(updateSelectedRoofAngle({
+                                        buildingNumber: selectedBuildingNumber,
+                                        roofAngle: value
+                                    }))
+                                }}
+                            />
+                            <InputNumber step={1} style={{ minWidth: '70px' }} value={selectedBuildingData?.roofAngle} defaultValue={selectedBuildingData?.roofAngle} disabled={isSelectedRoofOptionStyle!=='angle'} 
+                                onChange={(value)=>{
+                                    dispatch(updateSelectedRoofAngle({
+                                        buildingNumber: selectedBuildingNumber,
+                                        roofAngle: value
+                                    }))
+                                }} 
+                            />
+                        </div>
+                    </Radio.Group>
+                </div>
+            }
             {
                 selectedBuildingData.buildingType === 'type-1' &&
                 <div className={styles.ridgeOptions}>

@@ -1,3 +1,4 @@
+import { useTexture } from '@react-three/drei';
 import React, { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { RepeatWrapping, TextureLoader } from 'three';
@@ -7,6 +8,7 @@ const Ground = () => {
     const [isMapLoad, setIsMapLoad] = useState(false);
 
     const googleMapImageURL = useSelector((state) => state.configurator.googleMapImageURL);
+    useTexture.preload(googleMapImageURL);
     
     const groundTexture = useMemo(() => {
         if (isMapLoad === false) {

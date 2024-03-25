@@ -92,6 +92,7 @@ const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
             roof_front_back_slope_model: roof_front_back_slope_model,
             roof_left_right_base_model: roof_left_right_base_model
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [width, pitch, length]);
 
     const boxGableModel = useMemo(() => {
@@ -225,69 +226,60 @@ const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
             roof_right_slope_model: roof_right_slope_model,
             roof_left_right_base_model: roof_left_right_base_model
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pitch, width, length]);
 
     return (
         <group>
             {roofType === 'flat' &&
                 <group>
-                    <group>
-                        <mesh name='flat-roof-model' castShadow position={[0, height, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 0.1]}>
-                            <extrudeGeometry args={[flatModel.roof_model, extrudeSetting(roofThickness)]} />
+                    <mesh name='flat-roof-model' castShadow position={[0, height, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 0.1]}>
+                        <extrudeGeometry args={[flatModel.roof_model, extrudeSetting(roofThickness)]} />
+                        <meshPhongMaterial
+                            side={THREE.DoubleSide}
+                            map={roofTexture}
+                            bumpMap={roofTexture}
+                            bumpScale={0.3}
+                            shininess={100}
+                        />
+                    </mesh>
+                    <group name='flat-roof-base-model'>
+                        <mesh name='flat-roof-front-base-model' castShadow position={[0, height, length / 2]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[flatModel.roof_front_back_base_model, extrudeSetting(-roofThickness)]} />
                             <meshPhongMaterial
                                 side={THREE.DoubleSide}
-                                map={roofTexture}
-                                bumpMap={roofTexture}
                                 bumpScale={0.3}
                                 shininess={100}
+                                color={"white"}
                             />
                         </mesh>
-                    </group>
-                    <group name='flat-roof-base-model'>
-                        <group>
-                            <mesh name='flat-roof-front-base-model' castShadow position={[0, height, length / 2]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[flatModel.roof_front_back_base_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='flat-roof-back-base-model' castShadow position={[0, height, -length / 2]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[flatModel.roof_front_back_base_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='flat-roof-left-base-model' castShadow position={[-width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[flatModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='flat-roof-right-base-model' castShadow position={[width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[flatModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
+                        <mesh name='flat-roof-back-base-model' castShadow position={[0, height, -length / 2]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[flatModel.roof_front_back_base_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='flat-roof-left-base-model' castShadow position={[-width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[flatModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='flat-roof-right-base-model' castShadow position={[width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[flatModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
                     </group>
                 </group>
             }
@@ -306,30 +298,26 @@ const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
                         </mesh>
                     </group>
                     <group name='shed-roof-end'>
-                        <group>
-                            <mesh name='shed-front-end-model' castShadow position={[width/2, height, length/2 - overHang]} scale={[1, 1, 0.1]}>
-                                <extrudeGeometry args={[shedModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    map={wallTexture}
-                                    bumpMap={wallTexture}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='shed-back-end-model' castShadow position={[width/2, height, -length/2 + overHang]} scale={[1, 1, 0.1]}>
-                                <extrudeGeometry args={[shedModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    map={wallTexture}
-                                    bumpMap={wallTexture}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                />
-                            </mesh>
-                        </group>
+                        <mesh name='shed-front-end-model' castShadow position={[width/2, height, length/2 - overHang]} scale={[1, 1, 0.1]}>
+                            <extrudeGeometry args={[shedModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                map={wallTexture}
+                                bumpMap={wallTexture}
+                                bumpScale={0.3}
+                                shininess={100}
+                            />
+                        </mesh>
+                        <mesh name='shed-back-end-model' castShadow position={[width/2, height, -length/2 + overHang]} scale={[1, 1, 0.1]}>
+                            <extrudeGeometry args={[shedModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                map={wallTexture}
+                                bumpMap={wallTexture}
+                                bumpScale={0.3}
+                                shininess={100}
+                            />
+                        </mesh>
                         <group rotation={[-Math.PI / 2, 0, 0]} position={[0, height, 0]}>
                             <mesh name='shed-side-end-model' castShadow position={[-width / 2 + overHang, 0, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
                                 <extrudeGeometry args={[shedModel.roof_side_end_model, extrudeSetting(roofThickness)]} />
@@ -344,58 +332,50 @@ const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
                         </group>
                     </group>
                     <group name='shed-roof-slope-model'>
-                        <group>
-                            <mesh name='shed-roof-front-slope-model' castShadow position={[0, height, length / 2]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[shedModel.roof_front_back_slope_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='shed-roof-back-slope-model' castShadow position={[0, height, -length / 2]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[shedModel.roof_front_back_slope_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
+                        <mesh name='shed-roof-front-slope-model' castShadow position={[0, height, length / 2]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[shedModel.roof_front_back_slope_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='shed-roof-back-slope-model' castShadow position={[0, height, -length / 2]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[shedModel.roof_front_back_slope_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
                     </group>
                     <group name='shed-roof-base-model'>
-                        <group>
-                            <mesh name='shed-roof-left-base-model' castShadow position={[-width / 2, height + pitch, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[shedModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='shed-roof-right-base-model' castShadow position={[width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[shedModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
+                        <mesh name='shed-roof-left-base-model' castShadow position={[-width / 2, height + pitch, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[shedModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='shed-roof-right-base-model' castShadow position={[width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[shedModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
                     </group>
                 </group>
             }
             {(roofType === 'box-gable' || roofType === 'open-gable') &&
                 <group>
-                    <group name='box-gable-roof-model'>
+                    <group name='roof-model'>
                         <group position={[0, height, 0]} rotation={[-Math.PI /2, 0, 0]}>
                             <mesh name='box-gable-right-roof-model' castShadow position={[width/2, 0, 0]} rotation={[0, boxGableModel.roofAlpha, 0]} scale={[1, 1, 0.1]}>
                                 <extrudeGeometry args={[boxGableModel.roof_right_model, extrudeSetting(roofThickness)]} />
@@ -421,10 +401,17 @@ const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
                             </mesh>
                         </group>
                     </group>
-                    <group name='box-gable-roof-end-model'>
-                        <group>
-                            <mesh name='box-gable-front-end-model' castShadow position={[0, height, length/2 - overHang]} scale={[1, 1, 0.1]}>
-                                <extrudeGeometry args={[boxGableModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
+                    <group name='side-model'>
+                        <mesh name='box-gable-front-end-model' castShadow position={[0, height, length/2 - overHang]} scale={[1, 1, 0.1]}>
+                            <extrudeGeometry args={[boxGableModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
+                            {roofType === 'box-gable' && 
+                                <meshPhongMaterial
+                                    side={THREE.DoubleSide}
+                                    color={'#DDDDDD'}
+                                    shininess={100}
+                                />
+                            }
+                            {roofType === 'open-gable' && 
                                 <meshPhongMaterial
                                     side={THREE.DoubleSide}
                                     map={wallTexture}
@@ -432,11 +419,18 @@ const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
                                     bumpScale={0.3}
                                     shininess={100}
                                 />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='box-gable-back-end-model' castShadow position={[0, height, -length/2 + overHang]} scale={[1, 1, 0.1]}>
-                                <extrudeGeometry args={[boxGableModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
+                            }
+                        </mesh>
+                        <mesh name='box-gable-back-end-model' castShadow position={[0, height, -length/2 + overHang]} scale={[1, 1, 0.1]}>
+                            <extrudeGeometry args={[boxGableModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
+                            {roofType === 'box-gable' && 
+                                <meshPhongMaterial
+                                    side={THREE.DoubleSide}
+                                    color={'#DDDDDD'}
+                                    shininess={100}
+                                />
+                            }
+                            {roofType === 'open-gable' && 
                                 <meshPhongMaterial
                                     side={THREE.DoubleSide}
                                     map={wallTexture}
@@ -444,78 +438,66 @@ const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
                                     bumpScale={0.3}
                                     shininess={100}
                                 />
-                            </mesh>
-                        </group>
+                            }
+                        </mesh>
                     </group>
-                    <group name='box-gable-roof-slope-model'>
-                        <group>
-                            <mesh name='box-gable-roof-front-left-slope-model' castShadow position={[-width / 2, height, length / 2]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[boxGableModel.roof_slope_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='box-gable-roof-front-right-slope-model' castShadow position={[width / 2, height, length / 2]} rotation={[0, Math.PI, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[boxGableModel.roof_slope_model, extrudeSetting(roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='box-gable-roof-back-left-slope-model' castShadow position={[-width / 2, height, -length / 2]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[boxGableModel.roof_slope_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='box-gable-roof-back-right-slope-model' castShadow position={[width / 2, height, -length / 2]} rotation={[0, Math.PI, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[boxGableModel.roof_slope_model, extrudeSetting(roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
+                    <group name='cover-slope-model'>
+                        <mesh name='box-gable-roof-front-left-slope-model' castShadow position={[-width / 2, height, length / 2]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[boxGableModel.roof_slope_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='box-gable-roof-front-right-slope-model' castShadow position={[width / 2, height, length / 2]} rotation={[0, Math.PI, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[boxGableModel.roof_slope_model, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='box-gable-roof-back-left-slope-model' castShadow position={[-width / 2, height, -length / 2]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[boxGableModel.roof_slope_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='box-gable-roof-back-right-slope-model' castShadow position={[width / 2, height, -length / 2]} rotation={[0, Math.PI, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[boxGableModel.roof_slope_model, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
                     </group>
-                    <group name='box-gable-roof-base-model'>
-                        <group>
-                            <mesh name='box-gable-roof-left-base-model' castShadow position={[-width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[boxGableModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='box-gable-roof-right-base-model' castShadow position={[width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[boxGableModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
+                    <group name='cover-base-model'>
+                        <mesh name='cover-left-base-model' castShadow position={[-width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[boxGableModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='cover-right-base-model' castShadow position={[width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[boxGableModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
                     </group>
                 </group>
             }
@@ -548,30 +530,26 @@ const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
                         </group>
                     </group>
                     <group name='saltt-box-roof-end-model'>
-                        <group>
-                            <mesh name='saltt-box-front-end-model' castShadow position={[0, height, length / 2 - overHang - roofThickness]} scale={[1, 1, 0.1]}>
-                                <extrudeGeometry args={[salttBoxModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    map={wallTexture}
-                                    bumpMap={wallTexture}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='saltt-box-back-end-model' castShadow position={[0, height, -length / 2 + overHang + roofThickness]} scale={[1, 1, 0.1]}>
-                                <extrudeGeometry args={[salttBoxModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    map={wallTexture}
-                                    bumpMap={wallTexture}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                />
-                            </mesh>
-                        </group>
+                        <mesh name='saltt-box-front-side-model' castShadow position={[0, height, length / 2 - overHang - roofThickness]} scale={[1, 1, 0.1]}>
+                            <extrudeGeometry args={[salttBoxModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                map={wallTexture}
+                                bumpMap={wallTexture}
+                                bumpScale={0.3}
+                                shininess={100}
+                            />
+                        </mesh>
+                        <mesh name='saltt-box-back-end-model' castShadow position={[0, height, -length / 2 + overHang + roofThickness]} scale={[1, 1, 0.1]}>
+                            <extrudeGeometry args={[salttBoxModel.roof_front_back_end_model, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                map={wallTexture}
+                                bumpMap={wallTexture}
+                                bumpScale={0.3}
+                                shininess={100}
+                            />
+                        </mesh>
                         <group rotation={[-Math.PI / 2, 0, 0]} position={[0, height, 0]}>
                             <mesh name='saltt-box-right-side-end-model' castShadow position={[width / 2 - overHang, 0, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.1]}>
                                 <extrudeGeometry args={[salttBoxModel.roof_right_side_end_model, extrudeSetting(roofThickness)]} />
@@ -598,74 +576,62 @@ const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
                         </group>
                     </group>
                     <group name='saltt-box-roof-slope-model'>
-                        <group>
-                            <mesh name='saltt-box-roof-front-left-slope-model' castShadow position={[-width / 2, height + pitch / 2, length / 2]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[salttBoxModel.roof_left_slope_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='saltt-box-roof-front-right-slope-model' castShadow position={[width / 2, height, length / 2]} rotation={[0, Math.PI, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[salttBoxModel.roof_right_slope_model, extrudeSetting(roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='saltt-box-roof-back-left-slope-model' castShadow position={[-width / 2, height + pitch / 2, -length / 2]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[salttBoxModel.roof_left_slope_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='saltt-box-roof-back-right-slope-model' castShadow position={[width / 2, height, -length / 2]} rotation={[0, Math.PI, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[salttBoxModel.roof_right_slope_model, extrudeSetting(roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
+                        <mesh name='saltt-box-roof-front-left-slope-model' castShadow position={[-width / 2, height + pitch / 2, length / 2]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[salttBoxModel.roof_left_slope_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='saltt-box-roof-front-right-slope-model' castShadow position={[width / 2, height, length / 2]} rotation={[0, Math.PI, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[salttBoxModel.roof_right_slope_model, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='saltt-box-roof-back-left-slope-model' castShadow position={[-width / 2, height + pitch / 2, -length / 2]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[salttBoxModel.roof_left_slope_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='saltt-box-roof-back-right-slope-model' castShadow position={[width / 2, height, -length / 2]} rotation={[0, Math.PI, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[salttBoxModel.roof_right_slope_model, extrudeSetting(roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
                     </group>
                     <group name='saltt-box-roof-base-model'>
-                        <group>
-                            <mesh name='saltt-box-roof-left-base-model' castShadow position={[-width / 2, height + pitch / 2, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[salttBoxModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
-                        <group>
-                            <mesh name='saltt-box-roof-right-base-model' castShadow position={[width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
-                                <extrudeGeometry args={[salttBoxModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
-                                <meshPhongMaterial
-                                    side={THREE.DoubleSide}
-                                    bumpScale={0.3}
-                                    shininess={100}
-                                    color={"white"}
-                                />
-                            </mesh>
-                        </group>
+                        <mesh name='saltt-box-roof-left-base-model' castShadow position={[-width / 2, height + pitch / 2, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[salttBoxModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
+                        <mesh name='saltt-box-roof-right-base-model' castShadow position={[width / 2, height, 0]} rotation={[0, Math.PI / 2, 0]} scale={[1, 1, 0.05]}>
+                            <extrudeGeometry args={[salttBoxModel.roof_left_right_base_model, extrudeSetting(-roofThickness)]} />
+                            <meshPhongMaterial
+                                side={THREE.DoubleSide}
+                                bumpScale={0.3}
+                                shininess={100}
+                                color={"white"}
+                            />
+                        </mesh>
                     </group>
                 </group>
             }

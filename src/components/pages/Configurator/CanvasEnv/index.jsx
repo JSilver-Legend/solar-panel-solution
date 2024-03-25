@@ -1,15 +1,23 @@
 import React, { useEffect, useRef,  } from "react";
-import { Environment, Grid, OrbitControls } from "@react-three/drei";
+import { Environment, Grid, OrbitControls, useTexture } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setOrbitCam } from "state/configurator/actions";
+import { setOrbitCamAzimuthAngle } from "state/configurator/actions";
 
 import Light from "./Light";
 import Ground from "./Ground";
 
-const CanvasEnv = () => {
+const envMapUrl = '/assets/background/hilly_terrain_01_8k.hdr'
+
+const CanvasEnv = ({ setOrbitCam }) => {
+    useTexture.preload(envMapUrl);
+    
     const dispatch = useDispatch();
     const orbitCam = useRef();
+    const selectedBuildingNumber = useSelector((state) => state.configurator.selectedBuildingNumber);
+    const isRotating = useSelector((state) => state.configurator.isRotating);
+    
 
     const gridConfig = {
         cellSize: 3,
@@ -27,10 +35,25 @@ const CanvasEnv = () => {
     useEffect(() => {
         if (orbitCam !== undefined) {
             if (orbitCam.current !== undefined) {
-                dispatch(setOrbitCam(orbitCam.current))
+                setOrbitCam(orbitCam.current);
+                dispatch(setOrbitCamAzimuthAngle(orbitCam.current.getAzimuthalAngle()));
+                if (selectedBuildingNumber || selectedBuildingNumber === null) {
+                    dispatch(setOrbitCamAzimuthAngle(0));
+                }
             }
         }
-    }, [orbitCam])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [orbitCam, selectedBuildingNumber])
+
+    useFrame(() => {
+        if (orbitCam !== undefined) {
+            if (orbitCam.current !== undefined) {
+                if (isRotating) {
+                    dispatch(setOrbitCamAzimuthAngle(orbitCam.current.getAzimuthalAngle()));
+                }
+            }
+        }
+    });
 
     return (
         <group>
@@ -50,8 +73,8 @@ const CanvasEnv = () => {
             <Light />
             <axesHelper args={[150]} position={[0, 0.01, 0]}/>
             <Grid args={[5000, 5000]} { ...gridConfig } />
-            {/* <Ground /> */}
-            {/* <Environment files={'/assets/background/hilly_terrain_01_8k.hdr'} background blur={1} /> */}
+            <Ground />
+            <Environment files={envMapUrl} background blur={1} />
         </group>
     );
 };

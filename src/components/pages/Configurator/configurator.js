@@ -1,23 +1,27 @@
 import { Button, Col, Row, Drawer } from 'antd'
-import styles from './configurator.module.scss'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Suspense, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
+import styles from './configurator.module.scss'
+
 import { Scrollbars } from 'react-custom-scrollbars-2'
-import { setBuildingInitData, setSelectedBuildingNumber } from 'state/configurator/actions'
+import { setBuildingInitData, setIsRotatingState, setSelectedBuildingNumber } from 'state/configurator/actions'
 import BuildingDetailOptions from './Options/BuildingDetailOptions'
 import { getAngleTwoPointsFromGoogleMap, getDistanceTwoPointsFromGoogleMap, getRoofTexture, getRoofType } from 'utils/Function'
 import CanvasEnv from './CanvasEnv'
 import Buildings from './Buildings'
 import CameraControl from './CameraControl'
+import Compass from './Compass'
+import LoadingCmp from './LoadingCmp'
 
 const Configurator = () => {
     
     const dispatch = useDispatch()
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const [orbitCam, setOrbitCam] = useState(null)
 
     const roofsSource = useSelector((state) => state.roofs.roofs);
     const buildingData = useSelector((state)=>state.configurator.buildingData)
@@ -132,13 +136,13 @@ const Configurator = () => {
                 buildingWidth2: parseFloat((item.width / 3).toFixed(1)),
                 buildingLength: item.length,
                 buildingLength1: parseFloat((item.length/2).toFixed(1)),
-                buildingHeight: 3,
+                buildingHeight: 5,
                 buildingRotation: item.angle,
                 material: getRoofTexture(roofsSource[index].roofType),
                 roofType: getRoofType(roofsSource[index].southPosition),
-                roofAngle: 3,
+                roofAngle: Math.atan(getRoofType(roofsSource[index].southPosition) === "flat" ? 0 : 2 / (item.width / 2)) * 180 / Math.PI,
                 roofPitch: getRoofType(roofsSource[index].southPosition) === "flat" ? 0 : 2,
-                ridgeDirection: 'direction-2',
+                ridgeDirection: 'direction-1',
                 //
                 buildingPosition: [-distance_x, 0, distance_y],
                 pointsInfo: item.pointsInfo,
@@ -201,7 +205,8 @@ const Configurator = () => {
                 </Drawer>
             </Col>
             <Col xs={24} sm={14} md={16} className={styles.canvas}>
-                <Suspense fallback={null}>
+                <Compass />
+                <Suspense fallback={<LoadingCmp />}>
                     <Canvas
                         id='main-canvas' 
                         camera={{
@@ -214,10 +219,12 @@ const Configurator = () => {
                         style={{
                             backgroundColor: '#EEEEEE'
                         }}
+                        onPointerDown={() => dispatch(setIsRotatingState(true))}
+                        onPointerUp={() => dispatch(setIsRotatingState(false))}
                         shadows
                     >
-                        <CanvasEnv />
-                        <CameraControl />
+                        <CanvasEnv setOrbitCam={setOrbitCam} />
+                        <CameraControl orbitCam={orbitCam} />
                         {buildingData.map((item, index) => 
                             <Buildings key={`building-${index}`} index={index} item={item} />
                         )}

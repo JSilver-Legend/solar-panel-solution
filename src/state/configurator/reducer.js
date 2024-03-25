@@ -14,23 +14,33 @@ import {
   UPDATE_SELECTED_BUILDING_ROTATION,
   SET_BUILDING_INIT_DATA,
   UPDATE_SELECTED_ROOF_MATERIAL,
+  SET_IS_ROTATING_STATE,
   SET_ORBITCAM,
   SET_GOOGLE_MAP_IMAGE_URL,
+  SET_ORBITCAM_AZIMUTHANGLE,
 } from "./types";
 
 export const initialState = {
   selectedBuildingNumber: null,
   buildingData: [],
+  isRotating: false,
   orbitCam: null,
+  orbitCamAzimuthAngle: 0,
   googleMapImageURL: "",
 };
 
 export const configurator = (state = initialState, action) => {
   switch (action.type) {
-    case SET_ORBITCAM:
+    case SET_IS_ROTATING_STATE:
       return {
         ...state,
-        orbitCam: action.value
+        isRotating: action.value,
+      }
+    
+    case SET_ORBITCAM_AZIMUTHANGLE:
+      return {
+        ...state,
+        orbitCamAzimuthAngle: action.value,
       }
 
     case SET_GOOGLE_MAP_IMAGE_URL:
