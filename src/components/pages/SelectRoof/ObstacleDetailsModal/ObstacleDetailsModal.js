@@ -23,7 +23,6 @@ const ObstacleDetailsModal = ({
   cleanObstacles,
   ...props
 }) => {
-  // console.log('obstacles: ', obstacles);
   function cancelObstacle() {
     if (utils.getIfMobile()) {
       setObstacleMenuOpen(true)

@@ -68,7 +68,8 @@ const CanvasEnv = ({ setOrbitCam }) => {
                 enablePan={true}
                 minDistance={5}
                 maxDistance={200}
-                dampingFactor={0.7}
+                enableDamping={true}
+                dampingFactor={0.08}
                 makeDefault
             />
             <Light />
