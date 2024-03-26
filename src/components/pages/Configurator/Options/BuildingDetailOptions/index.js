@@ -39,7 +39,6 @@ const BuildingDetailOptions = () => {
         }))
     }
     
-    console.log('✌️selectedBuildingData --->', selectedBuildingData);
     useEffect(() => {
         if( selectedBuildingData && !isSetedLimitValues) {
             setIsSetedLimitValues(true)
@@ -249,47 +248,49 @@ const BuildingDetailOptions = () => {
                                 }} 
                             />
                         </div>
-                        <div className={styles.sliderOption} >
-                            <Radio value={'angle'} className={styles.optionTitle} >angle</Radio>
-                            <Slider
-                                step={parseFloat((Math.atan(1 / 12) * 180 / Math.PI).toFixed(1))}
-                                min={parseFloat((Math.atan(1 / 12) * 180 / Math.PI).toFixed(1))}
-                                max={45}
-                                value={parseFloat((selectedBuildingData?.roofAngle * 180 / Math.PI).toFixed(1))}
-                                defaultValue={parseFloat((selectedBuildingData?.roofAngle * 180 / Math.PI).toFixed(1))}
-                                style={{ width: '100%' }}
-                                disabled={isSelectedRoofOptionStyle!=='angle'} 
-                                onChange={(value)=>{
-                                    dispatch(updateSelectedRoofAngle({
-                                        buildingNumber: selectedBuildingNumber,
-                                        roofAngle: value * Math.PI / 180 // convert the alpha to rad
-                                    }));
-                                    dispatch(updateSelectedRoofPitch({
-                                        buildingNumber: selectedBuildingNumber,
-                                        roofPitch: Math.round(Math.tan(value * Math.PI / 180) * 12)
-                                    }))
-                                }}
-                            />
-                            <InputNumber
-                                step={parseFloat((Math.atan(1 / 12) * 180 / Math.PI).toFixed(1))}
-                                min ={parseFloat((Math.atan(1 / 12) * 180 / Math.PI).toFixed(1))}
-                                max={45}
-                                style={{ minWidth: '70px' }}
-                                value={parseFloat((selectedBuildingData?.roofAngle * 180 / Math.PI).toFixed(1))}
-                                defaultValue={parseFloat((selectedBuildingData?.roofAngle * 180 / Math.PI).toFixed(1))}
-                                disabled={isSelectedRoofOptionStyle!=='angle'} 
-                                onChange={(value)=>{
-                                    dispatch(updateSelectedRoofAngle({
-                                        buildingNumber: selectedBuildingNumber,
-                                        roofAngle: value * Math.PI / 180
-                                    }));
-                                    dispatch(updateSelectedRoofPitch({
-                                        buildingNumber: selectedBuildingNumber,
-                                        roofPitch: Math.round(Math.tan(value * Math.PI / 180) * 12)
-                                    }))
-                                }}
-                            />
-                        </div>
+                        {selectedBuildingData?.buildingType === 'type-1' && 
+                            <div className={styles.sliderOption} >
+                                <Radio value={'angle'} className={styles.optionTitle} >angle</Radio>
+                                <Slider
+                                    step={parseFloat((Math.atan(1 / 12) * 180 / Math.PI).toFixed(1))}
+                                    min={parseFloat((Math.atan(1 / 12) * 180 / Math.PI).toFixed(1))}
+                                    max={45}
+                                    value={parseFloat((selectedBuildingData?.roofAngle * 180 / Math.PI).toFixed(1))}
+                                    defaultValue={parseFloat((selectedBuildingData?.roofAngle * 180 / Math.PI).toFixed(1))}
+                                    style={{ width: '100%' }}
+                                    disabled={isSelectedRoofOptionStyle!=='angle'} 
+                                    onChange={(value)=>{
+                                        dispatch(updateSelectedRoofAngle({
+                                            buildingNumber: selectedBuildingNumber,
+                                            roofAngle: value * Math.PI / 180 // convert the alpha to rad
+                                        }));
+                                        dispatch(updateSelectedRoofPitch({
+                                            buildingNumber: selectedBuildingNumber,
+                                            roofPitch: Math.round(Math.tan(value * Math.PI / 180) * 12)
+                                        }))
+                                    }}
+                                />
+                                <InputNumber
+                                    step={parseFloat((Math.atan(1 / 12) * 180 / Math.PI).toFixed(1))}
+                                    min ={parseFloat((Math.atan(1 / 12) * 180 / Math.PI).toFixed(1))}
+                                    max={45}
+                                    style={{ minWidth: '70px' }}
+                                    value={parseFloat((selectedBuildingData?.roofAngle * 180 / Math.PI).toFixed(1))}
+                                    defaultValue={parseFloat((selectedBuildingData?.roofAngle * 180 / Math.PI).toFixed(1))}
+                                    disabled={isSelectedRoofOptionStyle!=='angle'} 
+                                    onChange={(value)=>{
+                                        dispatch(updateSelectedRoofAngle({
+                                            buildingNumber: selectedBuildingNumber,
+                                            roofAngle: value * Math.PI / 180
+                                        }));
+                                        dispatch(updateSelectedRoofPitch({
+                                            buildingNumber: selectedBuildingNumber,
+                                            roofPitch: Math.round(Math.tan(value * Math.PI / 180) * 12)
+                                        }))
+                                    }}
+                                />
+                            </div>
+                        }
                     </Radio.Group>
                 </div>
             }

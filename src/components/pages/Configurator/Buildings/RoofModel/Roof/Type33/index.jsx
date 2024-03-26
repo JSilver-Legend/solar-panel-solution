@@ -9,8 +9,17 @@ const Type33 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
     const width_3 = (width - width_2) / 2
     const length = item.buildingLength;
     const height = item.buildingHeight;
-    const pitch = (width / 2) * (item.roofPitch / 12);
     const model_height = 0.2;
+
+    const pitch_temp = item.roofPitch
+
+    const pitch = useMemo(() => {
+
+        const minWidth = Math.min(width, width_1, width_2);
+
+        return (minWidth / 2 * pitch_temp / 12)
+
+    }, [width, width_1, width_2, pitch_temp ]);
 
     const model = useMemo(() => {
         /**

@@ -8,12 +8,16 @@ const Type21 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
     const width_2 = item.buildingWidth2
     const length = item.buildingLength;
     const height = item.buildingHeight;
-    const pitch = useMemo(() => {
-        const pitch1 = (width_1 / 2) * (item.roofPitch / 12);
-        const pitch2 = (width_2 / 2) * (item.roofPitch / 12);
-        return {pitch1, pitch2}
-    }, [width_1, width_2])
     const model_height = 0.2;
+    const pitch_temp = item.roofPitch
+
+    const pitch = useMemo(() => {
+
+        const minWidth = Math.min(width, width_1, width_2);
+
+        return (minWidth / 2 * pitch_temp / 12)
+
+    }, [width, width_1, width_2, pitch_temp ]);
         /**
          *         @__________
          *         | \ ____3__|   w-1
