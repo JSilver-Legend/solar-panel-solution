@@ -18,11 +18,13 @@ import {
   SET_ORBITCAM,
   SET_GOOGLE_MAP_IMAGE_URL,
   SET_ORBITCAM_AZIMUTHANGLE,
+  SET_IS_SHOW_GROUND,
 } from "./types";
 
 export const initialState = {
   selectedBuildingNumber: null,
   buildingData: [],
+  isShowGround: true,
   isRotating: false,
   orbitCam: null,
   orbitCamAzimuthAngle: 0,
@@ -59,6 +61,11 @@ export const configurator = (state = initialState, action) => {
         ...state,
         selectedBuildingNumber: action.value
       }
+    case SET_IS_SHOW_GROUND:
+      return {
+        ...state,
+        isShowGround: action.value
+    }
     case UPDATE_SELECTED_BUILDIING_TYPE:
       return {
         ...state,

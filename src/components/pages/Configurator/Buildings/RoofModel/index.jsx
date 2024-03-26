@@ -7,7 +7,7 @@ const RoofModel = ({ item, wallTexture, roofTexture, overHang }) => {
     return (
         <group>
             <Roof item={item} wallTexture={wallTexture} roofTexture={roofTexture} overHang={overHang} />
-            {/* <Ridge item={item} /> */}
+            <Ridge item={item} />
         </group>
     )
 }

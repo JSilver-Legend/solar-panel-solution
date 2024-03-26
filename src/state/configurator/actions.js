@@ -17,6 +17,7 @@ import {
   SET_IS_ROTATING_STATE,
   SET_GOOGLE_MAP_IMAGE_URL,
   SET_ORBITCAM_AZIMUTHANGLE,
+  SET_IS_SHOW_GROUND,
 } from "./types";
 
 export const setIsRotatingState = value => ({
@@ -105,5 +106,10 @@ export const updateSelectedBuildingRotation = value => ({
 
 export const updateSelectedRoofMaterial = value => ({
   type: UPDATE_SELECTED_ROOF_MATERIAL,
+  value: value
+})
+
+export const setIsShowGround = value => ({
+  type: SET_IS_SHOW_GROUND,
   value: value
 })

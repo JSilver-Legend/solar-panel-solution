@@ -1,4 +1,4 @@
-import { Button, Col, Row, Drawer } from 'antd'
+import { Button, Col, Row, Drawer, Checkbox } from 'antd'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Suspense, useState } from 'react'
@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import styles from './configurator.module.scss'
 
 import { Scrollbars } from 'react-custom-scrollbars-2'
-import { setBuildingInitData, setIsRotatingState, setSelectedBuildingNumber } from 'state/configurator/actions'
+import { setBuildingInitData, setIsRotatingState, setIsShowGround, setSelectedBuildingNumber } from 'state/configurator/actions'
 import BuildingDetailOptions from './Options/BuildingDetailOptions'
 import { getAngleTwoPointsFromGoogleMap, getDistanceTwoPointsFromGoogleMap, getRoofTexture, getRoofType } from 'utils/Function'
 import CanvasEnv from './CanvasEnv'
@@ -26,6 +26,7 @@ const Configurator = () => {
     const roofsSource = useSelector((state) => state.roofs.roofs);
     const buildingData = useSelector((state)=>state.configurator.buildingData)
     const selectedBuildingNumber = useSelector((state)=>state.configurator.selectedBuildingNumber)
+    const isShowGround = useSelector((state)=>state.configurator.isShowGround)
     
     useEffect(() => {
         if(selectedBuildingNumber === null) setIsOpenModal(false)
@@ -128,6 +129,9 @@ const Configurator = () => {
             if (buildingCenterPoint.lng < globalCenterPoint.lng) distance_x *= -1;
             if (buildingCenterPoint.lat < globalCenterPoint.lat) distance_y *= -1;
             
+            const initBuildingHeight = 5;
+            const initRoofPitch = 8;
+            
             initialDataInfo.push({
                 buildingNumber: index + 1,
                 buildingType: roofsSource[index].buildingType,
@@ -135,13 +139,13 @@ const Configurator = () => {
                 buildingWidth1: parseFloat((item.width / 3).toFixed(1)),
                 buildingWidth2: parseFloat((item.width / 3).toFixed(1)),
                 buildingLength: item.length,
-                buildingLength1: parseFloat((item.length/2).toFixed(1)),
-                buildingHeight: 5,
+                buildingLength1: parseFloat((item.length / 2).toFixed(1)),
+                buildingHeight: initBuildingHeight,
                 buildingRotation: item.angle,
                 material: getRoofTexture(roofsSource[index].roofType),
                 roofType: getRoofType(roofsSource[index].southPosition),
-                roofAngle: Math.atan(getRoofType(roofsSource[index].southPosition) === "flat" ? 0 : 2 / (item.width / 2)) * 180 / Math.PI,
-                roofPitch: getRoofType(roofsSource[index].southPosition) === "flat" ? 0 : 2,
+                roofPitch: initRoofPitch,
+                roofAngle: Math.atan(initRoofPitch / 12),
                 ridgeDirection: 'direction-1',
                 //
                 buildingPosition: [-distance_x, 0, distance_y],
@@ -179,6 +183,12 @@ const Configurator = () => {
                                 </div>
                             </Button>
                         ))}
+                        <Checkbox className={styles.show_ground}
+                            checked={isShowGround}
+                            onClick = {(e) => {dispatch(setIsShowGround(e.target.checked))}}
+                        >
+                            Show Ground
+                        </Checkbox>
                     </Scrollbars>
                 </div>
                 <div className={styles.bottomButtons}>

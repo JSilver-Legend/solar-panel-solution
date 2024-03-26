@@ -10,7 +10,7 @@ const Type44 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
     const length_1 = item.buildingLength1;
     const length_2 = length - length_1;
     const height = item.buildingHeight;
-    const pitch = item.roofPitch;
+    const pitch = (width / 2) * (item.roofPitch / 12);
     const model_height = 0.2;
 
     const model = useMemo(() => {

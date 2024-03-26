@@ -7,7 +7,7 @@ const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
     const width = item.buildingWidth;
     const length = item.buildingLength;
     const height = item.buildingHeight;
-    const pitch = item.roofPitch;
+    const pitch = (width / 2) * (item.roofPitch / 12);
     const roofType = item.roofType;
     const model_height = 0.2;
 

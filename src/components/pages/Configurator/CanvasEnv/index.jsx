@@ -12,6 +12,7 @@ const envMapUrl = '/assets/background/hilly_terrain_01_8k.hdr'
 
 const CanvasEnv = ({ setOrbitCam }) => {
     useTexture.preload(envMapUrl);
+    const isShowGround = useSelector((state)=>state.configurator.isShowGround)
     
     const dispatch = useDispatch();
     const orbitCam = useRef();
@@ -73,7 +74,7 @@ const CanvasEnv = ({ setOrbitCam }) => {
             <Light />
             <axesHelper args={[150]} position={[0, 0.01, 0]}/>
             <Grid args={[5000, 5000]} { ...gridConfig } />
-            <Ground />
+            { isShowGround && <Ground />}
             <Environment files={envMapUrl} background blur={1} />
         </group>
     );
