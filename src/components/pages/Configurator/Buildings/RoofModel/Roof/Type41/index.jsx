@@ -10,23 +10,30 @@ const Type41 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
     const length_1 = item.buildingLength1;
     const length_2 = width - length_1;
     const height = item.buildingHeight;
-    const pitch = (width / 2) * (item.roofPitch / 12);
     const model_height = 0.2;
+    const pitch_temp = item.roofPitch
+
+    const pitch = useMemo(() => {
+
+        const minWidth = Math.min(width, width_1, width_2);
+
+        return (minWidth / 2 * pitch_temp / 12)
+
+    }, [width, width_1, width_2, pitch_temp ]);
 
     const model = useMemo(() => {
         /**
-         *      @_________________     _____
-         *      | \      2      / |      |
-         *      |  \___________/  |   length-2
-         *      |  |\    1    /|  |
-         *      |  | \_______/ |  |    __|__
-         *      |  |  |     |  |  |      |
-         *      |  |  |     |  |  |
-         *      |4 |3 |     | 5| 6|   length-1
-         *      |  |  |     |  |  |
-         *      |__|__|     |__|__|    __|__
-         * 
-         *        w-1         w-2
+         *      |-------   L  --------|                                     
+         *       _____________________         ___                                     
+         *      |\ ________6__________|  w-2    |                             
+         *      | |\_______5__________|         |                            
+         *      | | |                           |         
+         *      |2|1|                         width                  
+         *      | | |_________________          |                                   
+         *      | |/_______3__________|  w-1    |                             
+         *      |/_________4__________|        _|_                                        
+         *      
+         *      |L-2|------L-1--------|                                        
          */
         
         const roofWidth12 = Math.sqrt(Math.pow((width - length_1) / 2, 2) + Math.pow(pitch, 2));
