@@ -25,11 +25,42 @@ const BuildingDetailOptions = () => {
         return buildingData?.find((item)=>item.buildingNumber === selectedBuildingNumber);
     }, [selectedBuildingNumber, buildingData])
     
+    // const width = selectedBuildingData.buildingWidth;
+    // const length = selectedBuildingData.buildingLength;
+    
     const onChangeBuildingType = (value) => {
         dispatch(updateSelectedBuildingType({
             buildingNumber: selectedBuildingNumber,
             buildingType: value
         }))
+        // if(selectedBuildingData.buildingType === "type-4-1" || selectedBuildingData.buildingType === "type-4-2" ){
+        //     dispatch(updateSelectedBuildingWidth1({
+        //         buildingNumber: selectedBuildingNumber,
+        //         buildingWidth1: (length /3),
+        //     }))
+        //     dispatch(updateSelectedBuildingWidth2({
+        //         buildingNumber: selectedBuildingNumber,
+        //         buildingWidth2: (length /3),
+        //     }))
+        //     dispatch(updateSelectedBuildingLength1({
+        //         buildingNumber: selectedBuildingNumber,
+        //         buildingLength1: width / 2
+        //     }))
+        // }
+        // else if (selectedBuildingData.buildingType === "type-4-3" || selectedBuildingData.buildingType === "type-4-4"){
+        //     dispatch(updateSelectedBuildingWidth1({
+        //         buildingNumber: selectedBuildingNumber,
+        //         buildingWidth1: (width /3),
+        //     }))
+        //     dispatch(updateSelectedBuildingWidth2({
+        //         buildingNumber: selectedBuildingNumber,
+        //         buildingWidth2: (width /3),
+        //     }))
+        //     dispatch(updateSelectedBuildingLength1({
+        //         buildingNumber: selectedBuildingNumber,
+        //         buildingLength1: length / 2
+        //     }))
+        // }
     }
     
     const onChangeRoofType = (value) => {
