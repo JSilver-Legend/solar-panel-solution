@@ -17,6 +17,7 @@ import {
   SET_IS_ROTATING_STATE,
   SET_GOOGLE_MAP_IMAGE_URL,
   SET_ORBITCAM_AZIMUTHANGLE,
+  UPDATE_SELECTED_BUILDING_DEFAULT_SIZE,
   SET_IS_SHOW_GROUND,
 } from "./types";
 
@@ -106,6 +107,11 @@ export const updateSelectedBuildingRotation = value => ({
 
 export const updateSelectedRoofMaterial = value => ({
   type: UPDATE_SELECTED_ROOF_MATERIAL,
+  value: value
+})
+
+export const updateSelectedBuildingDefaultSize = value => ({
+  type: UPDATE_SELECTED_BUILDING_DEFAULT_SIZE,
   value: value
 })
 

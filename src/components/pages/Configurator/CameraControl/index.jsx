@@ -25,7 +25,6 @@ const CameraControl = ({ orbitCam }) => {
                                 Math.abs(Math.max(...buildingPosYArr)) + Math.abs(Math.min(...buildingPosYArr)) + 
                                 Math.abs(Math.max(...buildingPosZArr)) + Math.abs(Math.min(...buildingPosZArr))) / 2 + 
                                 buildingHeightArr / buildingData?.length
-    console.log('camDistanceInitVal: ', camDistanceInitVal);
 
     useEffect(() => {
         if (!!orbitCam) {

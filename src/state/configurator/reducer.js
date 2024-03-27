@@ -19,6 +19,7 @@ import {
   SET_GOOGLE_MAP_IMAGE_URL,
   SET_ORBITCAM_AZIMUTHANGLE,
   SET_IS_SHOW_GROUND,
+  UPDATE_SELECTED_BUILDING_DEFAULT_SIZE,
 } from "./types";
 
 export const initialState = {
@@ -231,6 +232,19 @@ export const configurator = (state = initialState, action) => {
                     ...item,
                     material: action.value.material
                 };
+            }
+            return item;
+          })
+        }
+      case UPDATE_SELECTED_BUILDING_DEFAULT_SIZE:
+        return {
+          ...state,
+          buildingData: state.buildingData.map(item => {
+            if (item.buildingNumber === action.value.buildingNumber) {
+              return {
+                ...item,
+                ...action.value.defaultData,
+              }
             }
             return item;
           })
