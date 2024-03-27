@@ -81,12 +81,7 @@ const BuildingDetailOptions = () => {
             })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedBuildingData])
-
-    // useEffect(() => {
-    //   console.log('limitValues', limitValues, 'here', Number(selectedBuildingData?.buildingWidth.toFixed(1)))
-    // }, [limitValues])
-    
+    }, [selectedBuildingData])    
 
   return (
     (selectedBuildingData && limitValues ) && 

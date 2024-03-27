@@ -336,8 +336,8 @@ const Type41 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
                         <extrudeGeometry args={[model.model5, extrudeSetting(roofThickness)]} />
                         <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            map={roofTexture}
-                            bumpMap={roofTexture}
+                            map={roofTexture_R}
+                            bumpMap={roofTexture_R}
                             bumpScale={0.3}
                             shininess={100}
                         />
@@ -372,8 +372,8 @@ const Type41 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
                         <extrudeGeometry args={[model.model6, extrudeSetting(roofThickness)]} />
                         <meshPhongMaterial
                             side={THREE.DoubleSide}
-                            map={roofTexture}
-                            bumpMap={roofTexture}
+                            map={roofTexture_R}
+                            bumpMap={roofTexture_R}
                             bumpScale={0.3}
                             shininess={100}
                         />

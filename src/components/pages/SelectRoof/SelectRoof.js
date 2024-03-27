@@ -19,7 +19,6 @@ import RoofDetailsModal from "./RoofDetailsModal";
 import ObstacleDetailsModal from "./ObstacleDetailsModal";
 
 const SelectRoof = ({ mobileMenuOpen, roofs, setRoofMenuOpen, drawingMode, roofsSelectors, addRoofDialogOpen }) => {
-    console.log('roofs: ', roofs);
     useEffect(() => {
         initializeReactGA();
     }, []);
