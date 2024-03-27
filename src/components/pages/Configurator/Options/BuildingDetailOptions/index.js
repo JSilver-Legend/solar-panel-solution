@@ -27,9 +27,9 @@ const BuildingDetailOptions = () => {
     }, [selectedBuildingNumber, buildingData])
 
     const defaultSizeObj = {
-        buildingWidth1: parseFloat((selectedBuildingData.buildingWidth / 3).toFixed(1)),
-        buildingWidth2: parseFloat((selectedBuildingData.buildingWidth / 3).toFixed(1)),
-        buildingLength1: parseFloat((Math.min(selectedBuildingData.buildingWidth, selectedBuildingData.buildingLength) / 2).toFixed(1)),
+        buildingWidth1: parseFloat((selectedBuildingData?.buildingWidth / 3).toFixed(1)),
+        buildingWidth2: parseFloat((selectedBuildingData?.buildingWidth / 3).toFixed(1)),
+        buildingLength1: parseFloat((Math.min(selectedBuildingData?.buildingWidth, selectedBuildingData?.buildingLength) / 2).toFixed(1)),
     }
     
     const onChangeBuildingType = (value) => {
