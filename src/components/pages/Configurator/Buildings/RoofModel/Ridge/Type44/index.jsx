@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import * as THREE from "three"
 import { extrudeSetting } from 'utils/Function';
 
@@ -6,8 +6,6 @@ const Type44 = ({ item, ridgeWidth, ridgeThickness }) => {
     const width = item.buildingWidth;
     const length = item.buildingLength;
     const height = item.buildingHeight;
-    const roofType = item.roofType;
-    const roofAngle = item.roofAngle;
     const width_1 = item.buildingWidth1
     const width_2 = item.buildingWidth2
     const length_1 = item.buildingLength1;
@@ -104,6 +102,7 @@ const Type44 = ({ item, ridgeWidth, ridgeThickness }) => {
             angle34 : angle34,
             angle56 : angle56,
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [length, pitch, width, width_1, width_2, length_1])
 
     return (

@@ -199,6 +199,7 @@ const Type44 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
             model_6_slope: model_6_slope
             // model_1_slope: model_1_slope,
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [length, length_1, pitch, width, width_1, width_2])
 
     const roofTexture_R = roofTexture.clone();
@@ -206,7 +207,6 @@ const Type44 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => 
     roofTexture_R.needsUpdate = true;
 
     return (
-
         <group>
             <group name='roof-model-1'>
                 <group>

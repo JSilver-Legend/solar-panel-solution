@@ -37,6 +37,7 @@ const Type1 = ({ item, ridgeWidth, ridgeThickness }) => {
         return {
             ridgeShape: ridgeShape,
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [length])
 
     //salttbox//-------------------------------------------------------
@@ -57,7 +58,8 @@ const Type1 = ({ item, ridgeWidth, ridgeThickness }) => {
             roofRightAlpha : roofRightAlpha,
             ridgeShape: ridgeShape
         }
-    }, [width, roofPitch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [roofPitch, width, length])
 
     
 

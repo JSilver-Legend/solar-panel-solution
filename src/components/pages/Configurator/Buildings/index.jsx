@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useThree } from '@react-three/fiber'
 import { TextureLoader } from 'three'
 
@@ -11,12 +11,13 @@ import { TextureCustomize } from 'utils/TextureInfo'
 import { Brick, Cardboard, Concrete, Metal, Plate, Plegel, Wall } from 'utils/ImageInfo'
 
 const Buildings = ({ index, item }) => {
-    
     const dispatch = useDispatch();
-    const { gl } = useThree();
+    const { gl, scene } = useThree();
 
     const [wallTexture, setWallTexture] = useState(null)
     const [roofTexture, setRoofTexture] = useState(null);
+    
+    const selectedBuildingNumber = useSelector((state)=>state.configurator.selectedBuildingNumber);
     
     const tempWallTexture = new TextureLoader().load(Wall);
     TextureCustomize(tempWallTexture, gl, 1, 1, 0);
@@ -59,6 +60,45 @@ const Buildings = ({ index, item }) => {
       setWallTexture(tempWallTexture)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    
+    useEffect(() => {
+        if (selectedBuildingNumber === null) {
+            scene.traverse(child => {
+                if (child.name.includes('building-')) {
+                    child.traverse(item => {
+                        if (item.type === 'Mesh') {
+                            item.material.transparent = false;
+                            item.material.opacity = 1;
+                            item.material.depthWrite = true;
+                        }
+                    })
+                }
+            })
+        } else {
+            scene.traverse(child => {
+                if (child.name.includes('building-')) {
+                    if (child.name.includes('building-')) {
+                        child.traverse(item => {
+                            if (item.type === 'Mesh') {
+                                item.material.transparent = false;
+                                item.material.opacity = 1;
+                                item.material.depthWrite = true;
+                            }
+                        })
+                    }
+                    if (child.name !== `building-${selectedBuildingNumber - 1}`) {
+                        child.traverse(item => {
+                            if (item.type === 'Mesh') {
+                                item.material.transparent = true;
+                                item.material.opacity = 0.05;
+                                item.material.depthWrite = false;
+                            }
+                        })
+                    }
+                }
+            })
+        }
+    }, [scene, selectedBuildingNumber])
     
     return wallTexture && roofTexture && (
         <group

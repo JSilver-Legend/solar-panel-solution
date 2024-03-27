@@ -73,8 +73,10 @@ const CanvasEnv = ({ setOrbitCam }) => {
             />
             <Light />
             <axesHelper args={[150]} position={[0, 0.01, 0]}/>
-            <Grid args={[5000, 5000]} { ...gridConfig } />
-            { isShowGround && <Ground />}
+            <group name="ground-grid">
+                <Grid args={[5000, 5000]} { ...gridConfig } />
+            </group>
+            { isShowGround && <group name="ground-plane"><Ground /></group>}
             <Environment files={envMapUrl} background blur={1} />
         </group>
     );

@@ -147,8 +147,8 @@ const Configurator = () => {
                 roofPitch: initRoofPitch,
                 roofAngle: Math.atan(initRoofPitch / 12),
                 ridgeDirection: 'direction-1',
-                //
                 buildingPosition: [-distance_x, 0, distance_y],
+                //
                 pointsInfo: item.pointsInfo,
                 buildingAngleWithRidge: [0, 0, 0],
                 solarStyle: '1708x1134x30mm',

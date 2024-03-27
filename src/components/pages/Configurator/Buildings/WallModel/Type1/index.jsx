@@ -17,6 +17,7 @@ const Type1 = ({ item, overHang, wallTexture }) => {
         model.closePath();
     
         return model;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [width, length]);
 
     return (
