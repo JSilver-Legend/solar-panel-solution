@@ -1,14 +1,28 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import * as THREE from "three"
 import { extrudeSetting } from 'utils/Function';
 
 const Type1 = ({ item, ridgeWidth, ridgeThickness }) => {
-    const width = item.buildingWidth;
-    const length = item.buildingLength;
+    const [width, setWidth] = useState(item.buildingWidth);
+    const [length, setLength] = useState(item.buildingLength);
+    const [rotationWidthRidgeDir, setRotationWithRidgeDir] = useState([0, 0, 0])
     const height = item.buildingHeight;
     const roofType = item.roofType;
     const roofAngle = item.roofAngle;
     const roofPitch = width / 2 * (item.roofPitch) / 12;
+    const ridgeDirection = item.ridgeDirection;
+
+    useEffect(() => {
+    if (ridgeDirection === 'direction-1') {
+        setWidth(item.buildingWidth)
+        setLength(item.buildingLength);
+        setRotationWithRidgeDir([0, 0, 0])
+    } else {
+        setWidth(item.buildingLength)
+        setLength(item.buildingWidth);
+        setRotationWithRidgeDir([0, Math.PI / 2, 0])
+    }
+    }, [item.buildingLength, item.buildingWidth, ridgeDirection])
 
     //open-gable//-----------------------------------------------------
     const openGableModel = useMemo(() => {
@@ -48,7 +62,7 @@ const Type1 = ({ item, ridgeWidth, ridgeThickness }) => {
     
 
     return (
-        <group>
+        <group rotation={rotationWidthRidgeDir}>
             {(roofType === "open-gable" || roofType === "box-gable") && 
                 <group name='open-gable-ridge'>
                     <group rotation={[0, -Math.PI / 2, 0]}>
