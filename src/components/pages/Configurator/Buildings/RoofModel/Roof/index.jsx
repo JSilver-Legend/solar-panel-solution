@@ -20,7 +20,7 @@ const Roof = ({ item, wallTexture, roofTexture, overHang }) => {
                 <group rotation={[0, Math.PI, 0]}>
                     <Type22 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture}wallTexture={wallTexture}  />
                 </group>}
-                {item.buildingType === 'type-2-4' &&
+            {item.buildingType === 'type-2-4' &&
                 <group rotation={[0, Math.PI, 0]}>
                     <Type21 item={item} roofThickness={roofThickness} overHang={overHang} roofTexture={roofTexture}wallTexture={wallTexture}  />
                 </group>}

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react'
 import * as THREE from "three"
 import { extrudeSetting } from 'utils/Function';
 
-const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
+const Type22 = ({ item, ridgeWidth, ridgeThickness }) => {
     const width = item.buildingWidth;
     const length = item.buildingLength;
     const height = item.buildingHeight;
@@ -20,15 +20,15 @@ const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
         
     }, [width, width_1, width_2, pitch_temp ]);
         /**
-     *         @__________
-     *         | \ ____3__|   w-1
-     *         | | \___1__| 
-     *         | | |    
-     *         |4|2|    
-     *         |_|_|    
-     * 
-     *          w-2
-     */
+         *         @__________
+         *   w-1   |___3___ / | 
+         *         |___1__ /| |
+         *                | | |
+         *                |2|4|
+         *                |_|_|
+         * 
+         *                 w-2
+         */
 
     const ridgeModel = useMemo(() => {
         const angle1 = Math.atan(pitch / (width_1 / 2));
@@ -42,30 +42,30 @@ const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
 
 
         const model_1_ridge = new THREE.Shape();
-        model_1_ridge.moveTo( -width / 2 + width_2 / 2, 0 );
-        model_1_ridge.lineTo( width / 2, 0 );
-        model_1_ridge.lineTo( width / 2, -ridgeWidth );
-        model_1_ridge.lineTo( -width / 2 + width_2 / 2 + ridge_13_end_width, -ridgeWidth );
+        model_1_ridge.moveTo( -width / 2, 0 );
+        model_1_ridge.lineTo( width / 2 - width_2 / 2, 0 );
+        model_1_ridge.lineTo( width / 2 - width_2 / 2 - ridge_13_end_width, -ridgeWidth );
+        model_1_ridge.lineTo( -width / 2, -ridgeWidth );
         model_1_ridge.closePath();
 
         const model_2_ridge = new THREE.Shape();
-        model_2_ridge.moveTo( -length / 2, 0 );
-        model_2_ridge.lineTo( length / 2 - width_1 / 2, 0 );
-        model_2_ridge.lineTo( length / 2 - width_1 / 2 - ridge_24_end_width, -ridgeWidth );
-        model_2_ridge.lineTo( -length / 2, -ridgeWidth );
+        model_2_ridge.moveTo( -length / 2 + width_1 / 2, 0 );
+        model_2_ridge.lineTo( length / 2, 0 );
+        model_2_ridge.lineTo( length / 2, -ridgeWidth );
+        model_2_ridge.lineTo( -length / 2 + width_1 / 2 + ridge_24_end_width, -ridgeWidth );
         model_2_ridge.closePath();
 
         const model_3_ridge = new THREE.Shape();
-        model_3_ridge.moveTo( -width / 2 + width_2 / 2, 0 );
-        model_3_ridge.lineTo( width / 2, 0 );
-        model_3_ridge.lineTo( width / 2, -ridgeWidth );
-        model_3_ridge.lineTo( -width / 2 + width_2 / 2 - ridge_13_end_width, -ridgeWidth );
+        model_3_ridge.moveTo( -width / 2, 0 );
+        model_3_ridge.lineTo( width / 2 - width_2 / 2, 0 );
+        model_3_ridge.lineTo( width / 2 - width_2 / 2 + ridge_13_end_width, -ridgeWidth );
+        model_3_ridge.lineTo( -width / 2, -ridgeWidth );
 
         const model_4_ridge = new THREE.Shape();
-        model_4_ridge.moveTo( -length / 2, 0 );
-        model_4_ridge.lineTo( length / 2 - width_1 / 2, 0 );
-        model_4_ridge.lineTo( length / 2 - width_1 / 2 + ridge_24_end_width, -ridgeWidth );
-        model_4_ridge.lineTo( -length / 2, -ridgeWidth );
+        model_4_ridge.moveTo( -length / 2 + width_1 / 2, 0 );
+        model_4_ridge.lineTo( length / 2, 0  );
+        model_4_ridge.lineTo( length / 2, -ridgeWidth );
+        model_4_ridge.lineTo( -length / 2 + width_1 / 2 - ridge_24_end_width, -ridgeWidth );
 
         return {
             model_1_ridge: model_1_ridge,
@@ -95,7 +95,7 @@ const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
                 </group>
             </group>
             <group name='ridge-model'>
-                <group name='model_2_ridge' rotation={[0, Math.PI / 2, 0]}>
+                <group name='model_2_ridge' rotation={[0, -Math.PI / 2, 0]}>
                     <mesh castShadow position={[0, height + pitch + 3 * ridgeThickness, -(width / 2 - width_2 / 2)]} rotation={[-(Math.PI / 2 - ridgeModel.angle2), 0, 0]} scale={[1, 1, 0.01]}>
                         <extrudeGeometry args={[ridgeModel.model_2_ridge, extrudeSetting(ridgeThickness)]} />
                         <meshPhongMaterial
@@ -121,7 +121,7 @@ const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
                 </group>
             </group>
             <group name='ridge-model'>
-                <group name='model_4_ridge' rotation={[0, Math.PI / 2, 0]}>
+                <group name='model_4_ridge' rotation={[0, -Math.PI / 2, 0]}>
                     <mesh castShadow position={[0, height + pitch + 3 * ridgeThickness, -(width / 2 - width_2 / 2)]} rotation={[(Math.PI / 2 - ridgeModel.angle2), 0, 0]} scale={[1, 1, 0.01]}>
                         <extrudeGeometry args={[ridgeModel.model_4_ridge, extrudeSetting(ridgeThickness)]} />
                         <meshPhongMaterial
@@ -137,4 +137,4 @@ const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
     )
 }
 
-export default Type21
+export default Type22
