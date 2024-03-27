@@ -1,15 +1,32 @@
 import * as THREE from 'three'
 import React, { useMemo } from 'react'
 import { extrudeSetting } from 'utils/Function';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
+    const [width, setWidth] = useState(item.buildingWidth);
+    const [length, setLength] = useState(item.buildingLength);
+    const [rotationWidthRidgeDir, setRotationWithRidgeDir] = useState([0, 0, 0])
 
-    const width = item.buildingWidth;
-    const length = item.buildingLength;
     const height = item.buildingHeight;
     const pitch = (width / 2) * (item.roofPitch / 12);
     const roofType = item.roofType;
     const model_height = 0.2;
+    const ridgeDirection = item.ridgeDirection;
+
+    useEffect(() => {
+    if (ridgeDirection === 'direction-1') {
+        setWidth(item.buildingWidth)
+        setLength(item.buildingLength);
+        setRotationWithRidgeDir([0, 0, 0])
+    } else {
+        setWidth(item.buildingLength)
+        setLength(item.buildingWidth);
+        setRotationWithRidgeDir([0, Math.PI / 2, 0])
+    }
+    }, [item.buildingLength, item.buildingWidth, ridgeDirection])
+    
 
     const flatModel = useMemo(() => {
 
@@ -230,7 +247,7 @@ const Type1 = ({ item, roofThickness, overHang, roofTexture, wallTexture }) => {
     }, [pitch, width, length]);
 
     return (
-        <group>
+        <group rotation={rotationWidthRidgeDir}>
             {roofType === 'flat' &&
                 <group>
                     <mesh name='flat-roof-model' castShadow position={[0, height, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 0.1]}>
