@@ -12,21 +12,41 @@ const CameraControl = ({ orbitCam }) => {
         return buildingData?.find((item)=> item.buildingNumber === selectedBuildingNumber)
     }, [selectedBuildingNumber, buildingData])
 
-    const buildingPosXArr = buildingData?.map((item) => (item.buildingPosition[0]));
-    const buildingPosYArr = buildingData?.map((item) => (item.buildingPosition[1]));
-    const buildingPosZArr = buildingData?.map((item) => (item.buildingPosition[2]));
-    const buildingHeightArr = buildingData?.map((item) => {
-        let sum = 0;
-        sum += item.buildingHeight;
-        return sum;
-    });
-    
-    const camDistanceInitVal =  (Math.abs(Math.max(...buildingPosXArr)) + Math.abs(Math.min(...buildingPosXArr)) +
-                                Math.abs(Math.max(...buildingPosYArr)) + Math.abs(Math.min(...buildingPosYArr)) + 
-                                Math.abs(Math.max(...buildingPosZArr)) + Math.abs(Math.min(...buildingPosZArr))) / 2 + 
-                                buildingHeightArr / buildingData?.length
-    console.log('camDistanceInitVal: ', camDistanceInitVal);
+    let buildingWidthArr = [];
+    let buildingLengthArr = [];
+    let buildingHeightArr = [];
+    let buildingPosXArr = [];
+    let buildingPosYArr = [];
+    let buildingPosZArr = [];
 
+    buildingData.forEach((item) => {
+        buildingWidthArr.push(item.buildingWidth);
+        buildingLengthArr.push(item.buildingLength);
+        buildingHeightArr.push(item.buildingHeightArr);
+        buildingPosXArr.push(item.buildingPosition[0]);
+        buildingPosYArr.push(item.buildingPosition[1]);
+        buildingPosZArr.push(item.buildingPosition[2]);
+    })
+
+    const minPosX = Math.abs(Math.min(...buildingPosXArr));
+    const maxPosX = Math.max(...buildingPosXArr);
+
+    const minPosZ = Math.abs(Math.min(...buildingPosZArr));
+    const maxPosZ = Math.max(...buildingPosZArr);
+
+    const distanceX = minPosX + maxPosX;
+    const distanceZ = minPosZ + maxPosZ;
+    const sumArray = (array) => {
+        return array.reduce((num, currentValue) => num + currentValue, 0);
+    }
+    
+    const totalBuildingWidthSum = sumArray(buildingWidthArr);
+    const totalBuildingLengthSum = sumArray(buildingLengthArr);
+    const totalBuildingHeightSum = sumArray(buildingHeightArr);
+    const averageBuildingWidth = sumArray(buildingWidthArr) / (buildingWidthArr.length + 1);
+    
+    const camDistanceInitVal =  distanceX + distanceZ + (totalBuildingWidthSum + totalBuildingLengthSum) / 2 * (buildingData.length + 1) + averageBuildingWidth / 2;
+    
     useEffect(() => {
         if (!!orbitCam) {
             const d = 30;

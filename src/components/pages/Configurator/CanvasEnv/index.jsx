@@ -55,7 +55,6 @@ const CanvasEnv = ({ setOrbitCam }) => {
             }
         }
     });
-
     return (
         <group>
             <OrbitControls
