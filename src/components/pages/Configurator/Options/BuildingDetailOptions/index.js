@@ -90,11 +90,11 @@ const BuildingDetailOptions = () => {
                 />
             </div>
             {
-                selectedBuildingData.buildingType !== 'type-1' &&
+                (selectedBuildingData.buildingType.includes("type-2")) &&
                 <>
                     <div className={styles.buildingOption}>
                         <div className={styles.optionTitle}>Width 1</div>
-                        <Slider step={0.1} min={Number(0)} max={Number(selectedBuildingData?.buildingWidth.toFixed(1))} value={Number(selectedBuildingData?.buildingWidth1)} defaultValue={Number(selectedBuildingData?.buildingWidth1)} style={{ width: '100%' }} 
+                        <Slider step={0.1} min={Number(1)} max={Number(selectedBuildingData?.buildingLength.toFixed(1))} value={Number(selectedBuildingData?.buildingWidth1)} defaultValue={Number(selectedBuildingData?.buildingWidth1)} style={{ width: '100%' }} 
                             onChange={(value)=>{ dispatch(updateSelectedBuildingWidth1({
                                 buildingNumber: selectedBuildingNumber,
                                 buildingWidth1: value
@@ -109,7 +109,7 @@ const BuildingDetailOptions = () => {
                     </div>
                     <div className={styles.buildingOption}>
                         <div className={styles.optionTitle}>Width 2</div>
-                        <Slider step={0.1} min={Number(0)} max={Number(selectedBuildingData?.buildingWidth.toFixed(1))} value={Number(selectedBuildingData?.buildingWidth2)} defaultValue={Number(selectedBuildingData?.buildingWidth2)} style={{ width: '100%' }} 
+                        <Slider step={0.1} min={Number(1)} max={Number(selectedBuildingData?.buildingWidth.toFixed(1))} value={Number(selectedBuildingData?.buildingWidth2)} defaultValue={Number(selectedBuildingData?.buildingWidth2)} style={{ width: '100%' }} 
                             onChange={(value)=>{ dispatch(updateSelectedBuildingWidth2({
                                 buildingNumber: selectedBuildingNumber,
                                 buildingWidth2: value
@@ -123,7 +123,113 @@ const BuildingDetailOptions = () => {
                         />
                     </div>
                 </>
-            }            
+            }    
+            
+            {
+                (selectedBuildingData.buildingType.includes("type-3")) &&
+                <>
+                    <div className={styles.buildingOption}>
+                        <div className={styles.optionTitle}>Width 1</div>
+                        <Slider step={0.1} min={Number(1)} max={Number(selectedBuildingData?.buildingWidth.toFixed(1))} value={Number(selectedBuildingData?.buildingWidth1)} defaultValue={Number(selectedBuildingData?.buildingWidth1)} style={{ width: '100%' }} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth1({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth1: value
+                            }))}}
+                        />
+                        <InputNumber step={0.1} style={{ minWidth: '70px' }}  value={Number(selectedBuildingData?.buildingWidth1)} defaultValue={Number(selectedBuildingData?.buildingWidth1)} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth1({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth1: value
+                            }))}}
+                        />
+                    </div>
+                    <div className={styles.buildingOption}>
+                        <div className={styles.optionTitle}>Width 2</div>
+                        <Slider step={0.1} min={Number(1)} max={Number(selectedBuildingData?.buildingLength.toFixed(1))} value={Number(selectedBuildingData?.buildingWidth2)} defaultValue={Number(selectedBuildingData?.buildingWidth2)} style={{ width: '100%' }} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth2({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth2: value
+                            }))}}
+                        />
+                        <InputNumber step={0.1} style={{ minWidth: '70px' }} value={Number(selectedBuildingData?.buildingWidth2)} defaultValue={Number(selectedBuildingData?.buildingWidth2)} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth2({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth: value
+                            }))}}
+                        />
+                    </div>
+                </>
+            }  
+            {
+                (selectedBuildingData.buildingType === "type-4-1" || selectedBuildingData.buildingType === "type-4-2") &&
+                <>
+                    <div className={styles.buildingOption}>
+                        <div className={styles.optionTitle}>Width 1</div>
+                        <Slider step={0.1} min={Number(1)} max={Number(selectedBuildingData?.buildingLength.toFixed(1)) - Number(selectedBuildingData?.buildingWidth2.toFixed(1))} value={Number(selectedBuildingData?.buildingWidth1)} defaultValue={Number(selectedBuildingData?.buildingWidth1)} style={{ width: '100%' }} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth1({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth1: value
+                            }))}}
+                        />
+                        <InputNumber step={0.1} style={{ minWidth: '70px' }}  value={Number(selectedBuildingData?.buildingWidth1)} defaultValue={Number(selectedBuildingData?.buildingWidth1)} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth1({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth1: value
+                            }))}}
+                        />
+                    </div>
+                    <div className={styles.buildingOption}>
+                        <div className={styles.optionTitle}>Width 2</div>
+                        <Slider step={0.1} min={Number(1)} max={Number(selectedBuildingData?.buildingLength.toFixed(1)) - Number(selectedBuildingData?.buildingWidth1.toFixed(1))} value={Number(selectedBuildingData?.buildingWidth2)} defaultValue={Number(selectedBuildingData?.buildingWidth2)} style={{ width: '100%' }} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth2({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth2: value
+                            }))}}
+                        />
+                        <InputNumber step={0.1} style={{ minWidth: '70px' }} value={Number(selectedBuildingData?.buildingWidth2)} defaultValue={Number(selectedBuildingData?.buildingWidth2)} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth2({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth: value
+                            }))}}
+                        />
+                    </div>
+                </>
+            } 
+            {
+                (selectedBuildingData.buildingType === "type-4-3" || selectedBuildingData.buildingType === "type-4-4") &&
+                <>
+                    <div className={styles.buildingOption}>
+                        <div className={styles.optionTitle}>Width 1</div>
+                        <Slider step={0.1} min={Number(1)} max={Number(selectedBuildingData?.buildingWidth.toFixed(1)) - Number(selectedBuildingData?.buildingWidth2.toFixed(1))} value={Number(selectedBuildingData?.buildingWidth1)} defaultValue={Number(selectedBuildingData?.buildingWidth1)} style={{ width: '100%' }} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth1({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth1: value
+                            }))}}
+                        />
+                        <InputNumber step={0.1} style={{ minWidth: '70px' }}  value={Number(selectedBuildingData?.buildingWidth1)} defaultValue={Number(selectedBuildingData?.buildingWidth1)} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth1({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth1: value
+                            }))}}
+                        />
+                    </div>
+                    <div className={styles.buildingOption}>
+                        <div className={styles.optionTitle}>Width 2</div>
+                        <Slider step={0.1} min={Number(1)} max={Number(selectedBuildingData?.buildingWidth.toFixed(1)) - Number(selectedBuildingData?.buildingWidth1.toFixed(1))} value={Number(selectedBuildingData?.buildingWidth2)} defaultValue={Number(selectedBuildingData?.buildingWidth2)} style={{ width: '100%' }} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth2({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth2: value
+                            }))}}
+                        />
+                        <InputNumber step={0.1} style={{ minWidth: '70px' }} value={Number(selectedBuildingData?.buildingWidth2)} defaultValue={Number(selectedBuildingData?.buildingWidth2)} 
+                            onChange={(value)=>{ dispatch(updateSelectedBuildingWidth2({
+                                buildingNumber: selectedBuildingNumber,
+                                buildingWidth: value
+                            }))}}
+                        />
+                    </div>
+                </>
+            } 
             <div className={styles.buildingOption}>
                 <div className={styles.optionTitle}>Length</div>
                 <Slider step={0.1} min={Number(limitValues.minLength)} max={Number(limitValues.maxLength)} value={parseFloat(selectedBuildingData?.buildingLength.toFixed(1))} defaultValue={selectedBuildingData?.buildingLength} style={{ width: '100%' }} 
@@ -140,10 +246,10 @@ const BuildingDetailOptions = () => {
                 />
             </div>
             {
-                (selectedBuildingData.buildingType === 'type-4-1' || selectedBuildingData.buildingType === 'type-4-2' || selectedBuildingData.buildingType === 'type-4-3' || selectedBuildingData.buildingType === 'type-4-4') &&
+                (selectedBuildingData.buildingType.includes("type-4") ) &&
                 <div className={styles.buildingOption}>
                     <div className={styles.optionTitle}>Length 1</div>
-                    <Slider step={0.1} min={Number(0)} max={Number(selectedBuildingData?.buildingLength)} value={selectedBuildingData?.buildingLength1} defaultValue={selectedBuildingData?.buildingLength1} style={{ width: '100%' }} 
+                    <Slider step={0.1} min={Number(0)} max={Number(selectedBuildingData?.buildingWidth) - 1} value={selectedBuildingData?.buildingLength1} defaultValue={selectedBuildingData?.buildingLength1} style={{ width: '100%' }} 
                         onChange={(value)=>{ dispatch(updateSelectedBuildingLength1({
                             buildingNumber: selectedBuildingNumber,
                             buildingLength1: value

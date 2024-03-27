@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react'
 import * as THREE from "three"
 import { extrudeSetting } from 'utils/Function';
 
-const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
+const Type31 = ({ item, ridgeWidth, ridgeThickness }) => {
     const width = item.buildingWidth;
     const length = item.buildingLength;
     const height = item.buildingHeight;
@@ -20,58 +20,61 @@ const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
         
     }, [width, width_1, width_2, pitch_temp ]);
         /**
-     *         @__________
-     *         | \ ____3__|   w-1
-     *         | | \___1__| 
-     *         | | |    
-     *         |4|2|    
-     *         |_|_|    
-     * 
-     *          w-2
-     */
+        *                      side-1    
+        *`                     _w-1_
+        *                     |  |  |
+        *                 w-3 |2 |  |
+        *            _________|  |  |
+        *           |     3    \ |  |
+        *     w-2   |___________\|1 |
+        *    side-3 |     4     /|  | 
+        *           |__________/ |  |
+        *                     |  |  |
+        *                     |2 |  |
+        *                     |__|__|
+        *                       w-1`
+        *                     side-2
+         */            
 
     const ridgeModel = useMemo(() => {
         const angle1 = Math.atan(pitch / (width_1 / 2));
         const angle2 = Math.atan(pitch / (width_2 / 2));
 
-        const ridge_13_vertical_height = Math.sin(angle1) * ridgeWidth;
-        const ridge_24_vertical_height = Math.sin(angle2) * ridgeWidth;
+        const ridge_2_vertical_height = Math.sin(angle1) * ridgeWidth;
+        const ridge_34_vertical_height = Math.sin(angle2) * ridgeWidth;
 
-        const ridge_13_end_width = ridge_13_vertical_height / Math.tan(angle2);
-        const ridge_24_end_width = ridge_24_vertical_height / Math.tan(angle1);
+        const ridge_2_end_width = ridge_2_vertical_height / Math.tan(angle2);
+        const ridge_34_end_width = ridge_34_vertical_height / Math.tan(angle1);
 
 
         const model_1_ridge = new THREE.Shape();
-        model_1_ridge.moveTo( -width / 2 + width_2 / 2, 0 );
-        model_1_ridge.lineTo( width / 2, 0 );
-        model_1_ridge.lineTo( width / 2, -ridgeWidth );
-        model_1_ridge.lineTo( -width / 2 + width_2 / 2 + ridge_13_end_width, -ridgeWidth );
+        model_1_ridge.moveTo( -length / 2, 0 );
+        model_1_ridge.lineTo( length / 2, 0 );
+        model_1_ridge.lineTo( length / 2, -ridgeWidth );
+        model_1_ridge.lineTo( -length / 2, -ridgeWidth );
         model_1_ridge.closePath();
 
         const model_2_ridge = new THREE.Shape();
         model_2_ridge.moveTo( -length / 2, 0 );
-        model_2_ridge.lineTo( length / 2 - width_1 / 2, 0 );
-        model_2_ridge.lineTo( length / 2 - width_1 / 2 - ridge_24_end_width, -ridgeWidth );
+        model_2_ridge.lineTo( length / 2, 0 );
+        model_2_ridge.lineTo( length / 2, -ridgeWidth );
+        model_2_ridge.lineTo(  ridge_2_end_width, -ridgeWidth );
+        model_2_ridge.lineTo( 0, 0)
+        model_2_ridge.lineTo( -ridge_2_end_width, -ridgeWidth );
         model_2_ridge.lineTo( -length / 2, -ridgeWidth );
         model_2_ridge.closePath();
 
-        const model_3_ridge = new THREE.Shape();
-        model_3_ridge.moveTo( -width / 2 + width_2 / 2, 0 );
-        model_3_ridge.lineTo( width / 2, 0 );
-        model_3_ridge.lineTo( width / 2, -ridgeWidth );
-        model_3_ridge.lineTo( -width / 2 + width_2 / 2 - ridge_13_end_width, -ridgeWidth );
-
-        const model_4_ridge = new THREE.Shape();
-        model_4_ridge.moveTo( -length / 2, 0 );
-        model_4_ridge.lineTo( length / 2 - width_1 / 2, 0 );
-        model_4_ridge.lineTo( length / 2 - width_1 / 2 + ridge_24_end_width, -ridgeWidth );
-        model_4_ridge.lineTo( -length / 2, -ridgeWidth );
+        const model_34_ridge = new THREE.Shape();
+        model_34_ridge.moveTo( -width / 2, 0 );
+        model_34_ridge.lineTo( width / 2 - width_1 / 2, 0 );
+        model_34_ridge.lineTo( width / 2 - width_1 / 2 - ridge_34_end_width, -ridgeWidth );
+        model_34_ridge.lineTo( -width / 2, -ridgeWidth );
+        model_34_ridge.closePath();
 
         return {
             model_1_ridge: model_1_ridge,
             model_2_ridge: model_2_ridge,
-            model_3_ridge: model_3_ridge,
-            model_4_ridge: model_4_ridge,
+            model_34_ridge: model_34_ridge,
             angle1 : angle1,
             angle2 : angle2
         }
@@ -82,8 +85,8 @@ const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
     return (
         <group>
             <group name='ridge-model'>
-                <group name='model_1_ridge'>
-                    <mesh castShadow position={[0, height + pitch + 3 * ridgeThickness, -length / 2 + width_1 / 2]} rotation={[-(Math.PI / 2 - ridgeModel.angle1), 0, 0]} scale={[1, 1, 0.01]}>
+                <group name='model_1_ridge' rotation={[0, -Math.PI / 2, 0]}>
+                    <mesh castShadow position={[0, height + pitch + 3 * ridgeThickness, -(width / 2 - width_1 / 2)]} rotation={[(Math.PI / 2 - ridgeModel.angle1), 0, 0]} scale={[1, 1, 0.01]}>
                         <extrudeGeometry args={[ridgeModel.model_1_ridge, extrudeSetting(ridgeThickness)]} />
                         <meshPhongMaterial
                             side={THREE.DoubleSide}
@@ -95,8 +98,8 @@ const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
                 </group>
             </group>
             <group name='ridge-model'>
-                <group name='model_2_ridge' rotation={[0, Math.PI / 2, 0]}>
-                    <mesh castShadow position={[0, height + pitch + 3 * ridgeThickness, -(width / 2 - width_2 / 2)]} rotation={[-(Math.PI / 2 - ridgeModel.angle2), 0, 0]} scale={[1, 1, 0.01]}>
+                <group name='model_2_ridge' rotation={[0, -Math.PI / 2, 0]}>
+                    <mesh castShadow position={[0, height + pitch + 3 * ridgeThickness, -(width / 2 - width_1 / 2)]} rotation={[-(Math.PI / 2 - ridgeModel.angle1), 0, 0]} scale={[1, 1, 0.01]}>
                         <extrudeGeometry args={[ridgeModel.model_2_ridge, extrudeSetting(ridgeThickness)]} />
                         <meshPhongMaterial
                             side={THREE.DoubleSide}
@@ -109,8 +112,8 @@ const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
             </group>
             <group name='ridge-model'>
                 <group name='model_3_ridge'>
-                    <mesh castShadow position={[0, height + pitch + 3 * ridgeThickness, -length / 2 + width_1 / 2]} rotation={[(Math.PI / 2 - ridgeModel.angle1), 0, 0]} scale={[1, 1, 0.01]}>
-                        <extrudeGeometry args={[ridgeModel.model_3_ridge, extrudeSetting(ridgeThickness)]} />
+                    <mesh castShadow position={[0, height + pitch + 3 * ridgeThickness,0]} rotation={[(Math.PI / 2 - ridgeModel.angle2), 0, 0]} scale={[1, 1, 0.01]}>
+                        <extrudeGeometry args={[ridgeModel.model_34_ridge, extrudeSetting(ridgeThickness)]} />
                         <meshPhongMaterial
                             side={THREE.DoubleSide}
                             bumpScale={0.3}
@@ -121,9 +124,9 @@ const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
                 </group>
             </group>
             <group name='ridge-model'>
-                <group name='model_4_ridge' rotation={[0, Math.PI / 2, 0]}>
-                    <mesh castShadow position={[0, height + pitch + 3 * ridgeThickness, -(width / 2 - width_2 / 2)]} rotation={[(Math.PI / 2 - ridgeModel.angle2), 0, 0]} scale={[1, 1, 0.01]}>
-                        <extrudeGeometry args={[ridgeModel.model_4_ridge, extrudeSetting(ridgeThickness)]} />
+                <group name='model_4_ridge'>
+                    <mesh castShadow position={[0, height + pitch + 3 * ridgeThickness, 0]} rotation={[-(Math.PI / 2 - ridgeModel.angle2), 0, 0]} scale={[1, 1, 0.01]}>
+                        <extrudeGeometry args={[ridgeModel.model_34_ridge, extrudeSetting(ridgeThickness)]} />
                         <meshPhongMaterial
                             side={THREE.DoubleSide}
                             bumpScale={0.3}
@@ -137,4 +140,4 @@ const Type21 = ({ item, ridgeWidth, ridgeThickness }) => {
     )
 }
 
-export default Type21
+export default Type31
