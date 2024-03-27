@@ -246,10 +246,28 @@ const BuildingDetailOptions = () => {
                 />
             </div>
             {
-                (selectedBuildingData.buildingType.includes("type-4") ) &&
+                (selectedBuildingData.buildingType === "type-4-1" || selectedBuildingData.buildingType === "type-4-2" ) &&
                 <div className={styles.buildingOption}>
                     <div className={styles.optionTitle}>Length 1</div>
                     <Slider step={0.1} min={Number(0)} max={Number(selectedBuildingData?.buildingWidth) - 1} value={selectedBuildingData?.buildingLength1} defaultValue={selectedBuildingData?.buildingLength1} style={{ width: '100%' }} 
+                        onChange={(value)=>{ dispatch(updateSelectedBuildingLength1({
+                            buildingNumber: selectedBuildingNumber,
+                            buildingLength1: value
+                        }))}}
+                    />
+                    <InputNumber step={0.1} style={{ minWidth: '70px' }} value={selectedBuildingData?.buildingLength1} defaultValue={selectedBuildingData?.buildingLength1} 
+                        onChange={(value)=>{ dispatch(updateSelectedBuildingLength1({
+                            buildingNumber: selectedBuildingNumber,
+                            buildingLength1: value
+                        }))}}
+                    />
+                </div>
+            }
+            {
+                (selectedBuildingData.buildingType === "type-4-3" || selectedBuildingData.buildingType === "type-4-4" ) &&
+                <div className={styles.buildingOption}>
+                    <div className={styles.optionTitle}>Length 1</div>
+                    <Slider step={0.1} min={Number(0)} max={Number(selectedBuildingData?.buildingLength) - 1} value={selectedBuildingData?.buildingLength1} defaultValue={selectedBuildingData?.buildingLength1} style={{ width: '100%' }} 
                         onChange={(value)=>{ dispatch(updateSelectedBuildingLength1({
                             buildingNumber: selectedBuildingNumber,
                             buildingLength1: value

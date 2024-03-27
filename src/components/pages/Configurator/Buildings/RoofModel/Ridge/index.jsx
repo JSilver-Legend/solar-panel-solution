@@ -5,6 +5,8 @@ import Type21 from "./Type21";
 import Type22 from "./Type22";
 import Type31 from "./Type31";
 import Type33 from "./Type33";
+import Type41 from "./Type41";
+import Type44 from "./Type44";
 
 const Ridge = ({ item }) => {
 
@@ -34,6 +36,16 @@ const Ridge = ({ item }) => {
                 <group rotation={[0, Math.PI, 0]}>
                     <Type31 item={item} ridgeWidth={ridgeWidth} ridgeThickness={ridgeThickness}  />
                 </group>}
+            {item.buildingType === "type-4-1" && <Type41 item={item} ridgeWidth={ridgeWidth} ridgeThickness={ridgeThickness} />}
+            {item.buildingType === 'type-4-2' &&
+                <group rotation={[0, Math.PI, 0]}>
+                    <Type41 item={item} ridgeWidth={ridgeWidth} ridgeThickness={ridgeThickness}  />
+                </group>}
+            {item.buildingType === 'type-4-3' &&
+            <group rotation={[0, Math.PI, 0]}>
+                <Type44 item={item} ridgeWidth={ridgeWidth} ridgeThickness={ridgeThickness}  />
+            </group>}
+            {item.buildingType === "type-4-4" && <Type44 item={item} ridgeWidth={ridgeWidth} ridgeThickness={ridgeThickness} />}
         </group>
     );
 };
