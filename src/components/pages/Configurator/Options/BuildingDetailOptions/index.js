@@ -16,7 +16,7 @@ const BuildingDetailOptions = () => {
 
     const [isSelectedRoofOptionStyle, setIsSelectedRoofOptionStyle] = useState('pitch');
     const [limitValues, setLimitValues] = useState(null);
-    const [isSetedLimitValues, setIsSetedLimitValues] = useState(false);
+    const [isSelectedLimitValues, setIsSelectedLimitValues] = useState(false);
 
     const selectedBuildingNumber = useSelector((state)=>state.configurator.selectedBuildingNumber);
     const buildingData = useSelector((state)=>state.configurator.buildingData);
@@ -40,8 +40,8 @@ const BuildingDetailOptions = () => {
     }
     
     useEffect(() => {
-        if( selectedBuildingData && !isSetedLimitValues) {
-            setIsSetedLimitValues(true)
+        if( selectedBuildingData && !isSelectedLimitValues) {
+            setIsSelectedLimitValues(true)
             setLimitValues({
                 minWidth: Number(selectedBuildingData.buildingWidth.toFixed(1)) - 2,
                 maxWidth: Number(selectedBuildingData.buildingWidth.toFixed(1)) + 2,

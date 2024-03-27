@@ -139,7 +139,7 @@ const Configurator = () => {
                 buildingWidth1: parseFloat((item.width / 3).toFixed(1)),
                 buildingWidth2: parseFloat((item.width / 3).toFixed(1)),
                 buildingLength: item.length,
-                buildingLength1: parseFloat((item.length / 2).toFixed(1)),
+                buildingLength1: parseFloat((Math.min(item.width, item.length) / 2).toFixed(1)),
                 buildingHeight: initBuildingHeight,
                 buildingRotation: item.angle,
                 material: getRoofTexture(roofsSource[index].roofType),
