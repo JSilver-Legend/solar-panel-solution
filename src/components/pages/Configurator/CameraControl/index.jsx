@@ -37,7 +37,8 @@ const CameraControl = ({ orbitCam }) => {
                     new TWEEN.Tween(orbitCam.target).to({ x: selectedBuildingData?.buildingPosition[0], y: selectedBuildingData?.buildingHeight, z: selectedBuildingData?.buildingPosition[2] }, 1000).easing(TWEEN.Easing.Quadratic.InOut).yoyo(true).start();
                 }
         }
-    }, [camera, orbitCam, selectedBuildingNumber, selectedBuildingData, camInitDistanceVal])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [camera, orbitCam, selectedBuildingNumber])
 
     animate();
     

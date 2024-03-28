@@ -72,7 +72,7 @@ const CanvasEnv = ({ setOrbitCam }) => {
                 makeDefault
             />
             <Light />
-            <axesHelper args={[150]} position={[0, 0.01, 0]}/>
+            {/* <axesHelper args={[150]} position={[0, 0.01, 0]}/> */}
             <group name="ground-grid">
                 <Grid args={[5000, 5000]} { ...gridConfig } />
             </group>
